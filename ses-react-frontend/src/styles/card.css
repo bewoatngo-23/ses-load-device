@@ -1,0 +1,9 @@
+.card {
+}
+.inputN {
+    width: 150px;
+}
+
+.ant-input[status="error"] {
+    border-color: red !important;
+  }
