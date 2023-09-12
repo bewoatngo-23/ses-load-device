@@ -595,82 +595,35 @@ export default function S3MDataLoadFrame1(props) {
       },
     ];
 
-    if (url === "") {
-      toastErrorAccessory("URL không được để trống");
-      return false;
+    const fieldsToValidate = [
+      { field: url, message: "URL không được để trống" },
+      { field: username, message: "Username không được để trống" },
+      { field: password, message: "Password không được để trống" },
+      { field: client, message: "Client ID không được để trống" },
+      { field: topic, message: "Topic không được để trống" },
+      { field: typeSystem, message: "TypeSystem không được để trống" },
+      { field: typeDevice, message: "TypeDevice không được để trống" },
+      { field: country, message: "Country không được để trống" },
+      { field: province, message: "Province không được để trống" },
+      { field: codeCustomer, message: "CodeCustomer không được để trống" },
+      { field: codeProject, message: "CodeProject không được để trống" },
+      { field: a1, message: "A1 không được để trống" },
+      { field: a2, message: "A2 không được để trống" },
+      { field: a3, message: "A3 không được để trống" },
+      { field: a4, message: "A4 không được để trống" },
+      { field: a5, message: "A5 không được để trống" },
+      { field: func, message: "Func không được để trống" },
+      { field: messageType, message: "MessageType không được để trống" },
+      { field: crc, message: "Crc không được để trống" },
+    ];
+
+    for (const { field, message } of fieldsToValidate) {
+      if (field === "" || field === undefined || field === null) {
+        toastErrorAccessory(message);
+        return false;
+      }
     }
-    if (username === "") {
-      toastErrorAccessory("Username không được để trống");
-      return false;
-    }
-    if (password === "") {
-      toastErrorAccessory("Password không được để trống");
-      return false;
-    }
-    if (client === "") {
-      toastErrorAccessory("Client ID không được để trống");
-      return false;
-    }
-    if (topic === "") {
-      toastErrorAccessory("Topic không được để trống");
-      return false;
-    }
-    if (typeSystem === "") {
-      toastErrorAccessory("TypeSystem không được để trống");
-      return false;
-    }
-    if (typeDevice === "") {
-      toastErrorAccessory("TypeDevice không được để trống");
-      return false;
-    }
-    if (country === "") {
-      toastErrorAccessory("Country không được để trống");
-      return false;
-    }
-    if (province === "") {
-      toastErrorAccessory("Province không được để trống");
-      return false;
-    }
-    if (codeCustomer === "") {
-      toastErrorAccessory("CodeCustomer không được để trống");
-      return false;
-    }
-    if (codeProject === "") {
-      toastErrorAccessory("CodeProject không được để trống");
-      return false;
-    }
-    if (a1 === "") {
-      toastErrorAccessory("A1 không được để trống");
-      return false;
-    }
-    if (a2 === "") {
-      toastErrorAccessory("A2 không được để trống");
-      return false;
-    }
-    if (a3 === "") {
-      toastErrorAccessory("A3 không được để trống");
-      return false;
-    }
-    if (a4 === "") {
-      toastErrorAccessory("A4 không được để trống");
-      return false;
-    }
-    if (a5 === "") {
-      toastErrorAccessory("A5 không được để trống");
-      return false;
-    }
-    if (func === "") {
-      toastErrorAccessory("Func không được để trống");
-      return false;
-    }
-    if (messageType === "") {
-      toastErrorAccessory("MessageType không được để trống");
-      return false;
-    }
-    if (crc === "") {
-      toastErrorAccessory("Crc không được để trống");
-      return false;
-    }
+
     if (frequency === "" || frequency === undefined || frequency === null) {
       toastErrorAccessory("Tần xuất (ms) không được để trống");
       setValidateFrequency(true);
@@ -2277,39 +2230,82 @@ export default function S3MDataLoadFrame1(props) {
                 </div>
                 <div className="col-3">
                   <h4 style={{ fontSize: "20px" }} className="mt-2">
-                    Url: {url === "" ? <i>No data</i> : url}
+                    Url:{" "}
+                    {url === "" ? <i style={{ color: "red" }}>No data</i> : url}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-3">
-                    Username: {username === "" ? <i>No data</i> : username}
+                    Username:{" "}
+                    {username === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      username
+                    )}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    Password: {password === "" ? <i>No data</i> : "*******"}
+                    Password:{" "}
+                    {password === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      "*******"
+                    )}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    Client: {client === "" ? <i>No data</i> : client}
+                    Client:{" "}
+                    {client === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      client
+                    )}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    Topic: {topic === "" ? <i>No data</i> : topic}
+                    Topic:{" "}
+                    {topic === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      topic
+                    )}
                   </h4>
 
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
                     TypeSystem:{" "}
-                    {typeSystem === "" ? <i>No data</i> : typeSystem}
+                    {typeSystem === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      typeSystem
+                    )}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
                     TypeDevice:{" "}
-                    {typeDevice === "" ? <i>No data</i> : typeDevice}
+                    {typeDevice === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      typeDevice
+                    )}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    Country: {country === "" ? <i>No data</i> : country}
+                    Country:{" "}
+                    {country === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      country
+                    )}
                   </h4>
 
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    Province: {province === "" ? <i>No data</i> : province}
+                    Province:{" "}
+                    {province === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      province
+                    )}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
                     CodeCustomer:{" "}
-                    {codeCustomer === "" ? <i>No data</i> : codeCustomer}
+                    {codeCustomer === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      codeCustomer
+                    )}
                   </h4>
                 </div>
                 <div className="col-3">
@@ -2337,33 +2333,52 @@ export default function S3MDataLoadFrame1(props) {
                 <div className="col-3">
                   <h4 style={{ fontSize: "20px" }} className="mt-2">
                     CodeProject:{" "}
-                    {codeProject === "" ? <i>No data</i> : codeProject}
+                    {codeProject === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      codeProject
+                    )}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    A1: {a1 === "" ? <i>No data</i> : a1}
+                    A1:{" "}
+                    {a1 === "" ? <i style={{ color: "red" }}>No data</i> : a1}
                   </h4>
 
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    A2: {a2 === "" ? <i>No data</i> : a2}
+                    A2:{" "}
+                    {a2 === "" ? <i style={{ color: "red" }}>No data</i> : a2}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    A3: {a3 === "" ? <i>No data</i> : a3}
+                    A3:{" "}
+                    {a3 === "" ? <i style={{ color: "red" }}>No data</i> : a3}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    A4: {a4 === "" ? <i>No data</i> : a4}
+                    A4:{" "}
+                    {a4 === "" ? <i style={{ color: "red" }}>No data</i> : a4}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    A5: {a5 === "" ? <i>No data</i> : a5}
+                    A5:{" "}
+                    {a5 === "" ? <i style={{ color: "red" }}>No data</i> : a5}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    Func: {func === "" ? <i>No data</i> : func}
+                    Func:{" "}
+                    {func === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      func
+                    )}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
                     MessageType:{" "}
-                    {messageType === "" ? <i>No data</i> : messageType}
+                    {messageType === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      messageType
+                    )}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    Crc: {crc === "" ? <i>No data</i> : crc}
+                    Crc:{" "}
+                    {crc === "" ? <i style={{ color: "red" }}>No data</i> : crc}
                   </h4>
                 </div>
               </div>

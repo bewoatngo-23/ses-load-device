@@ -1770,81 +1770,33 @@ export default function S3MDataLoadFrame2(props) {
         maxError: setMaxVCNH31Error,
       },
     ];
-    if (url === "") {
-      toastErrorAccessory("URL không được để trống");
-      return false;
-    }
-    if (username === "") {
-      toastErrorAccessory("Username không được để trống");
-      return false;
-    }
-    if (password === "") {
-      toastErrorAccessory("Password không được để trống");
-      return false;
-    }
-    if (client === "") {
-      toastErrorAccessory("Client ID không được để trống");
-      return false;
-    }
-    if (topic === "") {
-      toastErrorAccessory("Topic không được để trống");
-      return false;
-    }
-    if (typeSystem === "") {
-      toastErrorAccessory("TypeSystem không được để trống");
-      return false;
-    }
-    if (typeDevice === "") {
-      toastErrorAccessory("TypeDevice không được để trống");
-      return false;
-    }
-    if (country === "") {
-      toastErrorAccessory("Country không được để trống");
-      return false;
-    }
-    if (province === "") {
-      toastErrorAccessory("Province không được để trống");
-      return false;
-    }
-    if (codeCustomer === "") {
-      toastErrorAccessory("CodeCustomer không được để trống");
-      return false;
-    }
-    if (codeProject === "") {
-      toastErrorAccessory("CodeProject không được để trống");
-      return false;
-    }
-    if (a1 === "") {
-      toastErrorAccessory("A1 không được để trống");
-      return false;
-    }
-    if (a2 === "") {
-      toastErrorAccessory("A2 không được để trống");
-      return false;
-    }
-    if (a3 === "") {
-      toastErrorAccessory("A3 không được để trống");
-      return false;
-    }
-    if (a4 === "") {
-      toastErrorAccessory("A4 không được để trống");
-      return false;
-    }
-    if (a5 === "") {
-      toastErrorAccessory("A5 không được để trống");
-      return false;
-    }
-    if (func === "") {
-      toastErrorAccessory("Func không được để trống");
-      return false;
-    }
-    if (messageType === "") {
-      toastErrorAccessory("MessageType không được để trống");
-      return false;
-    }
-    if (crc === "") {
-      toastErrorAccessory("Crc không được để trống");
-      return false;
+    const fieldsToValidate = [
+      { field: url, message: "URL không được để trống" },
+      { field: username, message: "Username không được để trống" },
+      { field: password, message: "Password không được để trống" },
+      { field: client, message: "Client ID không được để trống" },
+      { field: topic, message: "Topic không được để trống" },
+      { field: typeSystem, message: "TypeSystem không được để trống" },
+      { field: typeDevice, message: "TypeDevice không được để trống" },
+      { field: country, message: "Country không được để trống" },
+      { field: province, message: "Province không được để trống" },
+      { field: codeCustomer, message: "CodeCustomer không được để trống" },
+      { field: codeProject, message: "CodeProject không được để trống" },
+      { field: a1, message: "A1 không được để trống" },
+      { field: a2, message: "A2 không được để trống" },
+      { field: a3, message: "A3 không được để trống" },
+      { field: a4, message: "A4 không được để trống" },
+      { field: a5, message: "A5 không được để trống" },
+      { field: func, message: "Func không được để trống" },
+      { field: messageType, message: "MessageType không được để trống" },
+      { field: crc, message: "Crc không được để trống" },
+    ];
+
+    for (const { field, message } of fieldsToValidate) {
+      if (field === "" || field === undefined || field === null) {
+        toastErrorAccessory(message);
+        return false;
+      }
     }
     if (frequency === "" || frequency === undefined || frequency === null) {
       toastErrorAccessory("Tần xuất (ms) không được để trống");
