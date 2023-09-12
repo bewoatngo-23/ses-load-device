@@ -26,29 +26,10 @@ export default function S3MDataLoadFrame2(props) {
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState();
   const [frequency, setFrequency] = useState(3000);
-  // const [url, setUrl] = useState("");
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [client, setClient] = useState("");
-  // const [topic, setToppics] = useState("");
-  // const [typeSystem, setTypeSystem] = useState("");
-  // const [province, setProvince] = useState("");
-  // const [codeCustomer, setCodeCustomer] = useState("");
-  // const [typeDevice, setTypeDevice] = useState("");
-  // const [codeProject, setCodeProject] = useState("");
-  // const [a1, setA1] = useState("");
-  // const [a2, setA2] = useState("");
-  // const [a3, setA3] = useState("");
-  // const [a4, setA4] = useState("");
-  // const [a5, setA5] = useState("");
-  // const [func, setFunc] = useState("");
-  // const [messageType, setMessageType] = useState("");
-  // const [crc, setCrc] = useState("");
-  // const [country, setCountry] = useState("");
 
   const [url, setUrl] = useState("tcp://localhost:1883");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("guest");
+  const [password, setPassword] = useState("guest");
   const [client, setClient] = useState("client-sub");
   const [topic, setToppics] = useState("loadTopic");
   const [typeSystem, setTypeSystem] = useState("1");
@@ -63,8 +44,9 @@ export default function S3MDataLoadFrame2(props) {
   const [a5, setA5] = useState("255");
   const [func, setFunc] = useState("01");
   const [messageType, setMessageType] = useState("[1]");
-  const [crc, setCrc] = useState("");
+  const [crc, setCrc] = useState("12");
   const [country, setCountry] = useState("84");
+  const [validateFrequency, setValidateFrequency] = useState(false);
 
   const handelChangeInputTime = (event) => {
     if (event.target.value === "") {
@@ -483,3563 +465,1386 @@ export default function S3MDataLoadFrame2(props) {
   };
 
   const validationForm = () => {
-    if (url === "") {
-      toastErrorAccessory("URL không được để trống");
-      return false;
-    }
-    if (username === "") {
-      toastErrorAccessory("Username không được để trống");
-      return false;
-    }
-    if (password === "") {
-      toastErrorAccessory("Password không được để trống");
-      return false;
-    }
-    if (client === "") {
-      toastErrorAccessory("Client ID không được để trống");
-      return false;
-    }
-    if (topic === "") {
-      toastErrorAccessory("Topic không được để trống");
-      return false;
-    }
-    if (typeSystem === "") {
-      toastErrorAccessory("TypeSystem không được để trống");
-      return false;
-    }
-    if (typeDevice === "") {
-      toastErrorAccessory("TypeDevice không được để trống");
-      return false;
-    }
-    if (country === "") {
-      toastErrorAccessory("Country không được để trống");
-      return false;
-    }
-    if (province === "") {
-      toastErrorAccessory("Province không được để trống");
-      return false;
-    }
-    if (codeCustomer === "") {
-      toastErrorAccessory("CodeCustomer không được để trống");
-      return false;
-    }
-    if (codeProject === "") {
-      toastErrorAccessory("CodeProject không được để trống");
-      return false;
-    }
-    if (a1 === "") {
-      toastErrorAccessory("A1 không được để trống");
-      return false;
-    }
-    if (a2 === "") {
-      toastErrorAccessory("A2 không được để trống");
-      return false;
-    }
-    if (a3 === "") {
-      toastErrorAccessory("A3 không được để trống");
-      return false;
-    }
-    if (a4 === "") {
-      toastErrorAccessory("A4 không được để trống");
-      return false;
-    }
-    if (a5 === "") {
-      toastErrorAccessory("A5 không được để trống");
-      return false;
-    }
-    if (func === "") {
-      toastErrorAccessory("Func không được để trống");
-      return false;
-    }
-    if (messageType === "") {
-      toastErrorAccessory("MessageType không được để trống");
-      return false;
-    }
-    if (crc === "") {
-      toastErrorAccessory("Crc không được để trống");
-      return false;
-    }
-    if (minIAH1 < 0 || maxIAH1 > 100 || minIAH1 === "" || maxIAH1 === "") {
-      setMinIAH1Error(true);
-      setMaxIAH1Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH1 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH1 > maxIAH1) {
-      setMinIAH1Error(true);
-      setMaxIAH1Error(true);
-      toastErrorAccessory("Giá trị Min IAH1 phải nhỏ hơn Max IAH1");
-      return false;
-    } else {
-      setMinIAH1Error(false);
-      setMaxIAH1Error(false);
-    }
-
-    if (minIAH2 < 0 || maxIAH2 > 100 || minIAH2 === "" || maxIAH2 === "") {
-      setMinIAH2Error(true);
-      setMaxIAH2Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH2 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH2 > maxIAH2) {
-      setMinIAH2Error(true);
-      setMaxIAH2Error(true);
-      toastErrorAccessory("Giá trị Min IAH2 phải nhỏ hơn Max IAH2");
-      return false;
-    } else {
-      setMinIAH2Error(false);
-      setMaxIAH2Error(false);
-    }
-
-    if (minIAH3 < 0 || maxIAH3 > 100 || minIAH3 === "" || maxIAH3 === "") {
-      setMinIAH3Error(true);
-      setMaxIAH3Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH3 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH3 > maxIAH3) {
-      setMinIAH3Error(true);
-      setMaxIAH3Error(true);
-      toastErrorAccessory("Giá trị Min IAH3 phải nhỏ hơn Max IAH3");
-      return false;
-    } else {
-      setMinIAH3Error(false);
-      setMaxIAH3Error(false);
-    }
-
-    if (minIAH4 < 0 || maxIAH4 > 100 || minIAH4 === "" || maxIAH4 === "") {
-      setMinIAH4Error(true);
-      setMaxIAH4Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH4 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH4 > maxIAH4) {
-      setMinIAH4Error(true);
-      setMaxIAH4Error(true);
-      toastErrorAccessory("Giá trị Min IAH4 phải nhỏ hơn Max IAH4");
-      return false;
-    } else {
-      setMinIAH4Error(false);
-      setMaxIAH4Error(false);
-    }
-
-    if (minIAH5 < 0 || maxIAH5 > 100 || minIAH5 === "" || maxIAH5 === "") {
-      setMinIAH5Error(true);
-      setMaxIAH5Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH5 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH5 > maxIAH5) {
-      setMinIAH5Error(true);
-      setMaxIAH5Error(true);
-      toastErrorAccessory("Giá trị Min IAH5 phải nhỏ hơn Max IAH5");
-      return false;
-    } else {
-      setMinIAH5Error(false);
-      setMaxIAH5Error(false);
-    }
-
-    if (minIAH6 < 0 || maxIAH6 > 100 || minIAH6 === "" || maxIAH6 === "") {
-      setMinIAH6Error(true);
-      setMaxIAH6Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH6 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH6 > maxIAH6) {
-      setMinIAH6Error(true);
-      setMaxIAH6Error(true);
-      toastErrorAccessory("Giá trị Min IAH6 phải nhỏ hơn Max IAH6");
-      return false;
-    } else {
-      setMinIAH6Error(false);
-      setMaxIAH6Error(false);
-    }
-
-    if (minIAH7 < 0 || maxIAH7 > 100 || minIAH7 === "" || maxIAH7 === "") {
-      setMinIAH7Error(true);
-      setMaxIAH7Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH7 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH7 > maxIAH7) {
-      setMinIAH7Error(true);
-      setMaxIAH7Error(true);
-      toastErrorAccessory("Giá trị Min IAH7 phải nhỏ hơn Max IAH7");
-      return false;
-    } else {
-      setMinIAH7Error(false);
-      setMaxIAH7Error(false);
-    }
-
-    if (minIAH8 < 0 || maxIAH8 > 100 || minIAH8 === "" || maxIAH8 === "") {
-      setMinIAH8Error(true);
-      setMaxIAH8Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH8 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH8 > maxIAH8) {
-      setMinIAH8Error(true);
-      setMaxIAH8Error(true);
-      toastErrorAccessory("Giá trị Min IAH8 phải nhỏ hơn Max IAH8");
-      return false;
-    } else {
-      setMinIAH8Error(false);
-      setMaxIAH8Error(false);
-    }
-
-    if (minIAH9 < 0 || maxIAH9 > 100 || minIAH9 === "" || maxIAH9 === "") {
-      setMinIAH9Error(true);
-      setMaxIAH9Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH9 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH9 > maxIAH9) {
-      setMinIAH9Error(true);
-      setMaxIAH9Error(true);
-      toastErrorAccessory("Giá trị Min IAH9 phải nhỏ hơn Max IAH9");
-      return false;
-    } else {
-      setMinIAH9Error(false);
-      setMaxIAH9Error(false);
-    }
-
-    if (minIAH10 < 0 || maxIAH10 > 100 || minIAH10 === "" || maxIAH10 === "") {
-      setMinIAH10Error(true);
-      setMaxIAH10Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH10 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH10 > maxIAH10) {
-      setMinIAH10Error(true);
-      setMaxIAH10Error(true);
-      toastErrorAccessory("Giá trị Min IAH10 phải nhỏ hơn Max IAH10");
-      return false;
-    } else {
-      setMinIAH10Error(false);
-      setMaxIAH10Error(false);
-    }
-
-    if (minIAH11 < 0 || maxIAH11 > 100 || minIAH11 === "" || maxIAH11 === "") {
-      setMinIAH11Error(true);
-      setMaxIAH11Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH11 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH11 > maxIAH11) {
-      setMinIAH11Error(true);
-      setMaxIAH11Error(true);
-      toastErrorAccessory("Giá trị Min IAH11 phải nhỏ hơn Max IAH11");
-      return false;
-    } else {
-      setMinIAH11Error(false);
-      setMaxIAH11Error(false);
-    }
-
-    if (minIAH12 < 0 || maxIAH12 > 100 || minIAH12 === "" || maxIAH12 === "") {
-      setMinIAH12Error(true);
-      setMaxIAH12Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH12 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH12 > maxIAH12) {
-      setMinIAH12Error(true);
-      setMaxIAH12Error(true);
-      toastErrorAccessory("Giá trị Min IAH12 phải nhỏ hơn Max IAH12");
-      return false;
-    } else {
-      setMinIAH12Error(false);
-      setMaxIAH12Error(false);
-    }
-
-    if (minIAH13 < 0 || maxIAH13 > 100 || minIAH13 === "" || maxIAH13 === "") {
-      setMinIAH13Error(true);
-      setMaxIAH13Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH13 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH13 > maxIAH13) {
-      setMinIAH13Error(true);
-      setMaxIAH13Error(true);
-      toastErrorAccessory("Giá trị Min IAH13 phải nhỏ hơn Max IAH13");
-      return false;
-    } else {
-      setMinIAH13Error(false);
-      setMaxIAH13Error(false);
-    }
-
-    if (minIAH14 < 0 || maxIAH14 > 100 || minIAH14 === "" || maxIAH14 === "") {
-      setMinIAH14Error(true);
-      setMaxIAH14Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH14 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH14 > maxIAH14) {
-      setMinIAH14Error(true);
-      setMaxIAH14Error(true);
-      toastErrorAccessory("Giá trị Min IAH14 phải nhỏ hơn Max IAH14");
-      return false;
-    } else {
-      setMinIAH14Error(false);
-      setMaxIAH14Error(false);
-    }
-
-    if (minIAH15 < 0 || maxIAH15 > 100 || minIAH15 === "" || maxIAH15 === "") {
-      setMinIAH15Error(true);
-      setMaxIAH15Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH15 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH15 > maxIAH15) {
-      setMinIAH15Error(true);
-      setMaxIAH15Error(true);
-      toastErrorAccessory("Giá trị Min IAH15 phải nhỏ hơn Max IAH15");
-      return false;
-    } else {
-      setMinIAH15Error(false);
-      setMaxIAH15Error(false);
-    }
-
-    if (minIAH16 < 0 || maxIAH16 > 100 || minIAH16 === "" || maxIAH16 === "") {
-      setMinIAH16Error(true);
-      setMaxIAH16Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH16 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH16 > maxIAH16) {
-      setMinIAH16Error(true);
-      setMaxIAH16Error(true);
-      toastErrorAccessory("Giá trị Min IAH16 phải nhỏ hơn Max IAH16");
-      return false;
-    } else {
-      setMinIAH16Error(false);
-      setMaxIAH16Error(false);
-    }
-
-    if (minIAH17 < 0 || maxIAH17 > 100 || minIAH17 === "" || maxIAH17 === "") {
-      setMinIAH17Error(true);
-      setMaxIAH17Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH17 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH17 > maxIAH17) {
-      setMinIAH17Error(true);
-      setMaxIAH17Error(true);
-      toastErrorAccessory("Giá trị Min IAH17 phải nhỏ hơn Max IAH17");
-      return false;
-    } else {
-      setMinIAH17Error(false);
-      setMaxIAH17Error(false);
-    }
-
-    if (minIAH18 < 0 || maxIAH18 > 100 || minIAH18 === "" || maxIAH18 === "") {
-      setMinIAH18Error(true);
-      setMaxIAH18Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH18 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH18 > maxIAH18) {
-      setMinIAH18Error(true);
-      setMaxIAH18Error(true);
-      toastErrorAccessory("Giá trị Min IAH18 phải nhỏ hơn Max IAH18");
-      return false;
-    } else {
-      setMinIAH18Error(false);
-      setMaxIAH18Error(false);
-    }
-
-    if (minIAH19 < 0 || maxIAH19 > 100 || minIAH19 === "" || maxIAH19 === "") {
-      setMinIAH19Error(true);
-      setMaxIAH19Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH19 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH19 > maxIAH19) {
-      setMinIAH19Error(true);
-      setMaxIAH19Error(true);
-      toastErrorAccessory("Giá trị Min IAH19 phải nhỏ hơn Max IAH19");
-      return false;
-    } else {
-      setMinIAH19Error(false);
-      setMaxIAH19Error(false);
-    }
-
-    if (minIAH20 < 0 || maxIAH20 > 100 || minIAH20 === "" || maxIAH20 === "") {
-      setMinIAH20Error(true);
-      setMaxIAH20Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH20 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH20 > maxIAH20) {
-      setMinIAH20Error(true);
-      setMaxIAH20Error(true);
-      toastErrorAccessory("Giá trị Min IAH20 phải nhỏ hơn Max IAH20");
-      return false;
-    } else {
-      setMinIAH20Error(false);
-      setMaxIAH20Error(false);
-    }
-
-    if (minIAH21 < 0 || maxIAH21 > 100 || minIAH21 === "" || maxIAH21 === "") {
-      setMinIAH21Error(true);
-      setMaxIAH21Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH21 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH21 > maxIAH21) {
-      setMinIAH21Error(true);
-      setMaxIAH21Error(true);
-      toastErrorAccessory("Giá trị Min IAH21 phải nhỏ hơn Max IAH21");
-      return false;
-    } else {
-      setMinIAH21Error(false);
-      setMaxIAH21Error(false);
-    }
-
-    if (minIAH22 < 0 || maxIAH22 > 100 || minIAH22 === "" || maxIAH22 === "") {
-      setMinIAH22Error(true);
-      setMaxIAH22Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH22 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH22 > maxIAH22) {
-      setMinIAH22Error(true);
-      setMaxIAH22Error(true);
-      toastErrorAccessory("Giá trị Min IAH22 phải nhỏ hơn Max IAH22");
-      return false;
-    } else {
-      setMinIAH22Error(false);
-      setMaxIAH22Error(false);
-    }
-
-    if (minIAH23 < 0 || maxIAH23 > 100 || minIAH23 === "" || maxIAH23 === "") {
-      setMinIAH23Error(true);
-      setMaxIAH23Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH23 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH23 > maxIAH23) {
-      setMinIAH23Error(true);
-      setMaxIAH23Error(true);
-      toastErrorAccessory("Giá trị Min IAH23 phải nhỏ hơn Max IAH23");
-      return false;
-    } else {
-      setMinIAH23Error(false);
-      setMaxIAH23Error(false);
-    }
-
-    if (minIAH24 < 0 || maxIAH24 > 100 || minIAH24 === "" || maxIAH24 === "") {
-      setMinIAH24Error(true);
-      setMaxIAH24Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH24 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH24 > maxIAH24) {
-      setMinIAH24Error(true);
-      setMaxIAH24Error(true);
-      toastErrorAccessory("Giá trị Min IAH24 phải nhỏ hơn Max IAH24");
-      return false;
-    } else {
-      setMinIAH24Error(false);
-      setMaxIAH24Error(false);
-    }
-
-    if (minIAH25 < 0 || maxIAH25 > 100 || minIAH25 === "" || maxIAH25 === "") {
-      setMinIAH25Error(true);
-      setMaxIAH25Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH25 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH25 > maxIAH25) {
-      setMinIAH25Error(true);
-      setMaxIAH25Error(true);
-      toastErrorAccessory("Giá trị Min IAH25 phải nhỏ hơn Max IAH25");
-      return false;
-    } else {
-      setMinIAH25Error(false);
-      setMaxIAH25Error(false);
-    }
-
-    if (minIAH26 < 0 || maxIAH26 > 100 || minIAH26 === "" || maxIAH26 === "") {
-      setMinIAH26Error(true);
-      setMaxIAH26Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH26 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH26 > maxIAH26) {
-      setMinIAH26Error(true);
-      setMaxIAH26Error(true);
-      toastErrorAccessory("Giá trị Min IAH26 phải nhỏ hơn Max IAH26");
-      return false;
-    } else {
-      setMinIAH26Error(false);
-      setMaxIAH26Error(false);
-    }
-
-    if (minIAH27 < 0 || maxIAH27 > 100 || minIAH27 === "" || maxIAH27 === "") {
-      setMinIAH27Error(true);
-      setMaxIAH27Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH27 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH27 > maxIAH27) {
-      setMinIAH27Error(true);
-      setMaxIAH27Error(true);
-      toastErrorAccessory("Giá trị Min IAH27 phải nhỏ hơn Max IAH27");
-      return false;
-    } else {
-      setMinIAH27Error(false);
-      setMaxIAH27Error(false);
-    }
-
-    if (minIAH28 < 0 || maxIAH28 > 100 || minIAH28 === "" || maxIAH28 === "") {
-      setMinIAH28Error(true);
-      setMaxIAH28Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH28 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH28 > maxIAH28) {
-      setMinIAH28Error(true);
-      setMaxIAH28Error(true);
-      toastErrorAccessory("Giá trị Min IAH28 phải nhỏ hơn Max IAH28");
-      return false;
-    } else {
-      setMinIAH28Error(false);
-      setMaxIAH28Error(false);
-    }
-
-    if (minIAH29 < 0 || maxIAH29 > 100 || minIAH29 === "" || maxIAH29 === "") {
-      setMinIAH29Error(true);
-      setMaxIAH29Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH29 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH29 > maxIAH29) {
-      setMinIAH29Error(true);
-      setMaxIAH29Error(true);
-      toastErrorAccessory("Giá trị Min IAH29 phải nhỏ hơn Max IAH29");
-      return false;
-    } else {
-      setMinIAH29Error(false);
-      setMaxIAH29Error(false);
-    }
-
-    if (minIAH30 < 0 || maxIAH30 > 100 || minIAH30 === "" || maxIAH30 === "") {
-      setMinIAH30Error(true);
-      setMaxIAH30Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH30 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH30 > maxIAH30) {
-      setMinIAH30Error(true);
-      setMaxIAH30Error(true);
-      toastErrorAccessory("Giá trị Min IAH30 phải nhỏ hơn Max IAH30");
-      return false;
-    } else {
-      setMinIAH30Error(false);
-      setMaxIAH30Error(false);
-    }
-
-    if (minIAH31 < 0 || maxIAH31 > 100 || minIAH31 === "" || maxIAH31 === "") {
-      setMinIAH31Error(true);
-      setMaxIAH31Error(true);
-      toastErrorAccessory(
-        "Giá trị IAH31 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIAH31 > maxIAH31) {
-      setMinIAH31Error(true);
-      setMaxIAH31Error(true);
-      toastErrorAccessory("Giá trị Min IAH31 phải nhỏ hơn Max IAH31");
-      return false;
-    } else {
-      setMinIAH31Error(false);
-      setMaxIAH31Error(false);
-    }
-
-    if (minIBH1 < 0 || maxIBH1 > 100 || minIBH1 === "" || maxIBH1 === "") {
-      setMinIBH1Error(true);
-      setMaxIBH1Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH1 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH1 > maxIBH1) {
-      setMinIBH1Error(true);
-      setMaxIBH1Error(true);
-      toastErrorAccessory("Giá trị Min IBH1 phải nhỏ hơn Max IBH1");
-      return false;
-    } else {
-      setMinIBH1Error(false);
-      setMaxIBH1Error(false);
-    }
-
-    if (minIBH2 < 0 || maxIBH2 > 100 || minIBH2 === "" || maxIBH2 === "") {
-      setMinIBH2Error(true);
-      setMaxIBH2Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH2 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH2 > maxIBH2) {
-      setMinIBH2Error(true);
-      setMaxIBH2Error(true);
-      toastErrorAccessory("Giá trị Min IBH2 phải nhỏ hơn Max IBH2");
-      return false;
-    } else {
-      setMinIBH2Error(false);
-      setMaxIBH2Error(false);
-    }
-
-    if (minIBH3 < 0 || maxIBH3 > 100 || minIBH3 === "" || maxIBH3 === "") {
-      setMinIBH3Error(true);
-      setMaxIBH3Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH3 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH3 > maxIBH3) {
-      setMinIBH3Error(true);
-      setMaxIBH3Error(true);
-      toastErrorAccessory("Giá trị Min IBH3 phải nhỏ hơn Max IBH3");
-      return false;
-    } else {
-      setMinIBH3Error(false);
-      setMaxIBH3Error(false);
-    }
-
-    if (minIBH4 < 0 || maxIBH4 > 100 || minIBH4 === "" || maxIBH4 === "") {
-      setMinIBH4Error(true);
-      setMaxIBH4Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH4 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH4 > maxIBH4) {
-      setMinIBH4Error(true);
-      setMaxIBH4Error(true);
-      toastErrorAccessory("Giá trị Min IBH4 phải nhỏ hơn Max IBH4");
-      return false;
-    } else {
-      setMinIBH4Error(false);
-      setMaxIBH4Error(false);
-    }
-
-    if (minIBH5 < 0 || maxIBH5 > 100 || minIBH5 === "" || maxIBH5 === "") {
-      setMinIBH5Error(true);
-      setMaxIBH5Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH5 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH5 > maxIBH5) {
-      setMinIBH5Error(true);
-      setMaxIBH5Error(true);
-      toastErrorAccessory("Giá trị Min IBH5 phải nhỏ hơn Max IBH5");
-      return false;
-    } else {
-      setMinIBH5Error(false);
-      setMaxIBH5Error(false);
-    }
-
-    if (minIBH6 < 0 || maxIBH6 > 100 || minIBH6 === "" || maxIBH6 === "") {
-      setMinIBH6Error(true);
-      setMaxIBH6Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH6 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH6 > maxIBH6) {
-      setMinIBH6Error(true);
-      setMaxIBH6Error(true);
-      toastErrorAccessory("Giá trị Min IBH6 phải nhỏ hơn Max IBH6");
-      return false;
-    } else {
-      setMinIBH6Error(false);
-      setMaxIBH6Error(false);
-    }
-
-    if (minIBH7 < 0 || maxIBH7 > 100 || minIBH7 === "" || maxIBH7 === "") {
-      setMinIBH7Error(true);
-      setMaxIBH7Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH7 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH7 > maxIBH7) {
-      setMinIBH7Error(true);
-      setMaxIBH7Error(true);
-      toastErrorAccessory("Giá trị Min IBH7 phải nhỏ hơn Max IBH7");
-      return false;
-    } else {
-      setMinIBH7Error(false);
-      setMaxIBH7Error(false);
-    }
-
-    if (minIBH8 < 0 || maxIBH8 > 100 || minIBH8 === "" || maxIBH8 === "") {
-      setMinIBH8Error(true);
-      setMaxIBH8Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH8 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH8 > maxIBH8) {
-      setMinIBH8Error(true);
-      setMaxIBH8Error(true);
-      toastErrorAccessory("Giá trị Min IBH8 phải nhỏ hơn Max IBH8");
-      return false;
-    } else {
-      setMinIBH8Error(false);
-      setMaxIBH8Error(false);
-    }
-
-    if (minIBH9 < 0 || maxIBH9 > 100 || minIBH9 === "" || maxIBH9 === "") {
-      setMinIBH9Error(true);
-      setMaxIBH9Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH9 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH9 > maxIBH9) {
-      setMinIBH9Error(true);
-      setMaxIBH9Error(true);
-      toastErrorAccessory("Giá trị Min IBH9 phải nhỏ hơn Max IBH9");
-      return false;
-    } else {
-      setMinIBH9Error(false);
-      setMaxIBH9Error(false);
-    }
-
-    if (minIBH10 < 0 || maxIBH10 > 100 || minIBH10 === "" || maxIBH10 === "") {
-      setMinIBH10Error(true);
-      setMaxIBH10Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH10 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH10 > maxIBH10) {
-      setMinIBH10Error(true);
-      setMaxIBH10Error(true);
-      toastErrorAccessory("Giá trị Min IBH10 phải nhỏ hơn Max IBH10");
-      return false;
-    } else {
-      setMinIBH10Error(false);
-      setMaxIBH10Error(false);
-    }
-
-    if (minIBH11 < 0 || maxIBH11 > 100 || minIBH11 === "" || maxIBH11 === "") {
-      setMinIBH11Error(true);
-      setMaxIBH11Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH11 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH11 > maxIBH11) {
-      setMinIBH11Error(true);
-      setMaxIBH11Error(true);
-      toastErrorAccessory("Giá trị Min IBH11 phải nhỏ hơn Max IBH11");
-      return false;
-    } else {
-      setMinIBH11Error(false);
-      setMaxIBH11Error(false);
-    }
-
-    if (minIBH12 < 0 || maxIBH12 > 100 || minIBH12 === "" || maxIBH12 === "") {
-      setMinIBH12Error(true);
-      setMaxIBH12Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH12 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH12 > maxIBH12) {
-      setMinIBH12Error(true);
-      setMaxIBH12Error(true);
-      toastErrorAccessory("Giá trị Min IBH12 phải nhỏ hơn Max IBH12");
-      return false;
-    } else {
-      setMinIBH12Error(false);
-      setMaxIBH12Error(false);
-    }
-
-    if (minIBH13 < 0 || maxIBH13 > 100 || minIBH13 === "" || maxIBH13 === "") {
-      setMinIBH13Error(true);
-      setMaxIBH13Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH13 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH13 > maxIBH13) {
-      setMinIBH13Error(true);
-      setMaxIBH13Error(true);
-      toastErrorAccessory("Giá trị Min IBH13 phải nhỏ hơn Max IBH13");
-      return false;
-    } else {
-      setMinIBH13Error(false);
-      setMaxIBH13Error(false);
-    }
-
-    if (minIBH14 < 0 || maxIBH14 > 100 || minIBH14 === "" || maxIBH14 === "") {
-      setMinIBH14Error(true);
-      setMaxIBH14Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH14 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH14 > maxIBH14) {
-      setMinIBH14Error(true);
-      setMaxIBH14Error(true);
-      toastErrorAccessory("Giá trị Min IBH14 phải nhỏ hơn Max IBH14");
-      return false;
-    } else {
-      setMinIBH14Error(false);
-      setMaxIBH14Error(false);
-    }
-
-    if (minIBH15 < 0 || maxIBH15 > 100 || minIBH15 === "" || maxIBH15 === "") {
-      setMinIBH15Error(true);
-      setMaxIBH15Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH15 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH15 > maxIBH15) {
-      setMinIBH15Error(true);
-      setMaxIBH15Error(true);
-      toastErrorAccessory("Giá trị Min IBH15 phải nhỏ hơn Max IBH15");
-      return false;
-    } else {
-      setMinIBH15Error(false);
-      setMaxIBH15Error(false);
-    }
-
-    if (minIBH16 < 0 || maxIBH16 > 100 || minIBH16 === "" || maxIBH16 === "") {
-      setMinIBH16Error(true);
-      setMaxIBH16Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH16 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH16 > maxIBH16) {
-      setMinIBH16Error(true);
-      setMaxIBH16Error(true);
-      toastErrorAccessory("Giá trị Min IBH16 phải nhỏ hơn Max IBH16");
-      return false;
-    } else {
-      setMinIBH16Error(false);
-      setMaxIBH16Error(false);
-    }
-
-    if (minIBH17 < 0 || maxIBH17 > 100 || minIBH17 === "" || maxIBH17 === "") {
-      setMinIBH17Error(true);
-      setMaxIBH17Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH17 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH17 > maxIBH17) {
-      setMinIBH17Error(true);
-      setMaxIBH17Error(true);
-      toastErrorAccessory("Giá trị Min IBH17 phải nhỏ hơn Max IBH17");
-      return false;
-    } else {
-      setMinIBH17Error(false);
-      setMaxIBH17Error(false);
-    }
-
-    if (minIBH18 < 0 || maxIBH18 > 100 || minIBH18 === "" || maxIBH18 === "") {
-      setMinIBH18Error(true);
-      setMaxIBH18Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH18 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH18 > maxIBH18) {
-      setMinIBH18Error(true);
-      setMaxIBH18Error(true);
-      toastErrorAccessory("Giá trị Min IBH18 phải nhỏ hơn Max IBH18");
-      return false;
-    } else {
-      setMinIBH18Error(false);
-      setMaxIBH18Error(false);
-    }
-
-    if (minIBH19 < 0 || maxIBH19 > 100 || minIBH19 === "" || maxIBH19 === "") {
-      setMinIBH19Error(true);
-      setMaxIBH19Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH19 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH19 > maxIBH19) {
-      setMinIBH19Error(true);
-      setMaxIBH19Error(true);
-      toastErrorAccessory("Giá trị Min IBH19 phải nhỏ hơn Max IBH19");
-      return false;
-    } else {
-      setMinIBH19Error(false);
-      setMaxIBH19Error(false);
-    }
-
-    if (minIBH20 < 0 || maxIBH20 > 100 || minIBH20 === "" || maxIBH20 === "") {
-      setMinIBH20Error(true);
-      setMaxIBH20Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH20 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH20 > maxIBH20) {
-      setMinIBH20Error(true);
-      setMaxIBH20Error(true);
-      toastErrorAccessory("Giá trị Min IBH20 phải nhỏ hơn Max IBH20");
-      return false;
-    } else {
-      setMinIBH20Error(false);
-      setMaxIBH20Error(false);
-    }
-
-    if (minIBH21 < 0 || maxIBH21 > 100 || minIBH21 === "" || maxIBH21 === "") {
-      setMinIBH21Error(true);
-      setMaxIBH21Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH21 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH21 > maxIBH21) {
-      setMinIBH21Error(true);
-      setMaxIBH21Error(true);
-      toastErrorAccessory("Giá trị Min IBH21 phải nhỏ hơn Max IBH21");
-      return false;
-    } else {
-      setMinIBH21Error(false);
-      setMaxIBH21Error(false);
-    }
-
-    if (minIBH22 < 0 || maxIBH22 > 100 || minIBH22 === "" || maxIBH22 === "") {
-      setMinIBH22Error(true);
-      setMaxIBH22Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH22 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH22 > maxIBH22) {
-      setMinIBH22Error(true);
-      setMaxIBH22Error(true);
-      toastErrorAccessory("Giá trị Min IBH22 phải nhỏ hơn Max IBH22");
-      return false;
-    } else {
-      setMinIBH22Error(false);
-      setMaxIBH22Error(false);
-    }
-
-    if (minIBH23 < 0 || maxIBH23 > 100 || minIBH23 === "" || maxIBH23 === "") {
-      setMinIBH23Error(true);
-      setMaxIBH23Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH23 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH23 > maxIBH23) {
-      setMinIBH23Error(true);
-      setMaxIBH23Error(true);
-      toastErrorAccessory("Giá trị Min IBH23 phải nhỏ hơn Max IBH23");
-      return false;
-    } else {
-      setMinIBH23Error(false);
-      setMaxIBH23Error(false);
-    }
-
-    if (minIBH24 < 0 || maxIBH24 > 100 || minIBH24 === "" || maxIBH24 === "") {
-      setMinIBH24Error(true);
-      setMaxIBH24Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH24 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH24 > maxIBH24) {
-      setMinIBH24Error(true);
-      setMaxIBH24Error(true);
-      toastErrorAccessory("Giá trị Min IBH24 phải nhỏ hơn Max IBH24");
-      return false;
-    } else {
-      setMinIBH24Error(false);
-      setMaxIBH24Error(false);
-    }
-
-    if (minIBH25 < 0 || maxIBH25 > 100 || minIBH25 === "" || maxIBH25 === "") {
-      setMinIBH25Error(true);
-      setMaxIBH25Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH25 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH25 > maxIBH25) {
-      setMinIBH25Error(true);
-      setMaxIBH25Error(true);
-      toastErrorAccessory("Giá trị Min IBH25 phải nhỏ hơn Max IBH25");
-      return false;
-    } else {
-      setMinIBH25Error(false);
-      setMaxIBH25Error(false);
-    }
-
-    if (minIBH26 < 0 || maxIBH26 > 100 || minIBH26 === "" || maxIBH26 === "") {
-      setMinIBH26Error(true);
-      setMaxIBH26Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH26 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH26 > maxIBH26) {
-      setMinIBH26Error(true);
-      setMaxIBH26Error(true);
-      toastErrorAccessory("Giá trị Min IBH26 phải nhỏ hơn Max IBH26");
-      return false;
-    } else {
-      setMinIBH26Error(false);
-      setMaxIBH26Error(false);
-    }
-    if (minIBH27 < 0 || maxIBH27 > 100 || minIBH27 === "" || maxIBH27 === "") {
-      setMinIBH27Error(true);
-      setMaxIBH27Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH27 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH27 > maxIBH27) {
-      setMinIBH27Error(true);
-      setMaxIBH27Error(true);
-      toastErrorAccessory("Giá trị Min IBH27 phải nhỏ hơn Max IBH27");
-      return false;
-    } else {
-      setMinIBH27Error(false);
-      setMaxIBH27Error(false);
-    }
-
-    if (minIBH28 < 0 || maxIBH28 > 100 || minIBH28 === "" || maxIBH28 === "") {
-      setMinIBH28Error(true);
-      setMaxIBH28Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH28 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH28 > maxIBH28) {
-      setMinIBH28Error(true);
-      setMaxIBH28Error(true);
-      toastErrorAccessory("Giá trị Min IBH28 phải nhỏ hơn Max IBH28");
-      return false;
-    } else {
-      setMinIBH28Error(false);
-      setMaxIBH28Error(false);
-    }
-
-    if (minIBH29 < 0 || maxIBH29 > 100 || minIBH29 === "" || maxIBH29 === "") {
-      setMinIBH29Error(true);
-      setMaxIBH29Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH29 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH29 > maxIBH29) {
-      setMinIBH29Error(true);
-      setMaxIBH29Error(true);
-      toastErrorAccessory("Giá trị Min IBH29 phải nhỏ hơn Max IBH29");
-      return false;
-    } else {
-      setMinIBH29Error(false);
-      setMaxIBH29Error(false);
-    }
-
-    if (minIBH30 < 0 || maxIBH30 > 100 || minIBH30 === "" || maxIBH30 === "") {
-      setMinIBH30Error(true);
-      setMaxIBH30Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH30 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH30 > maxIBH30) {
-      setMinIBH30Error(true);
-      setMaxIBH30Error(true);
-      toastErrorAccessory("Giá trị Min IBH30 phải nhỏ hơn Max IBH30");
-      return false;
-    } else {
-      setMinIBH30Error(false);
-      setMaxIBH30Error(false);
-    }
-    if (minIBH31 < 0 || maxIBH31 > 100 || minIBH31 === "" || maxIBH31 === "") {
-      setMinIBH31Error(true);
-      setMaxIBH31Error(true);
-      toastErrorAccessory(
-        "Giá trị IBH31 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minIBH31 > maxIBH31) {
-      setMinIBH31Error(true);
-      setMaxIBH31Error(true);
-      toastErrorAccessory("Giá trị Min IBH31 phải nhỏ hơn Max IBH31");
-      return false;
-    } else {
-      setMinIBH31Error(false);
-      setMaxIBH31Error(false);
-    }
-    if (minICH1 < 0 || maxICH1 > 100 || minICH1 === "" || maxICH1 === "") {
-      setMinICH1Error(true);
-      setMaxICH1Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH1 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH1 > maxICH1) {
-      setMinICH1Error(true);
-      setMaxICH1Error(true);
-      toastErrorAccessory("Giá trị Min ICH1 phải nhỏ hơn Max ICH1");
-      return false;
-    } else {
-      setMinICH1Error(false);
-      setMaxICH1Error(false);
-    }
-
-    if (minICH2 < 0 || maxICH2 > 100 || minICH2 === "" || maxICH2 === "") {
-      setMinICH2Error(true);
-      setMaxICH2Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH2 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH2 > maxICH2) {
-      setMinICH2Error(true);
-      setMaxICH2Error(true);
-      toastErrorAccessory("Giá trị Min ICH2 phải nhỏ hơn Max ICH2");
-      return false;
-    } else {
-      setMinICH2Error(false);
-      setMaxICH2Error(false);
-    }
-
-    if (minICH3 < 0 || maxICH3 > 100 || minICH3 === "" || maxICH3 === "") {
-      setMinICH3Error(true);
-      setMaxICH3Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH3 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH3 > maxICH3) {
-      setMinICH3Error(true);
-      setMaxICH3Error(true);
-      toastErrorAccessory("Giá trị Min ICH3 phải nhỏ hơn Max ICH3");
-      return false;
-    } else {
-      setMinICH3Error(false);
-      setMaxICH3Error(false);
-    }
-
-    if (minICH4 < 0 || maxICH4 > 100 || minICH4 === "" || maxICH4 === "") {
-      setMinICH4Error(true);
-      setMaxICH4Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH4 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH4 > maxICH4) {
-      setMinICH4Error(true);
-      setMaxICH4Error(true);
-      toastErrorAccessory("Giá trị Min ICH4 phải nhỏ hơn Max ICH4");
-      return false;
-    } else {
-      setMinICH4Error(false);
-      setMaxICH4Error(false);
-    }
-
-    if (minICH5 < 0 || maxICH5 > 100 || minICH5 === "" || maxICH5 === "") {
-      setMinICH5Error(true);
-      setMaxICH5Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH5 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH5 > maxICH5) {
-      setMinICH5Error(true);
-      setMaxICH5Error(true);
-      toastErrorAccessory("Giá trị Min ICH5 phải nhỏ hơn Max ICH5");
-      return false;
-    } else {
-      setMinICH5Error(false);
-      setMaxICH5Error(false);
-    }
-
-    if (minICH6 < 0 || maxICH6 > 100 || minICH6 === "" || maxICH6 === "") {
-      setMinICH6Error(true);
-      setMaxICH6Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH6 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH6 > maxICH6) {
-      setMinICH6Error(true);
-      setMaxICH6Error(true);
-      toastErrorAccessory("Giá trị Min ICH6 phải nhỏ hơn Max ICH6");
-      return false;
-    } else {
-      setMinICH6Error(false);
-      setMaxICH6Error(false);
-    }
-
-    if (minICH7 < 0 || maxICH7 > 100 || minICH7 === "" || maxICH7 === "") {
-      setMinICH7Error(true);
-      setMaxICH7Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH7 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH7 > maxICH7) {
-      setMinICH7Error(true);
-      setMaxICH7Error(true);
-      toastErrorAccessory("Giá trị Min ICH7 phải nhỏ hơn Max ICH7");
-      return false;
-    } else {
-      setMinICH7Error(false);
-      setMaxICH7Error(false);
-    }
-
-    if (minICH8 < 0 || maxICH8 > 100 || minICH8 === "" || maxICH8 === "") {
-      setMinICH8Error(true);
-      setMaxICH8Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH8 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH8 > maxICH8) {
-      setMinICH8Error(true);
-      setMaxICH8Error(true);
-      toastErrorAccessory("Giá trị Min ICH8 phải nhỏ hơn Max ICH8");
-      return false;
-    } else {
-      setMinICH8Error(false);
-      setMaxICH8Error(false);
-    }
-
-    if (minICH9 < 0 || maxICH9 > 100 || minICH9 === "" || maxICH9 === "") {
-      setMinICH9Error(true);
-      setMaxICH9Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH9 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH9 > maxICH9) {
-      setMinICH9Error(true);
-      setMaxICH9Error(true);
-      toastErrorAccessory("Giá trị Min ICH9 phải nhỏ hơn Max ICH9");
-      return false;
-    } else {
-      setMinICH9Error(false);
-      setMaxICH9Error(false);
-    }
-
-    if (minICH10 < 0 || maxICH10 > 100 || minICH10 === "" || maxICH10 === "") {
-      setMinICH10Error(true);
-      setMaxICH10Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH10 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH10 > maxICH10) {
-      setMinICH10Error(true);
-      setMaxICH10Error(true);
-      toastErrorAccessory("Giá trị Min ICH10 phải nhỏ hơn Max ICH10");
-      return false;
-    } else {
-      setMinICH10Error(false);
-      setMaxICH10Error(false);
-    }
-
-    if (minICH11 < 0 || maxICH11 > 100 || minICH11 === "" || maxICH11 === "") {
-      setMinICH11Error(true);
-      setMaxICH11Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH11 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH11 > maxICH11) {
-      setMinICH11Error(true);
-      setMaxICH11Error(true);
-      toastErrorAccessory("Giá trị Min ICH11 phải nhỏ hơn Max ICH11");
-      return false;
-    } else {
-      setMinICH11Error(false);
-      setMaxICH11Error(false);
-    }
-
-    if (minICH12 < 0 || maxICH12 > 100 || minICH12 === "" || maxICH12 === "") {
-      setMinICH12Error(true);
-      setMaxICH12Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH12 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH12 > maxICH12) {
-      setMinICH12Error(true);
-      setMaxICH12Error(true);
-      toastErrorAccessory("Giá trị Min ICH12 phải nhỏ hơn Max ICH12");
-      return false;
-    } else {
-      setMinICH12Error(false);
-      setMaxICH12Error(false);
-    }
-
-    if (minICH13 < 0 || maxICH13 > 100 || minICH13 === "" || maxICH13 === "") {
-      setMinICH13Error(true);
-      setMaxICH13Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH13 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH13 > maxICH13) {
-      setMinICH13Error(true);
-      setMaxICH13Error(true);
-      toastErrorAccessory("Giá trị Min ICH13 phải nhỏ hơn Max ICH13");
-      return false;
-    } else {
-      setMinICH13Error(false);
-      setMaxICH13Error(false);
-    }
-
-    if (minICH14 < 0 || maxICH14 > 100 || minICH14 === "" || maxICH14 === "") {
-      setMinICH14Error(true);
-      setMaxICH14Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH14 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH14 > maxICH14) {
-      setMinICH14Error(true);
-      setMaxICH14Error(true);
-      toastErrorAccessory("Giá trị Min ICH14 phải nhỏ hơn Max ICH14");
-      return false;
-    } else {
-      setMinICH14Error(false);
-      setMaxICH14Error(false);
-    }
-
-    if (minICH15 < 0 || maxICH15 > 100 || minICH15 === "" || maxICH15 === "") {
-      setMinICH15Error(true);
-      setMaxICH15Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH15 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH15 > maxICH15) {
-      setMinICH15Error(true);
-      setMaxICH15Error(true);
-      toastErrorAccessory("Giá trị Min ICH15 phải nhỏ hơn Max ICH15");
-      return false;
-    } else {
-      setMinICH15Error(false);
-      setMaxICH15Error(false);
-    }
-
-    if (minICH16 < 0 || maxICH16 > 100 || minICH16 === "" || maxICH16 === "") {
-      setMinICH16Error(true);
-      setMaxICH16Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH16 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH16 > maxICH16) {
-      setMinICH16Error(true);
-      setMaxICH16Error(true);
-      toastErrorAccessory("Giá trị Min ICH16 phải nhỏ hơn Max ICH16");
-      return false;
-    } else {
-      setMinICH16Error(false);
-      setMaxICH16Error(false);
-    }
-
-    if (minICH17 < 0 || maxICH17 > 100 || minICH17 === "" || maxICH17 === "") {
-      setMinICH17Error(true);
-      setMaxICH17Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH17 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH17 > maxICH17) {
-      setMinICH17Error(true);
-      setMaxICH17Error(true);
-      toastErrorAccessory("Giá trị Min ICH17 phải nhỏ hơn Max ICH17");
-      return false;
-    } else {
-      setMinICH17Error(false);
-      setMaxICH17Error(false);
-    }
-
-    if (minICH18 < 0 || maxICH18 > 100 || minICH18 === "" || maxICH18 === "") {
-      setMinICH18Error(true);
-      setMaxICH18Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH18 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH18 > maxICH18) {
-      setMinICH18Error(true);
-      setMaxICH18Error(true);
-      toastErrorAccessory("Giá trị Min ICH18 phải nhỏ hơn Max ICH18");
-      return false;
-    } else {
-      setMinICH18Error(false);
-      setMaxICH18Error(false);
-    }
-
-    if (minICH19 < 0 || maxICH19 > 100 || minICH19 === "" || maxICH19 === "") {
-      setMinICH19Error(true);
-      setMaxICH19Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH19 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH19 > maxICH19) {
-      setMinICH19Error(true);
-      setMaxICH19Error(true);
-      toastErrorAccessory("Giá trị Min ICH19 phải nhỏ hơn Max ICH19");
-      return false;
-    } else {
-      setMinICH19Error(false);
-      setMaxICH19Error(false);
-    }
-
-    if (minICH20 < 0 || maxICH20 > 100 || minICH20 === "" || maxICH20 === "") {
-      setMinICH20Error(true);
-      setMaxICH20Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH20 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH20 > maxICH20) {
-      setMinICH20Error(true);
-      setMaxICH20Error(true);
-      toastErrorAccessory("Giá trị Min ICH20 phải nhỏ hơn Max ICH20");
-      return false;
-    } else {
-      setMinICH20Error(false);
-      setMaxICH20Error(false);
-    }
-
-    if (minICH21 < 0 || maxICH21 > 100 || minICH21 === "" || maxICH21 === "") {
-      setMinICH21Error(true);
-      setMaxICH21Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH21 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH21 > maxICH21) {
-      setMinICH21Error(true);
-      setMaxICH21Error(true);
-      toastErrorAccessory("Giá trị Min ICH21 phải nhỏ hơn Max ICH21");
-      return false;
-    } else {
-      setMinICH21Error(false);
-      setMaxICH21Error(false);
-    }
-
-    if (minICH22 < 0 || maxICH22 > 100 || minICH22 === "" || maxICH22 === "") {
-      setMinICH22Error(true);
-      setMaxICH22Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH22 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH22 > maxICH22) {
-      setMinICH22Error(true);
-      setMaxICH22Error(true);
-      toastErrorAccessory("Giá trị Min ICH22 phải nhỏ hơn Max ICH22");
-      return false;
-    } else {
-      setMinICH22Error(false);
-      setMaxICH22Error(false);
-    }
-
-    if (minICH23 < 0 || maxICH23 > 100 || minICH23 === "" || maxICH23 === "") {
-      setMinICH23Error(true);
-      setMaxICH23Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH23 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH23 > maxICH23) {
-      setMinICH23Error(true);
-      setMaxICH23Error(true);
-      toastErrorAccessory("Giá trị Min ICH23 phải nhỏ hơn Max ICH23");
-      return false;
-    } else {
-      setMinICH23Error(false);
-      setMaxICH23Error(false);
-    }
-
-    if (minICH24 < 0 || maxICH24 > 100 || minICH24 === "" || maxICH24 === "") {
-      setMinICH24Error(true);
-      setMaxICH24Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH24 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH24 > maxICH24) {
-      setMinICH24Error(true);
-      setMaxICH24Error(true);
-      toastErrorAccessory("Giá trị Min ICH24 phải nhỏ hơn Max ICH24");
-      return false;
-    } else {
-      setMinICH24Error(false);
-      setMaxICH24Error(false);
-    }
-
-    if (minICH25 < 0 || maxICH25 > 100 || minICH25 === "" || maxICH25 === "") {
-      setMinICH25Error(true);
-      setMaxICH25Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH25 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH25 > maxICH25) {
-      setMinICH25Error(true);
-      setMaxICH25Error(true);
-      toastErrorAccessory("Giá trị Min ICH25 phải nhỏ hơn Max ICH25");
-      return false;
-    } else {
-      setMinICH25Error(false);
-      setMaxICH25Error(false);
-    }
-
-    if (minICH26 < 0 || maxICH26 > 100 || minICH26 === "" || maxICH26 === "") {
-      setMinICH26Error(true);
-      setMaxICH26Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH26 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH26 > maxICH26) {
-      setMinICH26Error(true);
-      setMaxICH26Error(true);
-      toastErrorAccessory("Giá trị Min ICH26 phải nhỏ hơn Max ICH26");
-      return false;
-    } else {
-      setMinICH26Error(false);
-      setMaxICH26Error(false);
-    }
-    if (minICH27 < 0 || maxICH27 > 100 || minICH27 === "" || maxICH27 === "") {
-      setMinICH27Error(true);
-      setMaxICH27Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH27 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH27 > maxICH27) {
-      setMinICH27Error(true);
-      setMaxICH27Error(true);
-      toastErrorAccessory("Giá trị Min ICH27 phải nhỏ hơn Max ICH27");
-      return false;
-    } else {
-      setMinICH27Error(false);
-      setMaxICH27Error(false);
-    }
-
-    if (minICH28 < 0 || maxICH28 > 100 || minICH28 === "" || maxICH28 === "") {
-      setMinICH28Error(true);
-      setMaxICH28Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH28 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH28 > maxICH28) {
-      setMinICH28Error(true);
-      setMaxICH28Error(true);
-      toastErrorAccessory("Giá trị Min ICH28 phải nhỏ hơn Max ICH28");
-      return false;
-    } else {
-      setMinICH28Error(false);
-      setMaxICH28Error(false);
-    }
-
-    if (minICH29 < 0 || maxICH29 > 100 || minICH29 === "" || maxICH29 === "") {
-      setMinICH29Error(true);
-      setMaxICH29Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH29 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH29 > maxICH29) {
-      setMinICH29Error(true);
-      setMaxICH29Error(true);
-      toastErrorAccessory("Giá trị Min ICH29 phải nhỏ hơn Max ICH29");
-      return false;
-    } else {
-      setMinICH29Error(false);
-      setMaxICH29Error(false);
-    }
-
-    if (minICH30 < 0 || maxICH30 > 100 || minICH30 === "" || maxICH30 === "") {
-      setMinICH30Error(true);
-      setMaxICH30Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH30 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH30 > maxICH30) {
-      setMinICH30Error(true);
-      setMaxICH30Error(true);
-      toastErrorAccessory("Giá trị Min ICH30 phải nhỏ hơn Max ICH30");
-      return false;
-    } else {
-      setMinICH30Error(false);
-      setMaxICH30Error(false);
-    }
-    if (minICH31 < 0 || maxICH31 > 100 || minICH31 === "" || maxICH31 === "") {
-      setMinICH31Error(true);
-      setMaxICH31Error(true);
-      toastErrorAccessory(
-        "Giá trị ICH31 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minICH31 > maxICH31) {
-      setMinICH31Error(true);
-      setMaxICH31Error(true);
-      toastErrorAccessory("Giá trị Min ICH31 phải nhỏ hơn Max ICH31");
-      return false;
-    } else {
-      setMinICH31Error(false);
-      setMaxICH31Error(false);
-    }
-
-    if (minVANH1 < 0 || maxVANH1 > 100 || minVANH1 === "" || maxVANH1 === "") {
-      setMinVANH1Error(true);
-      setMaxVANH1Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH1 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH1 > maxVANH1) {
-      setMinVANH1Error(true);
-      setMaxVANH1Error(true);
-      toastErrorAccessory("Giá trị Min VANH1 phải nhỏ hơn Max VANH1");
-      return false;
-    } else {
-      setMinVANH1Error(false);
-      setMaxVANH1Error(false);
-    }
-
-    if (minVANH2 < 0 || maxVANH2 > 100 || minVANH2 === "" || maxVANH2 === "") {
-      setMinVANH2Error(true);
-      setMaxVANH2Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH2 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH2 > maxVANH2) {
-      setMinVANH2Error(true);
-      setMaxVANH2Error(true);
-      toastErrorAccessory("Giá trị Min VANH2 phải nhỏ hơn Max VANH2");
-      return false;
-    } else {
-      setMinVANH2Error(false);
-      setMaxVANH2Error(false);
-    }
-
-    if (minVANH3 < 0 || maxVANH3 > 100 || minVANH3 === "" || maxVANH3 === "") {
-      setMinVANH3Error(true);
-      setMaxVANH3Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH3 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH3 > maxVANH3) {
-      setMinVANH3Error(true);
-      setMaxVANH3Error(true);
-      toastErrorAccessory("Giá trị Min VANH3 phải nhỏ hơn Max VANH3");
-      return false;
-    } else {
-      setMinVANH3Error(false);
-      setMaxVANH3Error(false);
-    }
-
-    if (minVANH4 < 0 || maxVANH4 > 100 || minVANH4 === "" || maxVANH4 === "") {
-      setMinVANH4Error(true);
-      setMaxVANH4Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH4 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH4 > maxVANH4) {
-      setMinVANH4Error(true);
-      setMaxVANH4Error(true);
-      toastErrorAccessory("Giá trị Min VANH4 phải nhỏ hơn Max VANH4");
-      return false;
-    } else {
-      setMinVANH4Error(false);
-      setMaxVANH4Error(false);
-    }
-
-    if (minVANH5 < 0 || maxVANH5 > 100 || minVANH5 === "" || maxVANH5 === "") {
-      setMinVANH5Error(true);
-      setMaxVANH5Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH5 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH5 > maxVANH5) {
-      setMinVANH5Error(true);
-      setMaxVANH5Error(true);
-      toastErrorAccessory("Giá trị Min VANH5 phải nhỏ hơn Max VANH5");
-      return false;
-    } else {
-      setMinVANH5Error(false);
-      setMaxVANH5Error(false);
-    }
-
-    if (minVANH6 < 0 || maxVANH6 > 100 || minVANH6 === "" || maxVANH6 === "") {
-      setMinVANH6Error(true);
-      setMaxVANH6Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH6 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH6 > maxVANH6) {
-      setMinVANH6Error(true);
-      setMaxVANH6Error(true);
-      toastErrorAccessory("Giá trị Min VANH6 phải nhỏ hơn Max VANH6");
-      return false;
-    } else {
-      setMinVANH6Error(false);
-      setMaxVANH6Error(false);
-    }
-
-    if (minVANH7 < 0 || maxVANH7 > 100 || minVANH7 === "" || maxVANH7 === "") {
-      setMinVANH7Error(true);
-      setMaxVANH7Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH7 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH7 > maxVANH7) {
-      setMinVANH7Error(true);
-      setMaxVANH7Error(true);
-      toastErrorAccessory("Giá trị Min VANH7 phải nhỏ hơn Max VANH7");
-      return false;
-    } else {
-      setMinVANH7Error(false);
-      setMaxVANH7Error(false);
-    }
-
-    if (minVANH8 < 0 || maxVANH8 > 100 || minVANH8 === "" || maxVANH8 === "") {
-      setMinVANH8Error(true);
-      setMaxVANH8Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH8 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH8 > maxVANH8) {
-      setMinVANH8Error(true);
-      setMaxVANH8Error(true);
-      toastErrorAccessory("Giá trị Min VANH8 phải nhỏ hơn Max VANH8");
-      return false;
-    } else {
-      setMinVANH8Error(false);
-      setMaxVANH8Error(false);
-    }
-
-    if (minVANH9 < 0 || maxVANH9 > 100 || minVANH9 === "" || maxVANH9 === "") {
-      setMinVANH9Error(true);
-      setMaxVANH9Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH9 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH9 > maxVANH9) {
-      setMinVANH9Error(true);
-      setMaxVANH9Error(true);
-      toastErrorAccessory("Giá trị Min VANH9 phải nhỏ hơn Max VANH9");
-      return false;
-    } else {
-      setMinVANH9Error(false);
-      setMaxVANH9Error(false);
-    }
-
-    if (
-      minVANH10 < 0 ||
-      maxVANH10 > 100 ||
-      minVANH10 === "" ||
-      maxVANH10 === ""
-    ) {
-      setMinVANH10Error(true);
-      setMaxVANH10Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH10 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH10 > maxVANH10) {
-      setMinVANH10Error(true);
-      setMaxVANH10Error(true);
-      toastErrorAccessory("Giá trị Min VANH10 phải nhỏ hơn Max VANH10");
-      return false;
-    } else {
-      setMinVANH10Error(false);
-      setMaxVANH10Error(false);
-    }
-
-    if (
-      minVANH11 < 0 ||
-      maxVANH11 > 100 ||
-      minVANH11 === "" ||
-      maxVANH11 === ""
-    ) {
-      setMinVANH11Error(true);
-      setMaxVANH11Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH11 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH11 > maxVANH11) {
-      setMinVANH11Error(true);
-      setMaxVANH11Error(true);
-      toastErrorAccessory("Giá trị Min VANH11 phải nhỏ hơn Max VANH11");
-      return false;
-    } else {
-      setMinVANH11Error(false);
-      setMaxVANH11Error(false);
-    }
-
-    if (
-      minVANH12 < 0 ||
-      maxVANH12 > 100 ||
-      minVANH12 === "" ||
-      maxVANH12 === ""
-    ) {
-      setMinVANH12Error(true);
-      setMaxVANH12Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH12 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH12 > maxVANH12) {
-      setMinVANH12Error(true);
-      setMaxVANH12Error(true);
-      toastErrorAccessory("Giá trị Min VANH12 phải nhỏ hơn Max VANH12");
-      return false;
-    } else {
-      setMinVANH12Error(false);
-      setMaxVANH12Error(false);
-    }
-
-    if (
-      minVANH13 < 0 ||
-      maxVANH13 > 100 ||
-      minVANH13 === "" ||
-      maxVANH13 === ""
-    ) {
-      setMinVANH13Error(true);
-      setMaxVANH13Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH13 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH13 > maxVANH13) {
-      setMinVANH13Error(true);
-      setMaxVANH13Error(true);
-      toastErrorAccessory("Giá trị Min VANH13 phải nhỏ hơn Max VANH13");
-      return false;
-    } else {
-      setMinVANH13Error(false);
-      setMaxVANH13Error(false);
-    }
-
-    if (
-      minVANH14 < 0 ||
-      maxVANH14 > 100 ||
-      minVANH14 === "" ||
-      maxVANH14 === ""
-    ) {
-      setMinVANH14Error(true);
-      setMaxVANH14Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH14 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH14 > maxVANH14) {
-      setMinVANH14Error(true);
-      setMaxVANH14Error(true);
-      toastErrorAccessory("Giá trị Min VANH14 phải nhỏ hơn Max VANH14");
-      return false;
-    } else {
-      setMinVANH14Error(false);
-      setMaxVANH14Error(false);
-    }
-
-    if (
-      minVANH15 < 0 ||
-      maxVANH15 > 100 ||
-      minVANH15 === "" ||
-      maxVANH15 === ""
-    ) {
-      setMinVANH15Error(true);
-      setMaxVANH15Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH15 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH15 > maxVANH15) {
-      setMinVANH15Error(true);
-      setMaxVANH15Error(true);
-      toastErrorAccessory("Giá trị Min VANH15 phải nhỏ hơn Max VANH15");
-      return false;
-    } else {
-      setMinVANH15Error(false);
-      setMaxVANH15Error(false);
-    }
-
-    if (
-      minVANH16 < 0 ||
-      maxVANH16 > 100 ||
-      minVANH16 === "" ||
-      maxVANH16 === ""
-    ) {
-      setMinVANH16Error(true);
-      setMaxVANH16Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH16 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH16 > maxVANH16) {
-      setMinVANH16Error(true);
-      setMaxVANH16Error(true);
-      toastErrorAccessory("Giá trị Min VANH16 phải nhỏ hơn Max VANH16");
-      return false;
-    } else {
-      setMinVANH16Error(false);
-      setMaxVANH16Error(false);
-    }
-
-    if (
-      minVANH17 < 0 ||
-      maxVANH17 > 100 ||
-      minVANH17 === "" ||
-      maxVANH17 === ""
-    ) {
-      setMinVANH17Error(true);
-      setMaxVANH17Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH17 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH17 > maxVANH17) {
-      setMinVANH17Error(true);
-      setMaxVANH17Error(true);
-      toastErrorAccessory("Giá trị Min VANH17 phải nhỏ hơn Max VANH17");
-      return false;
-    } else {
-      setMinVANH17Error(false);
-      setMaxVANH17Error(false);
-    }
-
-    if (
-      minVANH18 < 0 ||
-      maxVANH18 > 100 ||
-      minVANH18 === "" ||
-      maxVANH18 === ""
-    ) {
-      setMinVANH18Error(true);
-      setMaxVANH18Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH18 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH18 > maxVANH18) {
-      setMinVANH18Error(true);
-      setMaxVANH18Error(true);
-      toastErrorAccessory("Giá trị Min VANH18 phải nhỏ hơn Max VANH18");
-      return false;
-    } else {
-      setMinVANH18Error(false);
-      setMaxVANH18Error(false);
-    }
-
-    if (
-      minVANH19 < 0 ||
-      maxVANH19 > 100 ||
-      minVANH19 === "" ||
-      maxVANH19 === ""
-    ) {
-      setMinVANH19Error(true);
-      setMaxVANH19Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH19 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH19 > maxVANH19) {
-      setMinVANH19Error(true);
-      setMaxVANH19Error(true);
-      toastErrorAccessory("Giá trị Min VANH19 phải nhỏ hơn Max VANH19");
-      return false;
-    } else {
-      setMinVANH19Error(false);
-      setMaxVANH19Error(false);
-    }
-
-    if (
-      minVANH20 < 0 ||
-      maxVANH20 > 100 ||
-      minVANH20 === "" ||
-      maxVANH20 === ""
-    ) {
-      setMinVANH20Error(true);
-      setMaxVANH20Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH20 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH20 > maxVANH20) {
-      setMinVANH20Error(true);
-      setMaxVANH20Error(true);
-      toastErrorAccessory("Giá trị Min VANH20 phải nhỏ hơn Max VANH20");
-      return false;
-    } else {
-      setMinVANH20Error(false);
-      setMaxVANH20Error(false);
-    }
-
-    if (
-      minVANH21 < 0 ||
-      maxVANH21 > 100 ||
-      minVANH21 === "" ||
-      maxVANH21 === ""
-    ) {
-      setMinVANH21Error(true);
-      setMaxVANH21Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH21 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH21 > maxVANH21) {
-      setMinVANH21Error(true);
-      setMaxVANH21Error(true);
-      toastErrorAccessory("Giá trị Min VANH21 phải nhỏ hơn Max VANH21");
-      return false;
-    } else {
-      setMinVANH21Error(false);
-      setMaxVANH21Error(false);
-    }
-
-    if (
-      minVANH22 < 0 ||
-      maxVANH22 > 100 ||
-      minVANH22 === "" ||
-      maxVANH22 === ""
-    ) {
-      setMinVANH22Error(true);
-      setMaxVANH22Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH22 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH22 > maxVANH22) {
-      setMinVANH22Error(true);
-      setMaxVANH22Error(true);
-      toastErrorAccessory("Giá trị Min VANH22 phải nhỏ hơn Max VANH22");
-      return false;
-    } else {
-      setMinVANH22Error(false);
-      setMaxVANH22Error(false);
-    }
-
-    if (
-      minVANH23 < 0 ||
-      maxVANH23 > 100 ||
-      minVANH23 === "" ||
-      maxVANH23 === ""
-    ) {
-      setMinVANH23Error(true);
-      setMaxVANH23Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH23 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH23 > maxVANH23) {
-      setMinVANH23Error(true);
-      setMaxVANH23Error(true);
-      toastErrorAccessory("Giá trị Min VANH23 phải nhỏ hơn Max VANH23");
-      return false;
-    } else {
-      setMinVANH23Error(false);
-      setMaxVANH23Error(false);
-    }
-
-    if (
-      minVANH24 < 0 ||
-      maxVANH24 > 100 ||
-      minVANH24 === "" ||
-      maxVANH24 === ""
-    ) {
-      setMinVANH24Error(true);
-      setMaxVANH24Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH24 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH24 > maxVANH24) {
-      setMinVANH24Error(true);
-      setMaxVANH24Error(true);
-      toastErrorAccessory("Giá trị Min VANH24 phải nhỏ hơn Max VANH24");
-      return false;
-    } else {
-      setMinVANH24Error(false);
-      setMaxVANH24Error(false);
-    }
-
-    if (
-      minVANH25 < 0 ||
-      maxVANH25 > 100 ||
-      minVANH25 === "" ||
-      maxVANH25 === ""
-    ) {
-      setMinVANH25Error(true);
-      setMaxVANH25Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH25 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH25 > maxVANH25) {
-      setMinVANH25Error(true);
-      setMaxVANH25Error(true);
-      toastErrorAccessory("Giá trị Min VANH25 phải nhỏ hơn Max VANH25");
-      return false;
-    } else {
-      setMinVANH25Error(false);
-      setMaxVANH25Error(false);
-    }
-
-    if (
-      minVANH26 < 0 ||
-      maxVANH26 > 100 ||
-      minVANH26 === "" ||
-      maxVANH26 === ""
-    ) {
-      setMinVANH26Error(true);
-      setMaxVANH26Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH26 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH26 > maxVANH26) {
-      setMinVANH26Error(true);
-      setMaxVANH26Error(true);
-      toastErrorAccessory("Giá trị Min VANH26 phải nhỏ hơn Max VANH26");
-      return false;
-    } else {
-      setMinVANH26Error(false);
-      setMaxVANH26Error(false);
-    }
-    if (
-      minVANH27 < 0 ||
-      maxVANH27 > 100 ||
-      minVANH27 === "" ||
-      maxVANH27 === ""
-    ) {
-      setMinVANH27Error(true);
-      setMaxVANH27Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH27 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH27 > maxVANH27) {
-      setMinVANH27Error(true);
-      setMaxVANH27Error(true);
-      toastErrorAccessory("Giá trị Min VANH27 phải nhỏ hơn Max VANH27");
-      return false;
-    } else {
-      setMinVANH27Error(false);
-      setMaxVANH27Error(false);
-    }
-
-    if (
-      minVANH28 < 0 ||
-      maxVANH28 > 100 ||
-      minVANH28 === "" ||
-      maxVANH28 === ""
-    ) {
-      setMinVANH28Error(true);
-      setMaxVANH28Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH28 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH28 > maxVANH28) {
-      setMinVANH28Error(true);
-      setMaxVANH28Error(true);
-      toastErrorAccessory("Giá trị Min VANH28 phải nhỏ hơn Max VANH28");
-      return false;
-    } else {
-      setMinVANH28Error(false);
-      setMaxVANH28Error(false);
-    }
-
-    if (
-      minVANH29 < 0 ||
-      maxVANH29 > 100 ||
-      minVANH29 === "" ||
-      maxVANH29 === ""
-    ) {
-      setMinVANH29Error(true);
-      setMaxVANH29Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH29 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH29 > maxVANH29) {
-      setMinVANH29Error(true);
-      setMaxVANH29Error(true);
-      toastErrorAccessory("Giá trị Min VANH29 phải nhỏ hơn Max VANH29");
-      return false;
-    } else {
-      setMinVANH29Error(false);
-      setMaxVANH29Error(false);
-    }
-
-    if (
-      minVANH30 < 0 ||
-      maxVANH30 > 100 ||
-      minVANH30 === "" ||
-      maxVANH30 === ""
-    ) {
-      setMinVANH30Error(true);
-      setMaxVANH30Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH30 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH30 > maxVANH30) {
-      setMinVANH30Error(true);
-      setMaxVANH30Error(true);
-      toastErrorAccessory("Giá trị Min VANH30 phải nhỏ hơn Max VANH30");
-      return false;
-    } else {
-      setMinVANH30Error(false);
-      setMaxVANH30Error(false);
-    }
-    if (
-      minVANH31 < 0 ||
-      maxVANH31 > 100 ||
-      minVANH31 === "" ||
-      maxVANH31 === ""
-    ) {
-      setMinVANH31Error(true);
-      setMaxVANH31Error(true);
-      toastErrorAccessory(
-        "Giá trị VANH31 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVANH31 > maxVANH31) {
-      setMinVANH31Error(true);
-      setMaxVANH31Error(true);
-      toastErrorAccessory("Giá trị Min VANH31 phải nhỏ hơn Max VANH31");
-      return false;
-    } else {
-      setMinVANH31Error(false);
-      setMaxVANH31Error(false);
-    }
-
-    if (minVBNH1 < 0 || maxVBNH1 > 100 || minVBNH1 === "" || maxVBNH1 === "") {
-      setMinVBNH1Error(true);
-      setMaxVBNH1Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH1 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH1 > maxVBNH1) {
-      setMinVBNH1Error(true);
-      setMaxVBNH1Error(true);
-      toastErrorAccessory("Giá trị Min VBNH1 phải nhỏ hơn Max VBNH1");
-      return false;
-    } else {
-      setMinVBNH1Error(false);
-      setMaxVBNH1Error(false);
-    }
-
-    if (minVBNH2 < 0 || maxVBNH2 > 100 || minVBNH2 === "" || maxVBNH2 === "") {
-      setMinVBNH2Error(true);
-      setMaxVBNH2Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH2 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH2 > maxVBNH2) {
-      setMinVBNH2Error(true);
-      setMaxVBNH2Error(true);
-      toastErrorAccessory("Giá trị Min VBNH2 phải nhỏ hơn Max VBNH2");
-      return false;
-    } else {
-      setMinVBNH2Error(false);
-      setMaxVBNH2Error(false);
-    }
-
-    if (minVBNH3 < 0 || maxVBNH3 > 100 || minVBNH3 === "" || maxVBNH3 === "") {
-      setMinVBNH3Error(true);
-      setMaxVBNH3Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH3 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH3 > maxVBNH3) {
-      setMinVBNH3Error(true);
-      setMaxVBNH3Error(true);
-      toastErrorAccessory("Giá trị Min VBNH3 phải nhỏ hơn Max VBNH3");
-      return false;
-    } else {
-      setMinVBNH3Error(false);
-      setMaxVBNH3Error(false);
-    }
-
-    if (minVBNH4 < 0 || maxVBNH4 > 100 || minVBNH4 === "" || maxVBNH4 === "") {
-      setMinVBNH4Error(true);
-      setMaxVBNH4Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH4 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH4 > maxVBNH4) {
-      setMinVBNH4Error(true);
-      setMaxVBNH4Error(true);
-      toastErrorAccessory("Giá trị Min VBNH4 phải nhỏ hơn Max VBNH4");
-      return false;
-    } else {
-      setMinVBNH4Error(false);
-      setMaxVBNH4Error(false);
-    }
-
-    if (minVBNH5 < 0 || maxVBNH5 > 100 || minVBNH5 === "" || maxVBNH5 === "") {
-      setMinVBNH5Error(true);
-      setMaxVBNH5Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH5 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH5 > maxVBNH5) {
-      setMinVBNH5Error(true);
-      setMaxVBNH5Error(true);
-      toastErrorAccessory("Giá trị Min VBNH5 phải nhỏ hơn Max VBNH5");
-      return false;
-    } else {
-      setMinVBNH5Error(false);
-      setMaxVBNH5Error(false);
-    }
-
-    if (minVBNH6 < 0 || maxVBNH6 > 100 || minVBNH6 === "" || maxVBNH6 === "") {
-      setMinVBNH6Error(true);
-      setMaxVBNH6Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH6 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH6 > maxVBNH6) {
-      setMinVBNH6Error(true);
-      setMaxVBNH6Error(true);
-      toastErrorAccessory("Giá trị Min VBNH6 phải nhỏ hơn Max VBNH6");
-      return false;
-    } else {
-      setMinVBNH6Error(false);
-      setMaxVBNH6Error(false);
-    }
-
-    if (minVBNH7 < 0 || maxVBNH7 > 100 || minVBNH7 === "" || maxVBNH7 === "") {
-      setMinVBNH7Error(true);
-      setMaxVBNH7Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH7 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH7 > maxVBNH7) {
-      setMinVBNH7Error(true);
-      setMaxVBNH7Error(true);
-      toastErrorAccessory("Giá trị Min VBNH7 phải nhỏ hơn Max VBNH7");
-      return false;
-    } else {
-      setMinVBNH7Error(false);
-      setMaxVBNH7Error(false);
-    }
-
-    if (minVBNH8 < 0 || maxVBNH8 > 100 || minVBNH8 === "" || maxVBNH8 === "") {
-      setMinVBNH8Error(true);
-      setMaxVBNH8Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH8 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH8 > maxVBNH8) {
-      setMinVBNH8Error(true);
-      setMaxVBNH8Error(true);
-      toastErrorAccessory("Giá trị Min VBNH8 phải nhỏ hơn Max VBNH8");
-      return false;
-    } else {
-      setMinVBNH8Error(false);
-      setMaxVBNH8Error(false);
-    }
-
-    if (minVBNH9 < 0 || maxVBNH9 > 100 || minVBNH9 === "" || maxVBNH9 === "") {
-      setMinVBNH9Error(true);
-      setMaxVBNH9Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH9 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH9 > maxVBNH9) {
-      setMinVBNH9Error(true);
-      setMaxVBNH9Error(true);
-      toastErrorAccessory("Giá trị Min VBNH9 phải nhỏ hơn Max VBNH9");
-      return false;
-    } else {
-      setMinVBNH9Error(false);
-      setMaxVBNH9Error(false);
-    }
-
-    if (
-      minVBNH10 < 0 ||
-      maxVBNH10 > 100 ||
-      minVBNH10 === "" ||
-      maxVBNH10 === ""
-    ) {
-      setMinVBNH10Error(true);
-      setMaxVBNH10Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH10 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH10 > maxVBNH10) {
-      setMinVBNH10Error(true);
-      setMaxVBNH10Error(true);
-      toastErrorAccessory("Giá trị Min VBNH10 phải nhỏ hơn Max VBNH10");
-      return false;
-    } else {
-      setMinVBNH10Error(false);
-      setMaxVBNH10Error(false);
+    const dataArray = [
+      {
+        name: "IAH1",
+        min: minIAH1,
+        max: maxIAH1,
+        minError: setMinIAH1Error,
+        maxError: setMaxIAH1Error,
+      },
+      {
+        name: "IAH2",
+        min: minIAH2,
+        max: maxIAH2,
+        minError: setMinIAH2Error,
+        maxError: setMaxIAH2Error,
+      },
+      {
+        name: "IAH3",
+        min: minIAH3,
+        max: maxIAH3,
+        minError: setMinIAH3Error,
+        maxError: setMaxIAH3Error,
+      },
+      {
+        name: "IAH4",
+        min: minIAH4,
+        max: maxIAH4,
+        minError: setMinIAH4Error,
+        maxError: setMaxIAH4Error,
+      },
+      {
+        name: "IAH5",
+        min: minIAH5,
+        max: maxIAH5,
+        minError: setMinIAH5Error,
+        maxError: setMaxIAH5Error,
+      },
+      {
+        name: "IAH6",
+        min: minIAH6,
+        max: maxIAH6,
+        minError: setMinIAH6Error,
+        maxError: setMaxIAH6Error,
+      },
+      {
+        name: "IAH7",
+        min: minIAH7,
+        max: maxIAH7,
+        minError: setMinIAH7Error,
+        maxError: setMaxIAH7Error,
+      },
+      {
+        name: "IAH8",
+        min: minIAH8,
+        max: maxIAH8,
+        minError: setMinIAH8Error,
+        maxError: setMaxIAH8Error,
+      },
+      {
+        name: "IAH9",
+        min: minIAH9,
+        max: maxIAH9,
+        minError: setMinIAH9Error,
+        maxError: setMaxIAH9Error,
+      },
+      {
+        name: "IAH10",
+        min: minIAH10,
+        max: maxIAH10,
+        minError: setMinIAH10Error,
+        maxError: setMaxIAH10Error,
+      },
+      {
+        name: "IAH11",
+        min: minIAH11,
+        max: maxIAH11,
+        minError: setMinIAH11Error,
+        maxError: setMaxIAH11Error,
+      },
+      {
+        name: "IAH12",
+        min: minIAH12,
+        max: maxIAH12,
+        minError: setMinIAH12Error,
+        maxError: setMaxIAH12Error,
+      },
+      {
+        name: "IAH13",
+        min: minIAH13,
+        max: maxIAH13,
+        minError: setMinIAH13Error,
+        maxError: setMaxIAH13Error,
+      },
+      {
+        name: "IAH14",
+        min: minIAH14,
+        max: maxIAH14,
+        minError: setMinIAH14Error,
+        maxError: setMaxIAH14Error,
+      },
+      {
+        name: "IAH15",
+        min: minIAH15,
+        max: maxIAH15,
+        minError: setMinIAH15Error,
+        maxError: setMaxIAH15Error,
+      },
+      {
+        name: "IAH16",
+        min: minIAH16,
+        max: maxIAH16,
+        minError: setMinIAH16Error,
+        maxError: setMaxIAH16Error,
+      },
+      {
+        name: "IAH17",
+        min: minIAH17,
+        max: maxIAH17,
+        minError: setMinIAH17Error,
+        maxError: setMaxIAH17Error,
+      },
+      {
+        name: "IAH18",
+        min: minIAH18,
+        max: maxIAH18,
+        minError: setMinIAH18Error,
+        maxError: setMaxIAH18Error,
+      },
+      {
+        name: "IAH19",
+        min: minIAH19,
+        max: maxIAH19,
+        minError: setMinIAH19Error,
+        maxError: setMaxIAH19Error,
+      },
+      {
+        name: "IAH20",
+        min: minIAH20,
+        max: maxIAH20,
+        minError: setMinIAH20Error,
+        maxError: setMaxIAH20Error,
+      },
+      {
+        name: "IAH21",
+        min: minIAH21,
+        max: maxIAH21,
+        minError: setMinIAH21Error,
+        maxError: setMaxIAH21Error,
+      },
+      {
+        name: "IAH22",
+        min: minIAH22,
+        max: maxIAH22,
+        minError: setMinIAH22Error,
+        maxError: setMaxIAH22Error,
+      },
+      {
+        name: "IAH23",
+        min: minIAH23,
+        max: maxIAH23,
+        minError: setMinIAH23Error,
+        maxError: setMaxIAH23Error,
+      },
+      {
+        name: "IAH24",
+        min: minIAH24,
+        max: maxIAH24,
+        minError: setMinIAH24Error,
+        maxError: setMaxIAH24Error,
+      },
+      {
+        name: "IAH25",
+        min: minIAH25,
+        max: maxIAH25,
+        minError: setMinIAH25Error,
+        maxError: setMaxIAH25Error,
+      },
+      {
+        name: "IAH26",
+        min: minIAH26,
+        max: maxIAH26,
+        minError: setMinIAH26Error,
+        maxError: setMaxIAH26Error,
+      },
+      {
+        name: "IAH27",
+        min: minIAH27,
+        max: maxIAH27,
+        minError: setMinIAH27Error,
+        maxError: setMaxIAH27Error,
+      },
+      {
+        name: "IAH28",
+        min: minIAH28,
+        max: maxIAH28,
+        minError: setMinIAH28Error,
+        maxError: setMaxIAH28Error,
+      },
+      {
+        name: "IAH29",
+        min: minIAH29,
+        max: maxIAH29,
+        minError: setMinIAH29Error,
+        maxError: setMaxIAH29Error,
+      },
+      {
+        name: "IAH30",
+        min: minIAH30,
+        max: maxIAH30,
+        minError: setMinIAH30Error,
+        maxError: setMaxIAH30Error,
+      },
+      {
+        name: "IAH31",
+        min: minIAH31,
+        max: maxIAH31,
+        minError: setMinIAH31Error,
+        maxError: setMaxIAH31Error,
+      },
+      {
+        name: "IBH1",
+        min: minIBH1,
+        max: maxIBH1,
+        minError: setMinIBH1Error,
+        maxError: setMaxIBH1Error,
+      },
+      {
+        name: "IBH2",
+        min: minIBH2,
+        max: maxIBH2,
+        minError: setMinIBH2Error,
+        maxError: setMaxIBH2Error,
+      },
+      {
+        name: "IBH3",
+        min: minIBH3,
+        max: maxIBH3,
+        minError: setMinIBH3Error,
+        maxError: setMaxIBH3Error,
+      },
+      {
+        name: "IBH4",
+        min: minIBH4,
+        max: maxIBH4,
+        minError: setMinIBH4Error,
+        maxError: setMaxIBH4Error,
+      },
+      {
+        name: "IBH5",
+        min: minIBH5,
+        max: maxIBH5,
+        minError: setMinIBH5Error,
+        maxError: setMaxIBH5Error,
+      },
+      {
+        name: "IBH6",
+        min: minIBH6,
+        max: maxIBH6,
+        minError: setMinIBH6Error,
+        maxError: setMaxIBH6Error,
+      },
+      {
+        name: "IBH7",
+        min: minIBH7,
+        max: maxIBH7,
+        minError: setMinIBH7Error,
+        maxError: setMaxIBH7Error,
+      },
+      {
+        name: "IBH8",
+        min: minIBH8,
+        max: maxIBH8,
+        minError: setMinIBH8Error,
+        maxError: setMaxIBH8Error,
+      },
+      {
+        name: "IBH9",
+        min: minIBH9,
+        max: maxIBH9,
+        minError: setMinIBH9Error,
+        maxError: setMaxIBH9Error,
+      },
+      {
+        name: "IBH10",
+        min: minIBH10,
+        max: maxIBH10,
+        minError: setMinIBH10Error,
+        maxError: setMaxIBH10Error,
+      },
+      {
+        name: "IBH11",
+        min: minIBH11,
+        max: maxIBH11,
+        minError: setMinIBH11Error,
+        maxError: setMaxIBH11Error,
+      },
+      {
+        name: "IBH12",
+        min: minIBH12,
+        max: maxIBH12,
+        minError: setMinIBH12Error,
+        maxError: setMaxIBH12Error,
+      },
+      {
+        name: "IBH13",
+        min: minIBH13,
+        max: maxIBH13,
+        minError: setMinIBH13Error,
+        maxError: setMaxIBH13Error,
+      },
+      {
+        name: "IBH14",
+        min: minIBH14,
+        max: maxIBH14,
+        minError: setMinIBH14Error,
+        maxError: setMaxIBH14Error,
+      },
+      {
+        name: "IBH15",
+        min: minIBH15,
+        max: maxIBH15,
+        minError: setMinIBH15Error,
+        maxError: setMaxIBH15Error,
+      },
+      {
+        name: "IBH16",
+        min: minIBH16,
+        max: maxIBH16,
+        minError: setMinIBH16Error,
+        maxError: setMaxIBH16Error,
+      },
+      {
+        name: "IBH17",
+        min: minIBH17,
+        max: maxIBH17,
+        minError: setMinIBH17Error,
+        maxError: setMaxIBH17Error,
+      },
+      {
+        name: "IBH18",
+        min: minIBH18,
+        max: maxIBH18,
+        minError: setMinIBH18Error,
+        maxError: setMaxIBH18Error,
+      },
+      {
+        name: "IBH19",
+        min: minIBH19,
+        max: maxIBH19,
+        minError: setMinIBH19Error,
+        maxError: setMaxIBH19Error,
+      },
+      {
+        name: "IBH20",
+        min: minIBH20,
+        max: maxIBH20,
+        minError: setMinIBH20Error,
+        maxError: setMaxIBH20Error,
+      },
+      {
+        name: "IBH21",
+        min: minIBH21,
+        max: maxIBH21,
+        minError: setMinIBH21Error,
+        maxError: setMaxIBH21Error,
+      },
+      {
+        name: "IBH22",
+        min: minIBH22,
+        max: maxIBH22,
+        minError: setMinIBH22Error,
+        maxError: setMaxIBH22Error,
+      },
+      {
+        name: "IBH23",
+        min: minIBH23,
+        max: maxIBH23,
+        minError: setMinIBH23Error,
+        maxError: setMaxIBH23Error,
+      },
+      {
+        name: "IBH24",
+        min: minIBH24,
+        max: maxIBH24,
+        minError: setMinIBH24Error,
+        maxError: setMaxIBH24Error,
+      },
+      {
+        name: "IBH25",
+        min: minIBH25,
+        max: maxIBH25,
+        minError: setMinIBH25Error,
+        maxError: setMaxIBH25Error,
+      },
+      {
+        name: "IBH26",
+        min: minIBH26,
+        max: maxIBH26,
+        minError: setMinIBH26Error,
+        maxError: setMaxIBH26Error,
+      },
+      {
+        name: "IBH27",
+        min: minIBH27,
+        max: maxIBH27,
+        minError: setMinIBH27Error,
+        maxError: setMaxIBH27Error,
+      },
+      {
+        name: "IBH28",
+        min: minIBH28,
+        max: maxIBH28,
+        minError: setMinIBH28Error,
+        maxError: setMaxIBH28Error,
+      },
+      {
+        name: "IBH29",
+        min: minIBH29,
+        max: maxIBH29,
+        minError: setMinIBH29Error,
+        maxError: setMaxIBH29Error,
+      },
+      {
+        name: "IBH30",
+        min: minIBH30,
+        max: maxIBH30,
+        minError: setMinIBH30Error,
+        maxError: setMaxIBH30Error,
+      },
+      {
+        name: "IBH31",
+        min: minIBH31,
+        max: maxIBH31,
+        minError: setMinIBH31Error,
+        maxError: setMaxIBH31Error,
+      },
+      {
+        name: "ICH1",
+        min: minICH1,
+        max: maxICH1,
+        minError: setMinICH1Error,
+        maxError: setMaxICH1Error,
+      },
+      {
+        name: "ICH2",
+        min: minICH2,
+        max: maxICH2,
+        minError: setMinICH2Error,
+        maxError: setMaxICH2Error,
+      },
+      {
+        name: "ICH3",
+        min: minICH3,
+        max: maxICH3,
+        minError: setMinICH3Error,
+        maxError: setMaxICH3Error,
+      },
+      {
+        name: "ICH4",
+        min: minICH4,
+        max: maxICH4,
+        minError: setMinICH4Error,
+        maxError: setMaxICH4Error,
+      },
+      {
+        name: "ICH5",
+        min: minICH5,
+        max: maxICH5,
+        minError: setMinICH5Error,
+        maxError: setMaxICH5Error,
+      },
+      {
+        name: "ICH6",
+        min: minICH6,
+        max: maxICH6,
+        minError: setMinICH6Error,
+        maxError: setMaxICH6Error,
+      },
+      {
+        name: "ICH7",
+        min: minICH7,
+        max: maxICH7,
+        minError: setMinICH7Error,
+        maxError: setMaxICH7Error,
+      },
+      {
+        name: "ICH8",
+        min: minICH8,
+        max: maxICH8,
+        minError: setMinICH8Error,
+        maxError: setMaxICH8Error,
+      },
+      {
+        name: "ICH9",
+        min: minICH9,
+        max: maxICH9,
+        minError: setMinICH9Error,
+        maxError: setMaxICH9Error,
+      },
+      {
+        name: "ICH10",
+        min: minICH10,
+        max: maxICH10,
+        minError: setMinICH10Error,
+        maxError: setMaxICH10Error,
+      },
+      {
+        name: "ICH11",
+        min: minICH11,
+        max: maxICH11,
+        minError: setMinICH11Error,
+        maxError: setMaxICH11Error,
+      },
+      {
+        name: "ICH12",
+        min: minICH12,
+        max: maxICH12,
+        minError: setMinICH12Error,
+        maxError: setMaxICH12Error,
+      },
+      {
+        name: "ICH13",
+        min: minICH13,
+        max: maxICH13,
+        minError: setMinICH13Error,
+        maxError: setMaxICH13Error,
+      },
+      {
+        name: "ICH14",
+        min: minICH14,
+        max: maxICH14,
+        minError: setMinICH14Error,
+        maxError: setMaxICH14Error,
+      },
+      {
+        name: "ICH15",
+        min: minICH15,
+        max: maxICH15,
+        minError: setMinICH15Error,
+        maxError: setMaxICH15Error,
+      },
+      {
+        name: "ICH16",
+        min: minICH16,
+        max: maxICH16,
+        minError: setMinICH16Error,
+        maxError: setMaxICH16Error,
+      },
+      {
+        name: "ICH17",
+        min: minICH17,
+        max: maxICH17,
+        minError: setMinICH17Error,
+        maxError: setMaxICH17Error,
+      },
+      {
+        name: "ICH18",
+        min: minICH18,
+        max: maxICH18,
+        minError: setMinICH18Error,
+        maxError: setMaxICH18Error,
+      },
+      {
+        name: "ICH19",
+        min: minICH19,
+        max: maxICH19,
+        minError: setMinICH19Error,
+        maxError: setMaxICH19Error,
+      },
+      {
+        name: "ICH20",
+        min: minICH20,
+        max: maxICH20,
+        minError: setMinICH20Error,
+        maxError: setMaxICH20Error,
+      },
+      {
+        name: "ICH21",
+        min: minICH21,
+        max: maxICH21,
+        minError: setMinICH21Error,
+        maxError: setMaxICH21Error,
+      },
+      {
+        name: "ICH22",
+        min: minICH22,
+        max: maxICH22,
+        minError: setMinICH22Error,
+        maxError: setMaxICH22Error,
+      },
+      {
+        name: "ICH23",
+        min: minICH23,
+        max: maxICH23,
+        minError: setMinICH23Error,
+        maxError: setMaxICH23Error,
+      },
+      {
+        name: "ICH24",
+        min: minICH24,
+        max: maxICH24,
+        minError: setMinICH24Error,
+        maxError: setMaxICH24Error,
+      },
+      {
+        name: "ICH25",
+        min: minICH25,
+        max: maxICH25,
+        minError: setMinICH25Error,
+        maxError: setMaxICH25Error,
+      },
+      {
+        name: "ICH26",
+        min: minICH26,
+        max: maxICH26,
+        minError: setMinICH26Error,
+        maxError: setMaxICH26Error,
+      },
+      {
+        name: "ICH27",
+        min: minICH27,
+        max: maxICH27,
+        minError: setMinICH27Error,
+        maxError: setMaxICH27Error,
+      },
+      {
+        name: "ICH28",
+        min: minICH28,
+        max: maxICH28,
+        minError: setMinICH28Error,
+        maxError: setMaxICH28Error,
+      },
+      {
+        name: "ICH29",
+        min: minICH29,
+        max: maxICH29,
+        minError: setMinICH29Error,
+        maxError: setMaxICH29Error,
+      },
+      {
+        name: "ICH30",
+        min: minICH30,
+        max: maxICH30,
+        minError: setMinICH30Error,
+        maxError: setMaxICH30Error,
+      },
+      {
+        name: "ICH31",
+        min: minICH31,
+        max: maxICH31,
+        minError: setMinICH31Error,
+        maxError: setMaxICH31Error,
+      },
+      {
+        name: "VANH1",
+        min: minVANH1,
+        max: maxVANH1,
+        minError: setMinVANH1Error,
+        maxError: setMaxVANH1Error,
+      },
+      {
+        name: "VANH2",
+        min: minVANH2,
+        max: maxVANH2,
+        minError: setMinVANH2Error,
+        maxError: setMaxVANH2Error,
+      },
+      {
+        name: "VANH3",
+        min: minVANH3,
+        max: maxVANH3,
+        minError: setMinVANH3Error,
+        maxError: setMaxVANH3Error,
+      },
+      {
+        name: "VANH4",
+        min: minVANH4,
+        max: maxVANH4,
+        minError: setMinVANH4Error,
+        maxError: setMaxVANH4Error,
+      },
+      {
+        name: "VANH5",
+        min: minVANH5,
+        max: maxVANH5,
+        minError: setMinVANH5Error,
+        maxError: setMaxVANH5Error,
+      },
+      {
+        name: "VANH6",
+        min: minVANH6,
+        max: maxVANH6,
+        minError: setMinVANH6Error,
+        maxError: setMaxVANH6Error,
+      },
+      {
+        name: "VANH7",
+        min: minVANH7,
+        max: maxVANH7,
+        minError: setMinVANH7Error,
+        maxError: setMaxVANH7Error,
+      },
+      {
+        name: "VANH8",
+        min: minVANH8,
+        max: maxVANH8,
+        minError: setMinVANH8Error,
+        maxError: setMaxVANH8Error,
+      },
+      {
+        name: "VANH9",
+        min: minVANH9,
+        max: maxVANH9,
+        minError: setMinVANH9Error,
+        maxError: setMaxVANH9Error,
+      },
+      {
+        name: "VANH10",
+        min: minVANH10,
+        max: maxVANH10,
+        minError: setMinVANH10Error,
+        maxError: setMaxVANH10Error,
+      },
+      {
+        name: "VANH11",
+        min: minVANH11,
+        max: maxVANH11,
+        minError: setMinVANH11Error,
+        maxError: setMaxVANH11Error,
+      },
+      {
+        name: "VANH12",
+        min: minVANH12,
+        max: maxVANH12,
+        minError: setMinVANH12Error,
+        maxError: setMaxVANH12Error,
+      },
+      {
+        name: "VANH13",
+        min: minVANH13,
+        max: maxVANH13,
+        minError: setMinVANH13Error,
+        maxError: setMaxVANH13Error,
+      },
+      {
+        name: "VANH14",
+        min: minVANH14,
+        max: maxVANH14,
+        minError: setMinVANH14Error,
+        maxError: setMaxVANH14Error,
+      },
+      {
+        name: "VANH15",
+        min: minVANH15,
+        max: maxVANH15,
+        minError: setMinVANH15Error,
+        maxError: setMaxVANH15Error,
+      },
+      {
+        name: "VANH16",
+        min: minVANH16,
+        max: maxVANH16,
+        minError: setMinVANH16Error,
+        maxError: setMaxVANH16Error,
+      },
+      {
+        name: "VANH17",
+        min: minVANH17,
+        max: maxVANH17,
+        minError: setMinVANH17Error,
+        maxError: setMaxVANH17Error,
+      },
+      {
+        name: "VANH18",
+        min: minVANH18,
+        max: maxVANH18,
+        minError: setMinVANH18Error,
+        maxError: setMaxVANH18Error,
+      },
+      {
+        name: "VANH19",
+        min: minVANH19,
+        max: maxVANH19,
+        minError: setMinVANH19Error,
+        maxError: setMaxVANH19Error,
+      },
+      {
+        name: "VANH20",
+        min: minVANH20,
+        max: maxVANH20,
+        minError: setMinVANH20Error,
+        maxError: setMaxVANH20Error,
+      },
+      {
+        name: "VANH21",
+        min: minVANH21,
+        max: maxVANH21,
+        minError: setMinVANH21Error,
+        maxError: setMaxVANH21Error,
+      },
+      {
+        name: "VANH22",
+        min: minVANH22,
+        max: maxVANH22,
+        minError: setMinVANH22Error,
+        maxError: setMaxVANH22Error,
+      },
+      {
+        name: "VANH23",
+        min: minVANH23,
+        max: maxVANH23,
+        minError: setMinVANH23Error,
+        maxError: setMaxVANH23Error,
+      },
+      {
+        name: "VANH24",
+        min: minVANH24,
+        max: maxVANH24,
+        minError: setMinVANH24Error,
+        maxError: setMaxVANH24Error,
+      },
+      {
+        name: "VANH25",
+        min: minVANH25,
+        max: maxVANH25,
+        minError: setMinVANH25Error,
+        maxError: setMaxVANH25Error,
+      },
+      {
+        name: "VANH26",
+        min: minVANH26,
+        max: maxVANH26,
+        minError: setMinVANH26Error,
+        maxError: setMaxVANH26Error,
+      },
+      {
+        name: "VANH27",
+        min: minVANH27,
+        max: maxVANH27,
+        minError: setMinVANH27Error,
+        maxError: setMaxVANH27Error,
+      },
+      {
+        name: "VANH28",
+        min: minVANH28,
+        max: maxVANH28,
+        minError: setMinVANH28Error,
+        maxError: setMaxVANH28Error,
+      },
+      {
+        name: "VANH29",
+        min: minVANH29,
+        max: maxVANH29,
+        minError: setMinVANH29Error,
+        maxError: setMaxVANH29Error,
+      },
+      {
+        name: "VANH30",
+        min: minVANH30,
+        max: maxVANH30,
+        minError: setMinVANH30Error,
+        maxError: setMaxVANH30Error,
+      },
+      {
+        name: "VANH31",
+        min: minVANH31,
+        max: maxVANH31,
+        minError: setMinVANH31Error,
+        maxError: setMaxVANH31Error,
+      },
+
+      {
+        name: "VBNH1",
+        min: minVBNH1,
+        max: maxVBNH1,
+        minError: setMinVBNH1Error,
+        maxError: setMaxVBNH1Error,
+      },
+      {
+        name: "VBNH2",
+        min: minVBNH2,
+        max: maxVBNH2,
+        minError: setMinVBNH2Error,
+        maxError: setMaxVBNH2Error,
+      },
+      {
+        name: "VBNH3",
+        min: minVBNH3,
+        max: maxVBNH3,
+        minError: setMinVBNH3Error,
+        maxError: setMaxVBNH3Error,
+      },
+      {
+        name: "VBNH4",
+        min: minVBNH4,
+        max: maxVBNH4,
+        minError: setMinVBNH4Error,
+        maxError: setMaxVBNH4Error,
+      },
+      {
+        name: "VBNH5",
+        min: minVBNH5,
+        max: maxVBNH5,
+        minError: setMinVBNH5Error,
+        maxError: setMaxVBNH5Error,
+      },
+      {
+        name: "VBNH6",
+        min: minVBNH6,
+        max: maxVBNH6,
+        minError: setMinVBNH6Error,
+        maxError: setMaxVBNH6Error,
+      },
+      {
+        name: "VBNH7",
+        min: minVBNH7,
+        max: maxVBNH7,
+        minError: setMinVBNH7Error,
+        maxError: setMaxVBNH7Error,
+      },
+      {
+        name: "VBNH8",
+        min: minVBNH8,
+        max: maxVBNH8,
+        minError: setMinVBNH8Error,
+        maxError: setMaxVBNH8Error,
+      },
+      {
+        name: "VBNH9",
+        min: minVBNH9,
+        max: maxVBNH9,
+        minError: setMinVBNH9Error,
+        maxError: setMaxVBNH9Error,
+      },
+      {
+        name: "VBNH10",
+        min: minVBNH10,
+        max: maxVBNH10,
+        minError: setMinVBNH10Error,
+        maxError: setMaxVBNH10Error,
+      },
+      {
+        name: "VBNH11",
+        min: minVBNH11,
+        max: maxVBNH11,
+        minError: setMinVBNH11Error,
+        maxError: setMaxVBNH11Error,
+      },
+      {
+        name: "VBNH12",
+        min: minVBNH12,
+        max: maxVBNH12,
+        minError: setMinVBNH12Error,
+        maxError: setMaxVBNH12Error,
+      },
+      {
+        name: "VBNH13",
+        min: minVBNH13,
+        max: maxVBNH13,
+        minError: setMinVBNH13Error,
+        maxError: setMaxVBNH13Error,
+      },
+      {
+        name: "VBNH14",
+        min: minVBNH14,
+        max: maxVBNH14,
+        minError: setMinVBNH14Error,
+        maxError: setMaxVBNH14Error,
+      },
+      {
+        name: "VBNH15",
+        min: minVBNH15,
+        max: maxVBNH15,
+        minError: setMinVBNH15Error,
+        maxError: setMaxVBNH15Error,
+      },
+      {
+        name: "VBNH16",
+        min: minVBNH16,
+        max: maxVBNH16,
+        minError: setMinVBNH16Error,
+        maxError: setMaxVBNH16Error,
+      },
+      {
+        name: "VBNH17",
+        min: minVBNH17,
+        max: maxVBNH17,
+        minError: setMinVBNH17Error,
+        maxError: setMaxVBNH17Error,
+      },
+      {
+        name: "VBNH18",
+        min: minVBNH18,
+        max: maxVBNH18,
+        minError: setMinVBNH18Error,
+        maxError: setMaxVBNH18Error,
+      },
+      {
+        name: "VBNH19",
+        min: minVBNH19,
+        max: maxVBNH19,
+        minError: setMinVBNH19Error,
+        maxError: setMaxVBNH19Error,
+      },
+      {
+        name: "VBNH20",
+        min: minVBNH20,
+        max: maxVBNH20,
+        minError: setMinVBNH20Error,
+        maxError: setMaxVBNH20Error,
+      },
+      {
+        name: "VBNH21",
+        min: minVBNH21,
+        max: maxVBNH21,
+        minError: setMinVBNH21Error,
+        maxError: setMaxVBNH21Error,
+      },
+      {
+        name: "VBNH22",
+        min: minVBNH22,
+        max: maxVBNH22,
+        minError: setMinVBNH22Error,
+        maxError: setMaxVBNH22Error,
+      },
+      {
+        name: "VBNH23",
+        min: minVBNH23,
+        max: maxVBNH23,
+        minError: setMinVBNH23Error,
+        maxError: setMaxVBNH23Error,
+      },
+      {
+        name: "VBNH24",
+        min: minVBNH24,
+        max: maxVBNH24,
+        minError: setMinVBNH24Error,
+        maxError: setMaxVBNH24Error,
+      },
+      {
+        name: "VBNH25",
+        min: minVBNH25,
+        max: maxVBNH25,
+        minError: setMinVBNH25Error,
+        maxError: setMaxVBNH25Error,
+      },
+      {
+        name: "VBNH26",
+        min: minVBNH26,
+        max: maxVBNH26,
+        minError: setMinVBNH26Error,
+        maxError: setMaxVBNH26Error,
+      },
+      {
+        name: "VBNH27",
+        min: minVBNH27,
+        max: maxVBNH27,
+        minError: setMinVBNH27Error,
+        maxError: setMaxVBNH27Error,
+      },
+      {
+        name: "VBNH28",
+        min: minVBNH28,
+        max: maxVBNH28,
+        minError: setMinVBNH28Error,
+        maxError: setMaxVBNH28Error,
+      },
+      {
+        name: "VBNH29",
+        min: minVBNH29,
+        max: maxVBNH29,
+        minError: setMinVBNH29Error,
+        maxError: setMaxVBNH29Error,
+      },
+      {
+        name: "VBNH30",
+        min: minVBNH30,
+        max: maxVBNH30,
+        minError: setMinVBNH30Error,
+        maxError: setMaxVBNH30Error,
+      },
+      {
+        name: "VBNH31",
+        min: minVBNH31,
+        max: maxVBNH31,
+        minError: setMinVBNH31Error,
+        maxError: setMaxVBNH31Error,
+      },
+      {
+        name: "VCNH1",
+        min: minVCNH1,
+        max: maxVCNH1,
+        minError: setMinVCNH1Error,
+        maxError: setMaxVCNH1Error,
+      },
+      {
+        name: "VCNH2",
+        min: minVCNH2,
+        max: maxVCNH2,
+        minError: setMinVCNH2Error,
+        maxError: setMaxVCNH2Error,
+      },
+      {
+        name: "VCNH3",
+        min: minVCNH3,
+        max: maxVCNH3,
+        minError: setMinVCNH3Error,
+        maxError: setMaxVCNH3Error,
+      },
+      {
+        name: "VCNH4",
+        min: minVCNH4,
+        max: maxVCNH4,
+        minError: setMinVCNH4Error,
+        maxError: setMaxVCNH4Error,
+      },
+      {
+        name: "VCNH5",
+        min: minVCNH5,
+        max: maxVCNH5,
+        minError: setMinVCNH5Error,
+        maxError: setMaxVCNH5Error,
+      },
+      {
+        name: "VCNH6",
+        min: minVCNH6,
+        max: maxVCNH6,
+        minError: setMinVCNH6Error,
+        maxError: setMaxVCNH6Error,
+      },
+      {
+        name: "VCNH7",
+        min: minVCNH7,
+        max: maxVCNH7,
+        minError: setMinVCNH7Error,
+        maxError: setMaxVCNH7Error,
+      },
+      {
+        name: "VCNH8",
+        min: minVCNH8,
+        max: maxVCNH8,
+        minError: setMinVCNH8Error,
+        maxError: setMaxVCNH8Error,
+      },
+      {
+        name: "VCNH9",
+        min: minVCNH9,
+        max: maxVCNH9,
+        minError: setMinVCNH9Error,
+        maxError: setMaxVCNH9Error,
+      },
+      {
+        name: "VCNH10",
+        min: minVCNH10,
+        max: maxVCNH10,
+        minError: setMinVCNH10Error,
+        maxError: setMaxVCNH10Error,
+      },
+      {
+        name: "VCNH11",
+        min: minVCNH11,
+        max: maxVCNH11,
+        minError: setMinVCNH11Error,
+        maxError: setMaxVCNH11Error,
+      },
+      {
+        name: "VCNH12",
+        min: minVCNH12,
+        max: maxVCNH12,
+        minError: setMinVCNH12Error,
+        maxError: setMaxVCNH12Error,
+      },
+      {
+        name: "VCNH13",
+        min: minVCNH13,
+        max: maxVCNH13,
+        minError: setMinVCNH13Error,
+        maxError: setMaxVCNH13Error,
+      },
+      {
+        name: "VCNH14",
+        min: minVCNH14,
+        max: maxVCNH14,
+        minError: setMinVCNH14Error,
+        maxError: setMaxVCNH14Error,
+      },
+      {
+        name: "VCNH15",
+        min: minVCNH15,
+        max: maxVCNH15,
+        minError: setMinVCNH15Error,
+        maxError: setMaxVCNH15Error,
+      },
+      {
+        name: "VCNH16",
+        min: minVCNH16,
+        max: maxVCNH16,
+        minError: setMinVCNH16Error,
+        maxError: setMaxVCNH16Error,
+      },
+      {
+        name: "VCNH17",
+        min: minVCNH17,
+        max: maxVCNH17,
+        minError: setMinVCNH17Error,
+        maxError: setMaxVCNH17Error,
+      },
+      {
+        name: "VCNH18",
+        min: minVCNH18,
+        max: maxVCNH18,
+        minError: setMinVCNH18Error,
+        maxError: setMaxVCNH18Error,
+      },
+      {
+        name: "VCNH19",
+        min: minVCNH19,
+        max: maxVCNH19,
+        minError: setMinVCNH19Error,
+        maxError: setMaxVCNH19Error,
+      },
+      {
+        name: "VCNH20",
+        min: minVCNH20,
+        max: maxVCNH20,
+        minError: setMinVCNH20Error,
+        maxError: setMaxVCNH20Error,
+      },
+      {
+        name: "VCNH21",
+        min: minVCNH21,
+        max: maxVCNH21,
+        minError: setMinVCNH21Error,
+        maxError: setMaxVCNH21Error,
+      },
+      {
+        name: "VCNH22",
+        min: minVCNH22,
+        max: maxVCNH22,
+        minError: setMinVCNH22Error,
+        maxError: setMaxVCNH22Error,
+      },
+      {
+        name: "VCNH23",
+        min: minVCNH23,
+        max: maxVCNH23,
+        minError: setMinVCNH23Error,
+        maxError: setMaxVCNH23Error,
+      },
+      {
+        name: "VCNH24",
+        min: minVCNH24,
+        max: maxVCNH24,
+        minError: setMinVCNH24Error,
+        maxError: setMaxVCNH24Error,
+      },
+      {
+        name: "VCNH25",
+        min: minVCNH25,
+        max: maxVCNH25,
+        minError: setMinVCNH25Error,
+        maxError: setMaxVCNH25Error,
+      },
+      {
+        name: "VCNH26",
+        min: minVCNH26,
+        max: maxVCNH26,
+        minError: setMinVCNH26Error,
+        maxError: setMaxVCNH26Error,
+      },
+      {
+        name: "VCNH27",
+        min: minVCNH27,
+        max: maxVCNH27,
+        minError: setMinVCNH27Error,
+        maxError: setMaxVCNH27Error,
+      },
+      {
+        name: "VCNH28",
+        min: minVCNH28,
+        max: maxVCNH28,
+        minError: setMinVCNH28Error,
+        maxError: setMaxVCNH28Error,
+      },
+      {
+        name: "VCNH29",
+        min: minVCNH29,
+        max: maxVCNH29,
+        minError: setMinVCNH29Error,
+        maxError: setMaxVCNH29Error,
+      },
+      {
+        name: "VCNH30",
+        min: minVCNH30,
+        max: maxVCNH30,
+        minError: setMinVCNH30Error,
+        maxError: setMaxVCNH30Error,
+      },
+      {
+        name: "VCNH31",
+        min: minVCNH31,
+        max: maxVCNH31,
+        minError: setMinVCNH31Error,
+        maxError: setMaxVCNH31Error,
+      },
+    ];
+    const fieldsToValidate = [
+      { field: url, message: "URL không được để trống" },
+      { field: username, message: "Username không được để trống" },
+      { field: password, message: "Password không được để trống" },
+      { field: client, message: "Client ID không được để trống" },
+      { field: topic, message: "Topic không được để trống" },
+      { field: typeSystem, message: "TypeSystem không được để trống" },
+      { field: typeDevice, message: "TypeDevice không được để trống" },
+      { field: country, message: "Country không được để trống" },
+      { field: province, message: "Province không được để trống" },
+      { field: codeCustomer, message: "CodeCustomer không được để trống" },
+      { field: codeProject, message: "CodeProject không được để trống" },
+      { field: a1, message: "A1 không được để trống" },
+      { field: a2, message: "A2 không được để trống" },
+      { field: a3, message: "A3 không được để trống" },
+      { field: a4, message: "A4 không được để trống" },
+      { field: a5, message: "A5 không được để trống" },
+      { field: func, message: "Func không được để trống" },
+      { field: messageType, message: "MessageType không được để trống" },
+      { field: crc, message: "Crc không được để trống" },
+    ];
+
+    for (const { field, message } of fieldsToValidate) {
+      if (field === "" || field === undefined || field === null) {
+        toastErrorAccessory(message);
+        return false;
+      }
+    }
+    if (frequency === "" || frequency === undefined || frequency === null) {
+      toastErrorAccessory("Tần xuất (ms) không được để trống");
+      setValidateFrequency(true);
+      return false;
+    } else {
+      setValidateFrequency(false);
+    }
+
+    for (const data of dataArray) {
+      if (
+        data.min === undefined ||
+        data.max === undefined ||
+        data.min === "" ||
+        data.max === ""
+      ) {
+        data.minError(true);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} và Max ${data.name} không được để trống`
+        );
+        return false;
+      } else if (data.min < 0 || data.min > 99) {
+        data.minError(true);
+        data.maxError(false);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} phải nằm trong khoảng [0;99]`
+        );
+        return false;
+      } else if (data.max < 1 || data.max > 100) {
+        data.minError(false);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Max ${data.name} phải nằm trong khoảng [1;100]`
+        );
+        return false;
+      } else if (data.min > data.max) {
+        data.minError(true);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} phải nhỏ hơn giá trị Max ${data.name}`
+        );
+        return false;
+      } else {
+        data.minError(false);
+        data.maxError(false);
+      }
     }
-
-    if (
-      minVBNH11 < 0 ||
-      maxVBNH11 > 100 ||
-      minVBNH11 === "" ||
-      maxVBNH11 === ""
-    ) {
-      setMinVBNH11Error(true);
-      setMaxVBNH11Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH11 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH11 > maxVBNH11) {
-      setMinVBNH11Error(true);
-      setMaxVBNH11Error(true);
-      toastErrorAccessory("Giá trị Min VBNH11 phải nhỏ hơn Max VBNH11");
-      return false;
-    } else {
-      setMinVBNH11Error(false);
-      setMaxVBNH11Error(false);
-    }
-
-    if (
-      minVBNH12 < 0 ||
-      maxVBNH12 > 100 ||
-      minVBNH12 === "" ||
-      maxVBNH12 === ""
-    ) {
-      setMinVBNH12Error(true);
-      setMaxVBNH12Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH12 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH12 > maxVBNH12) {
-      setMinVBNH12Error(true);
-      setMaxVBNH12Error(true);
-      toastErrorAccessory("Giá trị Min VBNH12 phải nhỏ hơn Max VBNH12");
-      return false;
-    } else {
-      setMinVBNH12Error(false);
-      setMaxVBNH12Error(false);
-    }
-
-    if (
-      minVBNH13 < 0 ||
-      maxVBNH13 > 100 ||
-      minVBNH13 === "" ||
-      maxVBNH13 === ""
-    ) {
-      setMinVBNH13Error(true);
-      setMaxVBNH13Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH13 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH13 > maxVBNH13) {
-      setMinVBNH13Error(true);
-      setMaxVBNH13Error(true);
-      toastErrorAccessory("Giá trị Min VBNH13 phải nhỏ hơn Max VBNH13");
-      return false;
-    } else {
-      setMinVBNH13Error(false);
-      setMaxVBNH13Error(false);
-    }
-
-    if (
-      minVBNH14 < 0 ||
-      maxVBNH14 > 100 ||
-      minVBNH14 === "" ||
-      maxVBNH14 === ""
-    ) {
-      setMinVBNH14Error(true);
-      setMaxVBNH14Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH14 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH14 > maxVBNH14) {
-      setMinVBNH14Error(true);
-      setMaxVBNH14Error(true);
-      toastErrorAccessory("Giá trị Min VBNH14 phải nhỏ hơn Max VBNH14");
-      return false;
-    } else {
-      setMinVBNH14Error(false);
-      setMaxVBNH14Error(false);
-    }
-
-    if (
-      minVBNH15 < 0 ||
-      maxVBNH15 > 100 ||
-      minVBNH15 === "" ||
-      maxVBNH15 === ""
-    ) {
-      setMinVBNH15Error(true);
-      setMaxVBNH15Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH15 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH15 > maxVBNH15) {
-      setMinVBNH15Error(true);
-      setMaxVBNH15Error(true);
-      toastErrorAccessory("Giá trị Min VBNH15 phải nhỏ hơn Max VBNH15");
-      return false;
-    } else {
-      setMinVBNH15Error(false);
-      setMaxVBNH15Error(false);
-    }
-
-    if (
-      minVBNH16 < 0 ||
-      maxVBNH16 > 100 ||
-      minVBNH16 === "" ||
-      maxVBNH16 === ""
-    ) {
-      setMinVBNH16Error(true);
-      setMaxVBNH16Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH16 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH16 > maxVBNH16) {
-      setMinVBNH16Error(true);
-      setMaxVBNH16Error(true);
-      toastErrorAccessory("Giá trị Min VBNH16 phải nhỏ hơn Max VBNH16");
-      return false;
-    } else {
-      setMinVBNH16Error(false);
-      setMaxVBNH16Error(false);
-    }
-
-    if (
-      minVBNH17 < 0 ||
-      maxVBNH17 > 100 ||
-      minVBNH17 === "" ||
-      maxVBNH17 === ""
-    ) {
-      setMinVBNH17Error(true);
-      setMaxVBNH17Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH17 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH17 > maxVBNH17) {
-      setMinVBNH17Error(true);
-      setMaxVBNH17Error(true);
-      toastErrorAccessory("Giá trị Min VBNH17 phải nhỏ hơn Max VBNH17");
-      return false;
-    } else {
-      setMinVBNH17Error(false);
-      setMaxVBNH17Error(false);
-    }
-
-    if (
-      minVBNH18 < 0 ||
-      maxVBNH18 > 100 ||
-      minVBNH18 === "" ||
-      maxVBNH18 === ""
-    ) {
-      setMinVBNH18Error(true);
-      setMaxVBNH18Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH18 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH18 > maxVBNH18) {
-      setMinVBNH18Error(true);
-      setMaxVBNH18Error(true);
-      toastErrorAccessory("Giá trị Min VBNH18 phải nhỏ hơn Max VBNH18");
-      return false;
-    } else {
-      setMinVBNH18Error(false);
-      setMaxVBNH18Error(false);
-    }
-
-    if (
-      minVBNH19 < 0 ||
-      maxVBNH19 > 100 ||
-      minVBNH19 === "" ||
-      maxVBNH19 === ""
-    ) {
-      setMinVBNH19Error(true);
-      setMaxVBNH19Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH19 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH19 > maxVBNH19) {
-      setMinVBNH19Error(true);
-      setMaxVBNH19Error(true);
-      toastErrorAccessory("Giá trị Min VBNH19 phải nhỏ hơn Max VBNH19");
-      return false;
-    } else {
-      setMinVBNH19Error(false);
-      setMaxVBNH19Error(false);
-    }
-
-    if (
-      minVBNH20 < 0 ||
-      maxVBNH20 > 100 ||
-      minVBNH20 === "" ||
-      maxVBNH20 === ""
-    ) {
-      setMinVBNH20Error(true);
-      setMaxVBNH20Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH20 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH20 > maxVBNH20) {
-      setMinVBNH20Error(true);
-      setMaxVBNH20Error(true);
-      toastErrorAccessory("Giá trị Min VBNH20 phải nhỏ hơn Max VBNH20");
-      return false;
-    } else {
-      setMinVBNH20Error(false);
-      setMaxVBNH20Error(false);
-    }
-
-    if (
-      minVBNH21 < 0 ||
-      maxVBNH21 > 100 ||
-      minVBNH21 === "" ||
-      maxVBNH21 === ""
-    ) {
-      setMinVBNH21Error(true);
-      setMaxVBNH21Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH21 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH21 > maxVBNH21) {
-      setMinVBNH21Error(true);
-      setMaxVBNH21Error(true);
-      toastErrorAccessory("Giá trị Min VBNH21 phải nhỏ hơn Max VBNH21");
-      return false;
-    } else {
-      setMinVBNH21Error(false);
-      setMaxVBNH21Error(false);
-    }
-
-    if (
-      minVBNH22 < 0 ||
-      maxVBNH22 > 100 ||
-      minVBNH22 === "" ||
-      maxVBNH22 === ""
-    ) {
-      setMinVBNH22Error(true);
-      setMaxVBNH22Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH22 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH22 > maxVBNH22) {
-      setMinVBNH22Error(true);
-      setMaxVBNH22Error(true);
-      toastErrorAccessory("Giá trị Min VBNH22 phải nhỏ hơn Max VBNH22");
-      return false;
-    } else {
-      setMinVBNH22Error(false);
-      setMaxVBNH22Error(false);
-    }
-
-    if (
-      minVBNH23 < 0 ||
-      maxVBNH23 > 100 ||
-      minVBNH23 === "" ||
-      maxVBNH23 === ""
-    ) {
-      setMinVBNH23Error(true);
-      setMaxVBNH23Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH23 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH23 > maxVBNH23) {
-      setMinVBNH23Error(true);
-      setMaxVBNH23Error(true);
-      toastErrorAccessory("Giá trị Min VBNH23 phải nhỏ hơn Max VBNH23");
-      return false;
-    } else {
-      setMinVBNH23Error(false);
-      setMaxVBNH23Error(false);
-    }
-
-    if (
-      minVBNH24 < 0 ||
-      maxVBNH24 > 100 ||
-      minVBNH24 === "" ||
-      maxVBNH24 === ""
-    ) {
-      setMinVBNH24Error(true);
-      setMaxVBNH24Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH24 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH24 > maxVBNH24) {
-      setMinVBNH24Error(true);
-      setMaxVBNH24Error(true);
-      toastErrorAccessory("Giá trị Min VBNH24 phải nhỏ hơn Max VBNH24");
-      return false;
-    } else {
-      setMinVBNH24Error(false);
-      setMaxVBNH24Error(false);
-    }
-
-    if (
-      minVBNH25 < 0 ||
-      maxVBNH25 > 100 ||
-      minVBNH25 === "" ||
-      maxVBNH25 === ""
-    ) {
-      setMinVBNH25Error(true);
-      setMaxVBNH25Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH25 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH25 > maxVBNH25) {
-      setMinVBNH25Error(true);
-      setMaxVBNH25Error(true);
-      toastErrorAccessory("Giá trị Min VBNH25 phải nhỏ hơn Max VBNH25");
-      return false;
-    } else {
-      setMinVBNH25Error(false);
-      setMaxVBNH25Error(false);
-    }
-
-    if (
-      minVBNH26 < 0 ||
-      maxVBNH26 > 100 ||
-      minVBNH26 === "" ||
-      maxVBNH26 === ""
-    ) {
-      setMinVBNH26Error(true);
-      setMaxVBNH26Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH26 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH26 > maxVBNH26) {
-      setMinVBNH26Error(true);
-      setMaxVBNH26Error(true);
-      toastErrorAccessory("Giá trị Min VBNH26 phải nhỏ hơn Max VBNH26");
-      return false;
-    } else {
-      setMinVBNH26Error(false);
-      setMaxVBNH26Error(false);
-    }
-    if (
-      minVBNH27 < 0 ||
-      maxVBNH27 > 100 ||
-      minVBNH27 === "" ||
-      maxVBNH27 === ""
-    ) {
-      setMinVBNH27Error(true);
-      setMaxVBNH27Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH27 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH27 > maxVBNH27) {
-      setMinVBNH27Error(true);
-      setMaxVBNH27Error(true);
-      toastErrorAccessory("Giá trị Min VBNH27 phải nhỏ hơn Max VBNH27");
-      return false;
-    } else {
-      setMinVBNH27Error(false);
-      setMaxVBNH27Error(false);
-    }
-
-    if (
-      minVBNH28 < 0 ||
-      maxVBNH28 > 100 ||
-      minVBNH28 === "" ||
-      maxVBNH28 === ""
-    ) {
-      setMinVBNH28Error(true);
-      setMaxVBNH28Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH28 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH28 > maxVBNH28) {
-      setMinVBNH28Error(true);
-      setMaxVBNH28Error(true);
-      toastErrorAccessory("Giá trị Min VBNH28 phải nhỏ hơn Max VBNH28");
-      return false;
-    } else {
-      setMinVBNH28Error(false);
-      setMaxVBNH28Error(false);
-    }
-
-    if (
-      minVBNH29 < 0 ||
-      maxVBNH29 > 100 ||
-      minVBNH29 === "" ||
-      maxVBNH29 === ""
-    ) {
-      setMinVBNH29Error(true);
-      setMaxVBNH29Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH29 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH29 > maxVBNH29) {
-      setMinVBNH29Error(true);
-      setMaxVBNH29Error(true);
-      toastErrorAccessory("Giá trị Min VBNH29 phải nhỏ hơn Max VBNH29");
-      return false;
-    } else {
-      setMinVBNH29Error(false);
-      setMaxVBNH29Error(false);
-    }
-
-    if (
-      minVBNH30 < 0 ||
-      maxVBNH30 > 100 ||
-      minVBNH30 === "" ||
-      maxVBNH30 === ""
-    ) {
-      setMinVBNH30Error(true);
-      setMaxVBNH30Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH30 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH30 > maxVBNH30) {
-      setMinVBNH30Error(true);
-      setMaxVBNH30Error(true);
-      toastErrorAccessory("Giá trị Min VBNH30 phải nhỏ hơn Max VBNH30");
-      return false;
-    } else {
-      setMinVBNH30Error(false);
-      setMaxVBNH30Error(false);
-    }
-    if (
-      minVBNH31 < 0 ||
-      maxVBNH31 > 100 ||
-      minVBNH31 === "" ||
-      maxVBNH31 === ""
-    ) {
-      setMinVBNH31Error(true);
-      setMaxVBNH31Error(true);
-      toastErrorAccessory(
-        "Giá trị VBNH31 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVBNH31 > maxVBNH31) {
-      setMinVBNH31Error(true);
-      setMaxVBNH31Error(true);
-      toastErrorAccessory("Giá trị Min VBNH31 phải nhỏ hơn Max VBNH31");
-      return false;
-    } else {
-      setMinVBNH31Error(false);
-      setMaxVBNH31Error(false);
-    }
-
-    if (minVCNH1 < 0 || maxVCNH1 > 100 || minVCNH1 === "" || maxVCNH1 === "") {
-      setMinVCNH1Error(true);
-      setMaxVCNH1Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH1 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH1 > maxVCNH1) {
-      setMinVCNH1Error(true);
-      setMaxVCNH1Error(true);
-      toastErrorAccessory("Giá trị Min VCNH1 phải nhỏ hơn Max VCNH1");
-      return false;
-    } else {
-      setMinVCNH1Error(false);
-      setMaxVCNH1Error(false);
-    }
-
-    if (minVCNH2 < 0 || maxVCNH2 > 100 || minVCNH2 === "" || maxVCNH2 === "") {
-      setMinVCNH2Error(true);
-      setMaxVCNH2Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH2 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH2 > maxVCNH2) {
-      setMinVCNH2Error(true);
-      setMaxVCNH2Error(true);
-      toastErrorAccessory("Giá trị Min VCNH2 phải nhỏ hơn Max VCNH2");
-      return false;
-    } else {
-      setMinVCNH2Error(false);
-      setMaxVCNH2Error(false);
-    }
-
-    if (minVCNH3 < 0 || maxVCNH3 > 100 || minVCNH3 === "" || maxVCNH3 === "") {
-      setMinVCNH3Error(true);
-      setMaxVCNH3Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH3 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH3 > maxVCNH3) {
-      setMinVCNH3Error(true);
-      setMaxVCNH3Error(true);
-      toastErrorAccessory("Giá trị Min VCNH3 phải nhỏ hơn Max VCNH3");
-      return false;
-    } else {
-      setMinVCNH3Error(false);
-      setMaxVCNH3Error(false);
-    }
-
-    if (minVCNH4 < 0 || maxVCNH4 > 100 || minVCNH4 === "" || maxVCNH4 === "") {
-      setMinVCNH4Error(true);
-      setMaxVCNH4Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH4 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH4 > maxVCNH4) {
-      setMinVCNH4Error(true);
-      setMaxVCNH4Error(true);
-      toastErrorAccessory("Giá trị Min VCNH4 phải nhỏ hơn Max VCNH4");
-      return false;
-    } else {
-      setMinVCNH4Error(false);
-      setMaxVCNH4Error(false);
-    }
-
-    if (minVCNH5 < 0 || maxVCNH5 > 100 || minVCNH5 === "" || maxVCNH5 === "") {
-      setMinVCNH5Error(true);
-      setMaxVCNH5Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH5 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH5 > maxVCNH5) {
-      setMinVCNH5Error(true);
-      setMaxVCNH5Error(true);
-      toastErrorAccessory("Giá trị Min VCNH5 phải nhỏ hơn Max VCNH5");
-      return false;
-    } else {
-      setMinVCNH5Error(false);
-      setMaxVCNH5Error(false);
-    }
-
-    if (minVCNH6 < 0 || maxVCNH6 > 100 || minVCNH6 === "" || maxVCNH6 === "") {
-      setMinVCNH6Error(true);
-      setMaxVCNH6Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH6 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH6 > maxVCNH6) {
-      setMinVCNH6Error(true);
-      setMaxVCNH6Error(true);
-      toastErrorAccessory("Giá trị Min VCNH6 phải nhỏ hơn Max VCNH6");
-      return false;
-    } else {
-      setMinVCNH6Error(false);
-      setMaxVCNH6Error(false);
-    }
-
-    if (minVCNH7 < 0 || maxVCNH7 > 100 || minVCNH7 === "" || maxVCNH7 === "") {
-      setMinVCNH7Error(true);
-      setMaxVCNH7Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH7 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH7 > maxVCNH7) {
-      setMinVCNH7Error(true);
-      setMaxVCNH7Error(true);
-      toastErrorAccessory("Giá trị Min VCNH7 phải nhỏ hơn Max VCNH7");
-      return false;
-    } else {
-      setMinVCNH7Error(false);
-      setMaxVCNH7Error(false);
-    }
-
-    if (minVCNH8 < 0 || maxVCNH8 > 100 || minVCNH8 === "" || maxVCNH8 === "") {
-      setMinVCNH8Error(true);
-      setMaxVCNH8Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH8 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH8 > maxVCNH8) {
-      setMinVCNH8Error(true);
-      setMaxVCNH8Error(true);
-      toastErrorAccessory("Giá trị Min VCNH8 phải nhỏ hơn Max VCNH8");
-      return false;
-    } else {
-      setMinVCNH8Error(false);
-      setMaxVCNH8Error(false);
-    }
-
-    if (minVCNH9 < 0 || maxVCNH9 > 100 || minVCNH9 === "" || maxVCNH9 === "") {
-      setMinVCNH9Error(true);
-      setMaxVCNH9Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH9 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH9 > maxVCNH9) {
-      setMinVCNH9Error(true);
-      setMaxVCNH9Error(true);
-      toastErrorAccessory("Giá trị Min VCNH9 phải nhỏ hơn Max VCNH9");
-      return false;
-    } else {
-      setMinVCNH9Error(false);
-      setMaxVCNH9Error(false);
-    }
-
-    if (
-      minVCNH10 < 0 ||
-      maxVCNH10 > 100 ||
-      minVCNH10 === "" ||
-      maxVCNH10 === ""
-    ) {
-      setMinVCNH10Error(true);
-      setMaxVCNH10Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH10 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH10 > maxVCNH10) {
-      setMinVCNH10Error(true);
-      setMaxVCNH10Error(true);
-      toastErrorAccessory("Giá trị Min VCNH10 phải nhỏ hơn Max VCNH10");
-      return false;
-    } else {
-      setMinVCNH10Error(false);
-      setMaxVCNH10Error(false);
-    }
-
-    if (
-      minVCNH11 < 0 ||
-      maxVCNH11 > 100 ||
-      minVCNH11 === "" ||
-      maxVCNH11 === ""
-    ) {
-      setMinVCNH11Error(true);
-      setMaxVCNH11Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH11 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH11 > maxVCNH11) {
-      setMinVCNH11Error(true);
-      setMaxVCNH11Error(true);
-      toastErrorAccessory("Giá trị Min VCNH11 phải nhỏ hơn Max VCNH11");
-      return false;
-    } else {
-      setMinVCNH11Error(false);
-      setMaxVCNH11Error(false);
-    }
-
-    if (
-      minVCNH12 < 0 ||
-      maxVCNH12 > 100 ||
-      minVCNH12 === "" ||
-      maxVCNH12 === ""
-    ) {
-      setMinVCNH12Error(true);
-      setMaxVCNH12Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH12 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH12 > maxVCNH12) {
-      setMinVCNH12Error(true);
-      setMaxVCNH12Error(true);
-      toastErrorAccessory("Giá trị Min VCNH12 phải nhỏ hơn Max VCNH12");
-      return false;
-    } else {
-      setMinVCNH12Error(false);
-      setMaxVCNH12Error(false);
-    }
-
-    if (
-      minVCNH13 < 0 ||
-      maxVCNH13 > 100 ||
-      minVCNH13 === "" ||
-      maxVCNH13 === ""
-    ) {
-      setMinVCNH13Error(true);
-      setMaxVCNH13Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH13 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH13 > maxVCNH13) {
-      setMinVCNH13Error(true);
-      setMaxVCNH13Error(true);
-      toastErrorAccessory("Giá trị Min VCNH13 phải nhỏ hơn Max VCNH13");
-      return false;
-    } else {
-      setMinVCNH13Error(false);
-      setMaxVCNH13Error(false);
-    }
-
-    if (
-      minVCNH14 < 0 ||
-      maxVCNH14 > 100 ||
-      minVCNH14 === "" ||
-      maxVCNH14 === ""
-    ) {
-      setMinVCNH14Error(true);
-      setMaxVCNH14Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH14 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH14 > maxVCNH14) {
-      setMinVCNH14Error(true);
-      setMaxVCNH14Error(true);
-      toastErrorAccessory("Giá trị Min VCNH14 phải nhỏ hơn Max VCNH14");
-      return false;
-    } else {
-      setMinVCNH14Error(false);
-      setMaxVCNH14Error(false);
-    }
-
-    if (
-      minVCNH15 < 0 ||
-      maxVCNH15 > 100 ||
-      minVCNH15 === "" ||
-      maxVCNH15 === ""
-    ) {
-      setMinVCNH15Error(true);
-      setMaxVCNH15Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH15 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH15 > maxVCNH15) {
-      setMinVCNH15Error(true);
-      setMaxVCNH15Error(true);
-      toastErrorAccessory("Giá trị Min VCNH15 phải nhỏ hơn Max VCNH15");
-      return false;
-    } else {
-      setMinVCNH15Error(false);
-      setMaxVCNH15Error(false);
-    }
-
-    if (
-      minVCNH16 < 0 ||
-      maxVCNH16 > 100 ||
-      minVCNH16 === "" ||
-      maxVCNH16 === ""
-    ) {
-      setMinVCNH16Error(true);
-      setMaxVCNH16Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH16 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH16 > maxVCNH16) {
-      setMinVCNH16Error(true);
-      setMaxVCNH16Error(true);
-      toastErrorAccessory("Giá trị Min VCNH16 phải nhỏ hơn Max VCNH16");
-      return false;
-    } else {
-      setMinVCNH16Error(false);
-      setMaxVCNH16Error(false);
-    }
-
-    if (
-      minVCNH17 < 0 ||
-      maxVCNH17 > 100 ||
-      minVCNH17 === "" ||
-      maxVCNH17 === ""
-    ) {
-      setMinVCNH17Error(true);
-      setMaxVCNH17Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH17 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH17 > maxVCNH17) {
-      setMinVCNH17Error(true);
-      setMaxVCNH17Error(true);
-      toastErrorAccessory("Giá trị Min VCNH17 phải nhỏ hơn Max VCNH17");
-      return false;
-    } else {
-      setMinVCNH17Error(false);
-      setMaxVCNH17Error(false);
-    }
-
-    if (
-      minVCNH18 < 0 ||
-      maxVCNH18 > 100 ||
-      minVCNH18 === "" ||
-      maxVCNH18 === ""
-    ) {
-      setMinVCNH18Error(true);
-      setMaxVCNH18Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH18 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH18 > maxVCNH18) {
-      setMinVCNH18Error(true);
-      setMaxVCNH18Error(true);
-      toastErrorAccessory("Giá trị Min VCNH18 phải nhỏ hơn Max VCNH18");
-      return false;
-    } else {
-      setMinVCNH18Error(false);
-      setMaxVCNH18Error(false);
-    }
-
-    if (
-      minVCNH19 < 0 ||
-      maxVCNH19 > 100 ||
-      minVCNH19 === "" ||
-      maxVCNH19 === ""
-    ) {
-      setMinVCNH19Error(true);
-      setMaxVCNH19Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH19 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH19 > maxVCNH19) {
-      setMinVCNH19Error(true);
-      setMaxVCNH19Error(true);
-      toastErrorAccessory("Giá trị Min VCNH19 phải nhỏ hơn Max VCNH19");
-      return false;
-    } else {
-      setMinVCNH19Error(false);
-      setMaxVCNH19Error(false);
-    }
-
-    if (
-      minVCNH20 < 0 ||
-      maxVCNH20 > 100 ||
-      minVCNH20 === "" ||
-      maxVCNH20 === ""
-    ) {
-      setMinVCNH20Error(true);
-      setMaxVCNH20Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH20 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH20 > maxVCNH20) {
-      setMinVCNH20Error(true);
-      setMaxVCNH20Error(true);
-      toastErrorAccessory("Giá trị Min VCNH20 phải nhỏ hơn Max VCNH20");
-      return false;
-    } else {
-      setMinVCNH20Error(false);
-      setMaxVCNH20Error(false);
-    }
-
-    if (
-      minVCNH21 < 0 ||
-      maxVCNH21 > 100 ||
-      minVCNH21 === "" ||
-      maxVCNH21 === ""
-    ) {
-      setMinVCNH21Error(true);
-      setMaxVCNH21Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH21 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH21 > maxVCNH21) {
-      setMinVCNH21Error(true);
-      setMaxVCNH21Error(true);
-      toastErrorAccessory("Giá trị Min VCNH21 phải nhỏ hơn Max VCNH21");
-      return false;
-    } else {
-      setMinVCNH21Error(false);
-      setMaxVCNH21Error(false);
-    }
-
-    if (
-      minVCNH22 < 0 ||
-      maxVCNH22 > 100 ||
-      minVCNH22 === "" ||
-      maxVCNH22 === ""
-    ) {
-      setMinVCNH22Error(true);
-      setMaxVCNH22Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH22 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH22 > maxVCNH22) {
-      setMinVCNH22Error(true);
-      setMaxVCNH22Error(true);
-      toastErrorAccessory("Giá trị Min VCNH22 phải nhỏ hơn Max VCNH22");
-      return false;
-    } else {
-      setMinVCNH22Error(false);
-      setMaxVCNH22Error(false);
-    }
-
-    if (
-      minVCNH23 < 0 ||
-      maxVCNH23 > 100 ||
-      minVCNH23 === "" ||
-      maxVCNH23 === ""
-    ) {
-      setMinVCNH23Error(true);
-      setMaxVCNH23Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH23 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH23 > maxVCNH23) {
-      setMinVCNH23Error(true);
-      setMaxVCNH23Error(true);
-      toastErrorAccessory("Giá trị Min VCNH23 phải nhỏ hơn Max VCNH23");
-      return false;
-    } else {
-      setMinVCNH23Error(false);
-      setMaxVCNH23Error(false);
-    }
-
-    if (
-      minVCNH24 < 0 ||
-      maxVCNH24 > 100 ||
-      minVCNH24 === "" ||
-      maxVCNH24 === ""
-    ) {
-      setMinVCNH24Error(true);
-      setMaxVCNH24Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH24 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH24 > maxVCNH24) {
-      setMinVCNH24Error(true);
-      setMaxVCNH24Error(true);
-      toastErrorAccessory("Giá trị Min VCNH24 phải nhỏ hơn Max VCNH24");
-      return false;
-    } else {
-      setMinVCNH24Error(false);
-      setMaxVCNH24Error(false);
-    }
-
-    if (
-      minVCNH25 < 0 ||
-      maxVCNH25 > 100 ||
-      minVCNH25 === "" ||
-      maxVCNH25 === ""
-    ) {
-      setMinVCNH25Error(true);
-      setMaxVCNH25Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH25 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH25 > maxVCNH25) {
-      setMinVCNH25Error(true);
-      setMaxVCNH25Error(true);
-      toastErrorAccessory("Giá trị Min VCNH25 phải nhỏ hơn Max VCNH25");
-      return false;
-    } else {
-      setMinVCNH25Error(false);
-      setMaxVCNH25Error(false);
-    }
-
-    if (
-      minVCNH26 < 0 ||
-      maxVCNH26 > 100 ||
-      minVCNH26 === "" ||
-      maxVCNH26 === ""
-    ) {
-      setMinVCNH26Error(true);
-      setMaxVCNH26Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH26 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH26 > maxVCNH26) {
-      setMinVCNH26Error(true);
-      setMaxVCNH26Error(true);
-      toastErrorAccessory("Giá trị Min VCNH26 phải nhỏ hơn Max VCNH26");
-      return false;
-    } else {
-      setMinVCNH26Error(false);
-      setMaxVCNH26Error(false);
-    }
-    if (
-      minVCNH27 < 0 ||
-      maxVCNH27 > 100 ||
-      minVCNH27 === "" ||
-      maxVCNH27 === ""
-    ) {
-      setMinVCNH27Error(true);
-      setMaxVCNH27Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH27 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH27 > maxVCNH27) {
-      setMinVCNH27Error(true);
-      setMaxVCNH27Error(true);
-      toastErrorAccessory("Giá trị Min VCNH27 phải nhỏ hơn Max VCNH27");
-      return false;
-    } else {
-      setMinVCNH27Error(false);
-      setMaxVCNH27Error(false);
-    }
-
-    if (
-      minVCNH28 < 0 ||
-      maxVCNH28 > 100 ||
-      minVCNH28 === "" ||
-      maxVCNH28 === ""
-    ) {
-      setMinVCNH28Error(true);
-      setMaxVCNH28Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH28 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH28 > maxVCNH28) {
-      setMinVCNH28Error(true);
-      setMaxVCNH28Error(true);
-      toastErrorAccessory("Giá trị Min VCNH28 phải nhỏ hơn Max VCNH28");
-      return false;
-    } else {
-      setMinVCNH28Error(false);
-      setMaxVCNH28Error(false);
-    }
-
-    if (
-      minVCNH29 < 0 ||
-      maxVCNH29 > 100 ||
-      minVCNH29 === "" ||
-      maxVCNH29 === ""
-    ) {
-      setMinVCNH29Error(true);
-      setMaxVCNH29Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH29 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH29 > maxVCNH29) {
-      setMinVCNH29Error(true);
-      setMaxVCNH29Error(true);
-      toastErrorAccessory("Giá trị Min VCNH29 phải nhỏ hơn Max VCNH29");
-      return false;
-    } else {
-      setMinVCNH29Error(false);
-      setMaxVCNH29Error(false);
-    }
-
-    if (
-      minVCNH30 < 0 ||
-      maxVCNH30 > 100 ||
-      minVCNH30 === "" ||
-      maxVCNH30 === ""
-    ) {
-      setMinVCNH30Error(true);
-      setMaxVCNH30Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH30 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH30 > maxVCNH30) {
-      setMinVCNH30Error(true);
-      setMaxVCNH30Error(true);
-      toastErrorAccessory("Giá trị Min VCNH30 phải nhỏ hơn Max VCNH30");
-      return false;
-    } else {
-      setMinVCNH30Error(false);
-      setMaxVCNH30Error(false);
-    }
-    if (
-      minVCNH31 < 0 ||
-      maxVCNH31 > 100 ||
-      minVCNH31 === "" ||
-      maxVCNH31 === ""
-    ) {
-      setMinVCNH31Error(true);
-      setMaxVCNH31Error(true);
-      toastErrorAccessory(
-        "Giá trị VCNH31 không được để trống và phải nằm trong khoảng [0;100]"
-      );
-      return false;
-    } else if (minVCNH31 > maxVCNH31) {
-      setMinVCNH31Error(true);
-      setMaxVCNH31Error(true);
-      toastErrorAccessory("Giá trị Min VCNH31 phải nhỏ hơn Max VCNH31");
-      return false;
-    } else {
-      setMinVCNH31Error(false);
-      setMaxVCNH31Error(false);
-    }
-
     return true;
   };
   useEffect(() => {
@@ -5603,6 +3408,9 @@ export default function S3MDataLoadFrame2(props) {
                 </label>
                 <Input
                   className="ms-2 inputN"
+                  style={{
+                    borderColor: validateFrequency === true ? "red" : "",
+                  }}
                   width={100}
                   min={1}
                   max={10}

@@ -14,6 +14,19 @@ const InputMinMax = (props) => {
     "error-input": props.statusMax === "error" || false,
   });
 
+  const validateInput = (value, min, max) => {
+    if (value < min || value > max) {
+      return "error"; // Trả về 'error' nếu có lỗi validate
+    }
+    return ""; // Không có lỗi validate
+  };
+
+  // Kiểm tra validate cho ô input minValue
+  const statusMin = validateInput(props.minValue, props.minX, props.maxX);
+
+  // Kiểm tra validate cho ô input maxValue
+  const statusMax = validateInput(props.maxValue, props.minY, props.maxY);
+
   return (
     <div className={props.className}>
       <div className="row">
@@ -21,11 +34,15 @@ const InputMinMax = (props) => {
           {props.title}
         </span>
         <Input
+          style={{
+            width: "100px",
+            borderColor: statusMin === "error" ? "red" : "",
+          }}
           status={props.statusMin}
           className={inputMinClass}
           type="number"
           bordered="true"
-          style={{ width: "100px" }}
+          // style={{ width: "100px" }}
           min={props.minX}
           max={props.maxX}
           value={props.minValue}
@@ -37,7 +54,11 @@ const InputMinMax = (props) => {
           type="number"
           className={inputMaxClass}
           bordered="true"
-          style={{ width: "100px" }}
+          // style={{ width: "100px" }}
+          style={{
+            width: "100px",
+            borderColor: statusMax === "error" ? "red" : "",
+          }}
           value={props.maxValue}
           min={props.minY}
           max={props.maxY}

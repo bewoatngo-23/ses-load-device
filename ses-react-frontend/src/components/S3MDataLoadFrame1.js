@@ -12,6 +12,7 @@ import Context from "../store/Context";
 import { updatestatus } from "../store/Actions";
 export default function S3MDataLoadFrame1(props) {
   const [state, dispatch] = useContext(Context);
+  const [validateFrequency, setValidateFrequency] = useState(false);
   function formatDateToDDMMYYYYHHMMSS(date) {
     const day = String(date.getDate()).padStart(2, "0");
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -182,524 +183,797 @@ export default function S3MDataLoadFrame1(props) {
     clearInterval(timerId);
   };
   const validationForm = () => {
-    if (url === "") {
-      toastErrorAccessory("URL không được để trống");
-      return false;
-    }
-    if (username === "") {
-      toastErrorAccessory("Username không được để trống");
-      return false;
-    }
-    if (password === "") {
-      toastErrorAccessory("Password không được để trống");
-      return false;
-    }
-    if (client === "") {
-      toastErrorAccessory("Client ID không được để trống");
-      return false;
-    }
-    if (topic === "") {
-      toastErrorAccessory("Topic không được để trống");
-      return false;
-    }
-    if (typeSystem === "") {
-      toastErrorAccessory("TypeSystem không được để trống");
-      return false;
-    }
-    if (typeDevice === "") {
-      toastErrorAccessory("TypeDevice không được để trống");
-      return false;
-    }
-    if (country === "") {
-      toastErrorAccessory("Country không được để trống");
-      return false;
-    }
-    if (province === "") {
-      toastErrorAccessory("Province không được để trống");
-      return false;
-    }
-    if (codeCustomer === "") {
-      toastErrorAccessory("CodeCustomer không được để trống");
-      return false;
-    }
-    if (codeProject === "") {
-      toastErrorAccessory("CodeProject không được để trống");
-      return false;
-    }
-    if (a1 === "") {
-      toastErrorAccessory("A1 không được để trống");
-      return false;
-    }
-    if (a2 === "") {
-      toastErrorAccessory("A2 không được để trống");
-      return false;
-    }
-    if (a3 === "") {
-      toastErrorAccessory("A3 không được để trống");
-      return false;
-    }
-    if (a4 === "") {
-      toastErrorAccessory("A4 không được để trống");
-      return false;
-    }
-    if (a5 === "") {
-      toastErrorAccessory("A5 không được để trống");
-      return false;
-    }
-    if (func === "") {
-      toastErrorAccessory("Func không được để trống");
-      return false;
-    }
-    if (messageType === "") {
-      toastErrorAccessory("MessageType không được để trống");
-      return false;
-    }
-    if (crc === "") {
-      toastErrorAccessory("Crc không được để trống");
-      return false;
-    }
-    if (minUab === "") {
-      setMinUab(0);
-    }
-    if (maxUab === "") {
-      setMaxUab(45000);
-    }
-    if (minUab < 0) {
-      setMinUabError(true);
-      setMaxUabError(false);
-      toastErrorAccessory("Giá trị UAB phải nằm trong khoảng [0;45000]");
-      return false;
-    } else if (maxUab > 45000) {
-      setMaxUabError(true);
-      setMinUabError(false);
-      toastErrorAccessory("Giá trị UAB phải nằm trong khoảng [0;45000]");
-      return false;
-    } else if (minUab > maxUab) {
-      setMinUabError(true);
-      setMaxUabError(true);
-      toastErrorAccessory("Giá trị Min UAB phải nhỏ hơn giá trị Max UAB");
-      return false;
-    } else {
-      setMinUabError(false);
-      setMaxUabError(false);
-    }
-    if (minUbc === "") {
-      setMinUbc(0);
-    }
-    if (maxUbc === "") {
-      setMaxUbc(45000);
-    }
-    if (minUbc < 0) {
-      setMinUbcError(true);
-      setMaxUbcError(false);
-      toastErrorAccessory("Giá trị UBC phải nằm trong khoảng [0;45000]");
-      return false;
-    } else if (maxUbc > 45000) {
-      setMinUbcError(false);
-      setMaxUbcError(true);
-      toastErrorAccessory("Giá trị UBC phải nằm trong khoảng [0;45000]");
-      return false;
-    } else if (minUbc > maxUbc) {
-      setMinUbcError(true);
-      setMaxUbcError(true);
-      toastErrorAccessory("Giá trị Min UBC phải nhỏ hơn giá trị Max UBC");
-      return false;
-    } else {
-      setMinUbcError(false);
-      setMaxUbcError(false);
-    }
-    if (minUca === "") {
-      setMinUca(0);
-    }
-    if (maxUca === "") {
-      setMaxUca(45000);
-    }
-    if (minUca < 0) {
-      setMinUcaError(true);
-      setMaxUcaError(false);
-      toastErrorAccessory("Giá trị UCA phải nằm trong khoảng [0;45000]");
-      return false;
-    } else if (maxUca > 45000) {
-      setMinUcaError(false);
-      setMaxUcaError(true);
-      toastErrorAccessory("Giá trị UCA phải nằm trong khoảng [0;45000]");
-      return false;
-    } else if (minUca > maxUca) {
-      setMinUcaError(true);
-      setMaxUcaError(true);
-      toastErrorAccessory("Giá trị Min UCA phải nhỏ hơn giá trị Max UCA");
-      return false;
-    } else {
-      setMinUcaError(false);
-      setMaxUcaError(false);
-    }
-    if (minUan === "") {
-      setMinUan(0);
-    }
-    if (maxUan === "") {
-      setMaxUan(45000);
-    }
-    if (minUan < 0) {
-      setMinUanError(true);
-      setMaxUanError(false);
-      toastErrorAccessory("Giá trị UAN phải nằm trong khoảng [0;45000]");
-      return false;
-    } else if (maxUan > 45000) {
-      setMinUanError(false);
-      setMaxUanError(true);
-      toastErrorAccessory("Giá trị UAN phải nằm trong khoảng [0;45000]");
-      return false;
-    } else if (minUan > maxUan) {
-      setMinUanError(true);
-      setMaxUanError(true);
-      toastErrorAccessory("Giá trị Min UAN phải nhỏ hơn giá trị Max UAN");
-      return false;
-    } else {
-      setMinUanError(false);
-      setMaxUanError(false);
-    }
-    if (minUbn === "") {
-      setMinUbn(0);
-    }
-    if (maxUbn === "") {
-      setMaxUbn(45000);
-    }
-    if (minUbn < 0) {
-      setMinUbnError(true);
-      setMaxUbnError(false);
-      toastErrorAccessory("Giá trị UBN phải nằm trong khoảng [0;45000]");
-      return false;
-    } else if (maxUbn > 45000) {
-      setMinUbnError(false);
-      setMaxUbnError(true);
-      toastErrorAccessory("Giá trị UBN phải nằm trong khoảng [0;45000]");
-      return false;
-    } else if (minUbn > maxUbn) {
-      setMinUbnError(true);
-      setMaxUbnError(true);
-      toastErrorAccessory("Giá trị Min UBN phải nhỏ hơn giá trị Max UBN");
-      return false;
-    } else {
-      setMinUbnError(false);
-      setMaxUbnError(false);
-    }
-    if (minUcn === "") {
-      setMinUcn(0);
-    }
-    if (maxUcn === "") {
-      setMaxUcn(45000);
-    }
-    if (minUcn < 0) {
-      setMinUcnError(true);
-      setMaxUcnError(false);
-      toastErrorAccessory("Giá trị Ucn phải nằm trong khoảng [0;45000]");
-      return false;
-    } else if (maxUcn > 45000) {
-      setMinUcnError(false);
-      setMaxUcnError(true);
-      toastErrorAccessory("Giá trị Ucn phải nằm trong khoảng [0;45000]");
-      return false;
-    } else if (minUcn > maxUcn) {
-      setMinUcnError(true);
-      setMaxUcnError(true);
-      toastErrorAccessory("Giá trị Min Ucn phải nhỏ hơn giá trị Max Ucn");
-      return false;
-    } else {
-      setMinUcnError(false);
-      setMaxUcnError(false);
-    }
-    if (minUln === "") {
-      setMinUln(0);
-    }
-    if (maxUln === "") {
-      setMaxUln(45000);
-    }
-    if (minUln < 0) {
-      setMinUlnError(true);
-      setMaxUlnError(false);
-      toastErrorAccessory("Giá trị Uln phải nằm trong khoảng [0;45000]");
-      return false;
-    } else if (maxUln > 45000) {
-      setMinUlnError(false);
-      setMaxUlnError(true);
-      toastErrorAccessory("Giá trị Uln phải nằm trong khoảng [0;45000]");
-      return false;
-    } else if (minUln > maxUln) {
-      setMinUlnError(true);
-      setMaxUlnError(true);
-      toastErrorAccessory("Giá trị Min Uln phải nhỏ hơn giá trị Max Uln");
-      return false;
-    } else {
-      setMinUlnError(false);
-      setMaxUlnError(false);
-    }
-    if (minUll === "") {
-      setMinUll(0);
-    }
-    if (maxUll === "") {
-      setMaxUll(45000);
-    }
-    if (minUll < 0) {
-      setMinUllError(true);
-      setMaxUllError(false);
-      toastErrorAccessory("Giá trị Ull phải nằm trong khoảng [0;45000]");
-      return false;
-    } else if (maxUll > 45000) {
-      setMinUllError(false);
-      setMaxUllError(true);
-      toastErrorAccessory("Giá trị Ull phải nằm trong khoảng [0;45000]");
-      return false;
-    } else if (minUll > maxUll) {
-      setMinUllError(true);
-      setMaxUllError(true);
-      toastErrorAccessory("Giá trị Min Ull phải nhỏ hơn giá trị Max Ull");
-      return false;
-    } else {
-      setMinUllError(false);
-      setMaxUllError(false);
-    }
-    if (minIa === "") {
-      setMinIa(0);
-    }
-    if (maxIa === "") {
-      setMaxIa(10000);
+    const dataU = [
+      {
+        name: "Uab",
+        min: minUab,
+        max: maxUab,
+        minError: setMinUabError,
+        maxError: setMaxUabError,
+      },
+      {
+        name: "Ubc",
+        min: minUbc,
+        max: maxUbc,
+        minError: setMinUbcError,
+        maxError: setMaxUbcError,
+      },
+      {
+        name: "Uca",
+        min: minUca,
+        max: maxUca,
+        minError: setMinUcaError,
+        maxError: setMaxUcaError,
+      },
+      {
+        name: "Ull",
+        min: minUll,
+        max: maxUll,
+        minError: setMinUllError,
+        maxError: setMaxUllError,
+      },
+      {
+        name: "Uan",
+        min: minUan,
+        max: maxUan,
+        minError: setMinUanError,
+        maxError: setMaxUanError,
+      },
+      {
+        name: "Ubn",
+        min: minUbn,
+        max: maxUbn,
+        minError: setMinUbnError,
+        maxError: setMaxUbnError,
+      },
+      {
+        name: "Ucn",
+        min: minUcn,
+        max: maxUcn,
+        minError: setMinUcnError,
+        maxError: setMaxUcnError,
+      },
+      {
+        name: "Uln",
+        min: minUln,
+        max: maxUln,
+        minError: setMinUlnError,
+        maxError: setMaxUlnError,
+      },
+    ];
+
+    const dataI = [
+      {
+        name: "Ia",
+        min: minIa,
+        max: maxIa,
+        minError: setMinIaError,
+        maxError: setMaxIaError,
+      },
+      {
+        name: "Ib",
+        min: minIb,
+        max: maxIb,
+        minError: setMinIbError,
+        maxError: setMaxIbError,
+      },
+      {
+        name: "Ic",
+        min: minIc,
+        max: maxIc,
+        minError: setMinIcError,
+        maxError: setMaxIcError,
+      },
+      {
+        name: "IN",
+        min: minIN,
+        max: maxIN,
+        minError: setMinINError,
+        maxError: setMaxINError,
+      },
+      {
+        name: "IG",
+        min: minIG,
+        max: maxIG,
+        minError: setMinIGError,
+        maxError: setMaxIGError,
+      },
+      {
+        nameI: "IAvg",
+        min: minIAvg,
+        max: maxIAvg,
+        minError: setMinIAvgError,
+        maxError: setMaxIAvgError,
+      },
+    ];
+
+    const data4M = [
+      {
+        name: "Ep",
+        min: minEp,
+        max: maxEp,
+        minError: setMinEpError,
+        maxError: setMaxEpError,
+      },
+      {
+        name: "EpR",
+        min: minEpR,
+        max: maxEpR,
+        minError: setMinEpRError,
+        maxError: setMaxEpRError,
+      },
+      {
+        name: "EpDR",
+        min: minEpDR,
+        max: maxEpDR,
+        minError: setMinEpDRError,
+        maxError: setMaxEpDRError,
+      },
+      {
+        name: "EpDRR",
+        min: minEpDRR,
+        max: maxEpDRR,
+        minError: setMinEpDRRError,
+        maxError: setMaxEpDRRError,
+      },
+      {
+        name: "Eq",
+        min: minEq,
+        max: maxEq,
+        minError: setMinEqError,
+        maxError: setMaxEqError,
+      },
+      {
+        name: "EqR",
+        min: minEqR,
+        max: maxEqR,
+        minError: setMinEqRError,
+        maxError: setMaxEqRError,
+      },
+      {
+        name: "EqDR",
+        min: minEqDR,
+        max: maxEqDR,
+        minError: setMinEqDRError,
+        maxError: setMaxEqDRError,
+      },
+      {
+        name: "EqDRR",
+        min: minEqDRR,
+        max: maxEqDRR,
+        minError: setMinEqDRRError,
+        maxError: setMaxEqDRRError,
+      },
+      {
+        name: "Es",
+        min: minEs,
+        max: maxEs,
+        minError: setMinEsError,
+        maxError: setMaxEsError,
+      },
+      {
+        name: "EsR",
+        min: minEsR,
+        max: maxEsR,
+        minError: setMinEsRError,
+        maxError: setMaxEsRError,
+      },
+      {
+        name: "EsDR",
+        min: minEsDR,
+        max: maxEsDR,
+        minError: setMinEsDRError,
+        maxError: setMaxEsDRError,
+      },
+      {
+        name: "EsDRR",
+        min: minEsDRR,
+        max: maxEsDRR,
+        minError: setMinEsDRRError,
+        maxError: setMaxEsDRRError,
+      },
+    ];
+
+    const dataPf = [
+      {
+        name: "Pfa",
+        min: minPfa,
+        max: maxPfa,
+        minError: setMinPfaError,
+        maxError: setMaxPfaError,
+      },
+      {
+        name: "Pfb",
+        min: minPfb,
+        max: maxPfb,
+        minError: setMinPfbError,
+        maxError: setMaxPfbError,
+      },
+      {
+        name: "Pfc",
+        min: minPfc,
+        max: maxPfc,
+        minError: setMinPfcError,
+        maxError: setMaxPfcError,
+      },
+      {
+        name: "PFAvg",
+        min: minPFAvg,
+        max: maxPFAvg,
+        minError: setMinPFAvgError,
+        maxError: setMaxPFAvgError,
+      },
+    ];
+    const data2M = [
+      {
+        name: "Pa",
+        min: minPa,
+        max: maxPa,
+        minError: setMinPaError,
+        maxError: setMaxPaError,
+      },
+      {
+        name: "Pb",
+        min: minPb,
+        max: maxPb,
+        minError: setMinPbError,
+        maxError: setMaxPbError,
+      },
+      {
+        name: "Pc",
+        min: minPc,
+        max: maxPc,
+        minError: setMinPcError,
+        maxError: setMaxPcError,
+      },
+      {
+        name: "Qa",
+        min: minQa,
+        max: maxQa,
+        minError: setMinQaError,
+        maxError: setMaxQaError,
+      },
+      {
+        name: "Qb",
+        min: minQb,
+        max: maxQb,
+        minError: setMinQbError,
+        maxError: setMaxQbError,
+      },
+      {
+        name: "Qc",
+        min: minQc,
+        max: maxQc,
+        minError: setMinQcError,
+        maxError: setMaxQcError,
+      },
+      {
+        name: "QTotal",
+        min: minQTotal,
+        max: maxQTotal,
+        minError: setMinQTotalError,
+        maxError: setMaxQTotalError,
+      },
+    ];
+    const dataT = [
+      {
+        name: "T1",
+        min: minT1,
+        max: maxT1,
+        minError: setMinT1Error,
+        maxError: setMaxT1Error,
+      },
+      {
+        name: "T2",
+        min: minT2,
+        max: maxT2,
+        minError: setMinT2Error,
+        maxError: setMaxT2Error,
+      },
+      {
+        name: "T3",
+        min: minT3,
+        max: maxT3,
+        minError: setMinT3Error,
+        maxError: setMaxT3Error,
+      },
+    ];
+    const dataThd = [
+      {
+        name: "ThdIa",
+        min: minThdIa,
+        max: maxThdIa,
+        minError: setMinThdIaError,
+        maxError: setMaxThdIaError,
+      },
+      {
+        name: "ThdIb",
+        min: minThdIb,
+        max: maxThdIb,
+        minError: setMinThdIbError,
+        maxError: setMaxThdIbError,
+      },
+      {
+        name: "ThdIc",
+        min: minThdIc,
+        max: maxThdIc,
+        minError: setMinThdIcError,
+        maxError: setMaxThdIcError,
+      },
+      {
+        name: "ThdIn",
+        min: minThdIn,
+        max: maxThdIn,
+        minError: setMinThdInError,
+        maxError: setMaxThdInError,
+      },
+      {
+        name: "ThdIg",
+        min: minThdIg,
+        max: maxThdIg,
+        minError: setMinThdIgError,
+        maxError: setMaxThdIgError,
+      },
+      {
+        name: "ThdVab",
+        min: minThdVab,
+        max: maxThdVab,
+        minError: setMinThdVabError,
+        maxError: setMaxThdVabError,
+      },
+      {
+        name: "ThdVbc",
+        min: minThdVbc,
+        max: maxThdVbc,
+        minError: setMinThdVbcError,
+        maxError: setMaxThdVbcError,
+      },
+      {
+        name: "ThdVca",
+        min: minThdVca,
+        max: maxThdVca,
+        minError: setMinThdVcaError,
+        maxError: setMaxThdVcaError,
+      },
+      {
+        name: "ThdVll",
+        min: minThdVll,
+        max: maxThdVll,
+        minError: setMinThdVllError,
+        maxError: setMaxThdVllError,
+      },
+      {
+        name: "ThdVan",
+        min: minThdVan,
+        max: maxThdVan,
+        minError: setMinThdVanError,
+        maxError: setMaxThdVanError,
+      },
+      {
+        name: "ThdVbn",
+        min: minThdVbn,
+        max: maxThdVbn,
+        minError: setMinThdVbnError,
+        maxError: setMaxThdVbnError,
+      },
+      {
+        name: "ThdVcn",
+        min: minThdVcn,
+        max: maxThdVcn,
+        minError: setMinThdVcnError,
+        maxError: setMaxThdVcnError,
+      },
+      {
+        name: "ThdVln",
+        min: minThdVln,
+        max: maxThdVln,
+        minError: setMinThdVlnError,
+        maxError: setMaxThdVlnError,
+      },
+    ];
+    const dataS = [
+      {
+        name: "Sa",
+        min: minSa,
+        max: maxSa,
+        minError: setMinSaError,
+        maxError: setMaxSaError,
+      },
+      {
+        name: "Sb",
+        min: minSb,
+        max: maxSb,
+        minError: setMinSbError,
+        maxError: setMaxSbError,
+      },
+      {
+        name: "Sc",
+        min: minSc,
+        max: maxSc,
+        minError: setMinScError,
+        maxError: setMaxScError,
+      },
+    ];
+
+    const fieldsToValidate = [
+      { field: url, message: "URL không được để trống" },
+      { field: username, message: "Username không được để trống" },
+      { field: password, message: "Password không được để trống" },
+      { field: client, message: "Client ID không được để trống" },
+      { field: topic, message: "Topic không được để trống" },
+      { field: typeSystem, message: "TypeSystem không được để trống" },
+      { field: typeDevice, message: "TypeDevice không được để trống" },
+      { field: country, message: "Country không được để trống" },
+      { field: province, message: "Province không được để trống" },
+      { field: codeCustomer, message: "CodeCustomer không được để trống" },
+      { field: codeProject, message: "CodeProject không được để trống" },
+      { field: a1, message: "A1 không được để trống" },
+      { field: a2, message: "A2 không được để trống" },
+      { field: a3, message: "A3 không được để trống" },
+      { field: a4, message: "A4 không được để trống" },
+      { field: a5, message: "A5 không được để trống" },
+      { field: func, message: "Func không được để trống" },
+      { field: messageType, message: "MessageType không được để trống" },
+      { field: crc, message: "Crc không được để trống" },
+    ];
+
+    for (const { field, message } of fieldsToValidate) {
+      if (field === "" || field === undefined || field === null) {
+        toastErrorAccessory(message);
+        return false;
+      }
     }
 
-    if (minIa < 0) {
-      setMinIaError(true);
-      setMaxIaError(false);
-      toastErrorAccessory("Giá trị IA phải nằm trong khoảng [0;10000]");
-      return false;
-    } else if (maxIa > 10000) {
-      setMinIaError(false);
-      setMaxIaError(true);
-      toastErrorAccessory("Giá trị IA phải nằm trong khoảng [0;10000]");
-      return false;
-    } else if (minIa > maxIa) {
-      setMinIaError(true);
-      setMaxIaError(true);
-      toastErrorAccessory("Giá trị Min IA phải nhỏ hơn giá trị Max IA");
+    if (frequency === "" || frequency === undefined || frequency === null) {
+      toastErrorAccessory("Tần xuất (ms) không được để trống");
+      setValidateFrequency(true);
       return false;
     } else {
-      setMinIaError(false);
-      setMaxIaError(false);
-    }
-    if (minIb === "") {
-      setMinIb(0);
-    }
-    if (maxIb === "") {
-      setMaxIb(10000);
-    }
-    if (minIb < 0) {
-      setMinIbError(true);
-      setMaxIbError(false);
-      toastErrorAccessory("Giá trị IB phải nằm trong khoảng [0;10000]");
-      return false;
-    } else if (maxIb > 10000) {
-      setMinIbError(false);
-      setMaxIbError(true);
-      toastErrorAccessory("Giá trị IB phải nằm trong khoảng [0;10000]");
-      return false;
-    } else if (minIb > maxIb) {
-      setMinIbError(true);
-      setMaxIbError(true);
-      toastErrorAccessory("Giá trị Min IB phải nhỏ hơn giá trị Max IB");
-      return false;
-    } else {
-      setMinIbError(false);
-      setMaxIbError(false);
-    }
-    if (minIc === "") {
-      setMinIc(0);
-    }
-    if (maxIc === "") {
-      setMaxIc(10000);
-    }
-    if (minIc < 0) {
-      setMinIcError(true);
-      setMaxIcError(false);
-      toastErrorAccessory("Giá trị Ic phải nằm trong khoảng [0;10000]");
-      return false;
-    } else if (maxIc > 10000) {
-      setMinIcError(false);
-      setMaxIcError(true);
-      toastErrorAccessory("Giá trị Ic phải nằm trong khoảng [0;10000]");
-      return false;
-    } else if (minIc > maxIc) {
-      setMinIcError(true);
-      setMaxIcError(true);
-      toastErrorAccessory("Giá trị min Ic phải nhỏ hơn giá trị Max Ic");
-      return false;
-    } else {
-      setMinIcError(false);
-      setMaxIcError(false);
+      setValidateFrequency(false);
     }
 
-    if (minIN === "") {
-      setMinIN(0);
+    for (const data of dataU) {
+      if (
+        data.min === undefined ||
+        data.max === undefined ||
+        data.min === "" ||
+        data.max === ""
+      ) {
+        data.minError(true);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} và Max ${data.name} không được để trống`
+        );
+        return false;
+      } else if (data.min < 0 || data.min > 44999) {
+        data.minError(true);
+        data.maxError(false);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} phải nằm trong khoảng [0;44999]`
+        );
+        return false;
+      } else if (data.max < 1 || data.max > 45000) {
+        data.minError(false);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Max ${data.name} phải nằm trong khoảng [1;45000]`
+        );
+        return false;
+      } else if (data.min > data.max) {
+        data.minError(true);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} phải nhỏ hơn giá trị Max ${data.name}`
+        );
+        return false;
+      } else {
+        data.minError(false);
+        data.maxError(false);
+      }
     }
-    if (maxIN === "") {
-      setMaxIN(10000);
+
+    for (const data of data2M) {
+      if (
+        data.min === undefined ||
+        data.max === undefined ||
+        data.min === "" ||
+        data.max === ""
+      ) {
+        data.minError(true);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} và Max ${data.name} không được để trống`
+        );
+        return false;
+      } else if (data.min < -2000000 || data.min > 1999999) {
+        data.minError(true);
+        data.maxError(false);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} phải nằm trong khoảng [-2000000;1999999]`
+        );
+        return false;
+      } else if (data.max < -1999999 || data.max > 2000000) {
+        data.minError(false);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Max ${data.name} phải nằm trong khoảng [-1999999;2000000]`
+        );
+        return false;
+      } else if (data.min > data.max) {
+        data.minError(true);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} phải nhỏ hơn giá trị Max ${data.name}`
+        );
+        return false;
+      } else {
+        data.minError(false);
+        data.maxError(false);
+      }
     }
-    if (minIN < 0) {
-      setMinINError(true);
-      setMaxINError(false);
-      toastErrorAccessory("Giá trị IN phải nằm trong khoảng [0;10000]");
+
+    for (const data of data4M) {
+      if (
+        data.min === undefined ||
+        data.max === undefined ||
+        data.min === "" ||
+        data.max === ""
+      ) {
+        data.minError(true);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} và Max ${data.name} không được để trống`
+        );
+        return false;
+      } else if (data.min < 0 || data.min > 3999999999) {
+        data.minError(true);
+        data.maxError(false);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} phải nằm trong khoảng [0;3999999999]`
+        );
+        return false;
+      } else if (data.max < 1 || data.max > 4000000000) {
+        data.minError(false);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Max ${data.name} phải nằm trong khoảng [1;4000000000]`
+        );
+        return false;
+      } else if (data.min > data.max) {
+        data.minError(true);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} phải nhỏ hơn giá trị Max ${data.name}`
+        );
+        return false;
+      } else {
+        data.minError(false);
+        data.maxError(false);
+      }
+    }
+
+    for (const data of dataI) {
+      if (
+        data.min === undefined ||
+        data.max === undefined ||
+        data.min === "" ||
+        data.max === ""
+      ) {
+        data.minError(true);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} và Max ${data.name} không được để trống`
+        );
+        return false;
+      } else if (data.min < 0 || data.min > 9999) {
+        data.minError(true);
+        data.maxError(false);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} phải nằm trong khoảng [0;9999]`
+        );
+        return false;
+      } else if (data.max < 1 || data.max > 10000) {
+        data.minError(false);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Max ${data.name} phải nằm trong khoảng [1;10000]`
+        );
+        return false;
+      } else if (data.min > data.max) {
+        data.minError(true);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} phải nhỏ hơn giá trị Max ${data.name}`
+        );
+        return false;
+      } else {
+        data.minError(false);
+        data.maxError(false);
+      }
+    }
+
+    for (const data of dataS) {
+      if (
+        data.min === undefined ||
+        data.max === undefined ||
+        data.min === "" ||
+        data.max === ""
+      ) {
+        data.minError(true);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} và Max ${data.name} không được để trống`
+        );
+        return false;
+      } else if (data.min < 0 || data.min > 1999999) {
+        data.minError(true);
+        data.maxError(false);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} phải nằm trong khoảng [0;1999999]`
+        );
+        return false;
+      } else if (data.max < 1 || data.max > 2000000) {
+        data.minError(false);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Max ${data.name} phải nằm trong khoảng [1;2000000]`
+        );
+        return false;
+      } else if (data.min > data.max) {
+        data.minError(true);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} phải nhỏ hơn giá trị Max ${data.name}`
+        );
+        return false;
+      } else {
+        data.minError(false);
+        data.maxError(false);
+      }
+    }
+
+    for (const data of dataT) {
+      if (
+        data.min === undefined ||
+        data.max === undefined ||
+        data.min === "" ||
+        data.max === ""
+      ) {
+        data.minError(true);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} và Max ${data.name} không được để trống`
+        );
+        return false;
+      } else if (data.min < -100 || data.min > 199) {
+        data.minError(true);
+        data.maxError(false);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} phải nằm trong khoảng [-100;199]`
+        );
+        return false;
+      } else if (data.max < -99 || data.max > 200) {
+        data.minError(false);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Max ${data.name} phải nằm trong khoảng [-99;200]`
+        );
+        return false;
+      } else if (data.min > data.max) {
+        data.minError(true);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} phải nhỏ hơn giá trị Max ${data.name}`
+        );
+        return false;
+      } else {
+        data.minError(false);
+        data.maxError(false);
+      }
+    }
+
+    for (const data of dataThd) {
+      if (
+        data.min === undefined ||
+        data.max === undefined ||
+        data.min === "" ||
+        data.max === ""
+      ) {
+        data.minError(true);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} và Max ${data.name} không được để trống`
+        );
+        return false;
+      } else if (data.min < 0 || data.min > 99) {
+        data.minError(true);
+        data.maxError(false);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} phải nằm trong khoảng [0;99]`
+        );
+        return false;
+      } else if (data.max < 1 || data.max > 100) {
+        data.minError(false);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Max ${data.name} phải nằm trong khoảng [1;100]`
+        );
+        return false;
+      } else if (data.min > data.max) {
+        data.minError(true);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} phải nhỏ hơn giá trị Max ${data.name}`
+        );
+        return false;
+      } else {
+        data.minError(false);
+        data.maxError(false);
+      }
+    }
+
+    for (const data of dataPf) {
+      if (
+        data.min === undefined ||
+        data.max === undefined ||
+        data.min === "" ||
+        data.max === ""
+      ) {
+        data.minError(true);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} và Max ${data.name} không được để trống`
+        );
+        return false;
+      } else if (data.min < -1 || data.min > 0) {
+        data.minError(true);
+        data.maxError(false);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} phải nằm trong khoảng [-1;0]`
+        );
+        return false;
+      } else if (data.max < 0 || data.max > 1) {
+        data.minError(false);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Max ${data.name} phải nằm trong khoảng [0;1]`
+        );
+        return false;
+      } else if (data.min > data.max) {
+        data.minError(true);
+        data.maxError(true);
+        toastErrorAccessory(
+          `Giá trị Min ${data.name} phải nhỏ hơn giá trị Max ${data.name}`
+        );
+        return false;
+      } else {
+        data.minError(false);
+        data.maxError(false);
+      }
+    }
+    if (
+      minPTotal === undefined ||
+      maxPTotal === undefined ||
+      minPTotal === "" ||
+      maxPTotal === ""
+    ) {
+      setMinPTotalError(true);
+      setMaxPTotalError(true);
+      toastErrorAccessory(`Giá trị PTotal không được để trống`);
       return false;
-    } else if (maxIN > 10000) {
-      setMinINError(false);
-      setMaxINError(true);
-      toastErrorAccessory("Giá trị IN phải nằm trong khoảng [0;10000]");
-      return false;
-    } else if (minIN > maxIN) {
-      setMinINError(true);
-      setMaxINError(true);
-      toastErrorAccessory("Giá trị min IN phải nhỏ hơn giá trị Max IN");
-      return false;
-    } else {
-      setMinINError(false);
-      setMaxINError(false);
-    }
-    if (minIG === "") {
-      setMinIG(0);
-    }
-    if (maxIG === "") {
-      setMaxIG(10000);
-    }
-    if (minIG < 0) {
-      setMinIGError(true);
-      setMaxIGError(false);
-      toastErrorAccessory("Giá trị IG phải nằm trong khoảng [0;10000]");
-      return false;
-    } else if (maxIG > 10000) {
-      setMinIGError(false);
-      setMaxIGError(true);
-      toastErrorAccessory("Giá trị IG phải nằm trong khoảng [0;10000]");
-      return false;
-    } else if (minIG > maxIG) {
-      setMinIGError(true);
-      setMaxIGError(true);
-      toastErrorAccessory("Giá trị min IG phải nhỏ hơn giá trị Max IG");
-      return false;
-    } else {
-      setMinIGError(false);
-      setMaxIGError(false);
-    }
-    if (minIAvg === "") {
-      setMinIAvg(0);
-    }
-    if (maxIAvg === "") {
-      setMaxIAvg(10000);
-    }
-    if (minIAvg < 0) {
-      setMinIAvgError(true);
-      setMaxIAvgError(false);
-      toastErrorAccessory("Giá trị IAvg phải nằm trong khoảng [0;10000]");
-      return false;
-    } else if (maxIAvg > 10000) {
-      setMinIAvgError(false);
-      setMaxIAvgError(true);
-      toastErrorAccessory("Giá trị IAvg phải nằm trong khoảng [0;10000]");
-      return false;
-    } else if (minIAvg > maxIAvg) {
-      setMinIAvgError(true);
-      setMaxIAvgError(true);
-      toastErrorAccessory("Giá trị min IAvg phải nhỏ hơn giá trị Max IAvg");
-      return false;
-    } else {
-      setMinIAvgError(false);
-      setMaxIAvgError(false);
-    }
-    if (minPa === "") {
-      setMinPa(-2000000);
-    }
-    if (maxPa === "") {
-      setMaxPa(2000000);
-    }
-    if (minPa < -2000000) {
-      setMinPaError(true);
-      setMaxPaError(false);
-      toastErrorAccessory("Giá trị Pa phải nằm trong khoảng [-2:2]M");
-      return false;
-    } else if (maxPa > 2000000) {
-      setMinPaError(false);
-      setMaxPaError(true);
-      toastErrorAccessory("Giá trị Pa phải nằm trong khoảng [-2:2]M");
-      return false;
-    } else if (minPa > maxPa) {
-      setMinPaError(true);
-      setMaxPaError(true);
-      toastErrorAccessory("Giá trị Min Pa phải nhỏ hơn giá trị Max Pa");
-      return false;
-    } else {
-      setMinPaError(false);
-      setMaxPaError(false);
-    }
-    if (minPb === "") {
-      setMinPb(-2000000);
-    }
-    if (maxPb === "") {
-      setMaxPb(2000000);
-    }
-    if (minPb < -2000000) {
-      setMinPbError(true);
-      setMaxPbError(false);
-      toastErrorAccessory("Giá trị Pb phải nằm trong khoảng [-2:2]M");
-      return false;
-    } else if (maxPb > 2000000) {
-      setMinPbError(false);
-      setMaxPbError(true);
-      toastErrorAccessory("Giá trị Pb phải nằm trong khoảng [-2:2]M");
-      return false;
-    } else if (minPb > maxPb) {
-      setMinPbError(true);
-      setMaxPbError(true);
-      toastErrorAccessory("Giá trị Min Pb phải nhỏ hơn giá trị Max Pb");
-      return false;
-    } else {
-      setMinPbError(false);
-      setMaxPbError(false);
-    }
-    if (minPc === "") {
-      setMinPc(-2000000);
-    }
-    if (maxPc === "") {
-      setMaxPc(2000000);
-    }
-    if (minPc < -2000000) {
-      setMinPcError(true);
-      setMaxPcError(false);
-      toastErrorAccessory("Giá trị Pc phải nằm trong khoảng [-2:2]M");
-      return false;
-    } else if (maxPc > 2000000) {
-      setMinPcError(false);
-      setMaxPcError(true);
-      toastErrorAccessory("Giá trị Pc phải nằm trong khoảng [-2:2]M");
-      return false;
-    } else if (minPc > maxPc) {
-      setMinPcError(true);
-      setMaxPcError(true);
-      toastErrorAccessory("Giá trị Min Pc phải nhỏ hơn giá trị Max Pc");
-      return false;
-    } else {
-      setMinPcError(false);
-      setMaxPcError(false);
-    }
-    if (minPTotal === "") {
-      setMinPTotal(-6000000);
-    }
-    if (maxPTotal === "") {
-      setMaxPTotal(6000000);
-    }
-    if (minPTotal < -6000000) {
+    } else if (minPTotal < -6000000 || minPTotal > 5999999) {
       setMinPTotalError(true);
       setMaxPTotalError(false);
-      toastErrorAccessory("Giá trị PTotal phải nằm trong khoảng [-6:6]M");
+      toastErrorAccessory(
+        "Giá trị Min PTotal phải nằm trong khoảng [-6000000;5999999]"
+      );
       return false;
-    } else if (maxPTotal > 6000000) {
+    } else if (maxPTotal > 6000000 || maxPTotal < -5999999) {
       setMinPTotalError(false);
       setMaxPTotalError(true);
-      toastErrorAccessory("Giá trị PTotal phải nằm trong khoảng [-6:6]M");
+      toastErrorAccessory(
+        "Giá trị Max PTotal phải nằm trong khoảng [-5999999:6000000]"
+      );
       return false;
     } else if (minPTotal > maxPTotal) {
       setMinPTotalError(true);
@@ -710,198 +984,30 @@ export default function S3MDataLoadFrame1(props) {
       setMinPTotalError(false);
       setMaxPTotalError(false);
     }
-    if (minQa === "") {
-      setMinQa(-2000000);
-    }
-    if (maxQa === "") {
-      setMaxQa(2000000);
-    }
-    if (minQa < -2000000) {
-      setMinQaError(true);
-      setMaxQaError(false);
-      toastErrorAccessory("Giá trị Qa phải nằm trong khoảng [-2:2]M");
-      return false;
-    } else if (maxQa > 2000000) {
-      setMinQaError(false);
-      setMaxQaError(true);
-      toastErrorAccessory("Giá trị Qa phải nằm trong khoảng [-2:2]M");
-      return false;
-    } else if (minQa > maxQa) {
-      setMinQaError(true);
-      setMaxQaError(true);
-      toastErrorAccessory("Giá trị Min Qa phải nhỏ hơn giá trị Max Qa");
-      return false;
-    } else {
-      setMinQaError(false);
-      setMaxQaError(false);
-    }
-    if (minQb === "") {
-      setMinQb(-2000000);
-    }
-    if (maxQb === "") {
-      setMaxQb(2000000);
-    }
-    if (minQb < -2000000) {
-      setMinQbError(true);
-      setMaxQbError(false);
-      toastErrorAccessory("Giá trị Qb phải nằm trong khoảng [-2:2]M");
-      return false;
-    } else if (maxQb > 2000000) {
-      setMinQbError(false);
-      setMaxQbError(true);
-      toastErrorAccessory("Giá trị Qb phải nằm trong khoảng [-2:2]M");
-      return false;
-    } else if (minQb > maxQb) {
-      setMinQbError(true);
-      setMaxQbError(true);
-      toastErrorAccessory("Giá trị Min Qb phải nhỏ hơn giá trị Max Qb");
-      return false;
-    } else {
-      setMinQbError(false);
-      setMaxQbError(false);
-    }
-    if (minQc === "") {
-      setMinQc(-2000000);
-    }
-    if (maxQc === "") {
-      setMaxQc(2000000);
-    }
-    if (minQc < -2000000) {
-      setMinQcError(true);
-      setMaxQcError(false);
-      toastErrorAccessory("Giá trị Qc phải nằm trong khoảng [-2:2]M");
-      return false;
-    } else if (maxQc > 2000000) {
-      setMinQcError(false);
-      setMaxQcError(true);
-      toastErrorAccessory("Giá trị Qc phải nằm trong khoảng [-2:2]M");
-      return false;
-    } else if (minQc > maxQc) {
-      setMinQcError(true);
-      setMaxQcError(true);
-      toastErrorAccessory("Giá trị Min Qc phải nhỏ hơn giá trị Max Qc");
-      return false;
-    } else {
-      setMinQcError(false);
-      setMaxQcError(false);
-    }
-    if (minQTotal === "") {
-      setMinQTotal(-6000000);
-    }
-    if (maxQTotal === "") {
-      setMaxQTotal(6000000);
-    }
-    if (minQTotal < -6000000) {
-      setMinQTotalError(true);
-      setMaxQTotalError(false);
-      toastErrorAccessory("Giá trị QTotal phải nằm trong khoảng [-6:6]M");
-      return false;
-    } else if (maxQTotal > 6000000) {
-      setMinQTotalError(false);
-      setMaxQTotalError(true);
-      toastErrorAccessory("Giá trị QTotal phải nằm trong khoảng [-6:6]M");
-      return false;
-    } else if (minQTotal > maxQTotal) {
-      setMinQTotalError(true);
-      setMaxQTotalError(true);
-      toastErrorAccessory("Giá trị Min QTotal phải nhỏ hơn giá trị Max QTotal");
-      return false;
-    } else {
-      setMinQTotalError(false);
-      setMaxQTotalError(false);
-    }
 
-    if (minSa === "") {
-      setMinSa(-2000000);
-    }
-    if (maxSa === "") {
-      setMaxSa(2000000);
-    }
-    if (minSa < -2000000) {
-      setMinSaError(true);
-      setMaxSaError(false);
-      toastErrorAccessory("Giá trị Sa phải nằm trong khoảng [-2:2]M");
+    if (
+      minSTotal === undefined ||
+      maxSTotal === undefined ||
+      minSTotal === "" ||
+      maxSTotal === ""
+    ) {
+      setMinSTotalError(true);
+      setMaxSTotalError(true);
+      toastErrorAccessory(`Giá trị STotal không được để trống`);
       return false;
-    } else if (maxSa > 2000000) {
-      setMinSaError(false);
-      setMaxSaError(true);
-      toastErrorAccessory("Giá trị Sa phải nằm trong khoảng [-2:2]M");
-      return false;
-    } else if (minSa > maxSa) {
-      setMinSaError(true);
-      setMaxSaError(true);
-      toastErrorAccessory("Giá trị Min Sa phải nhỏ hơn giá trị Max Sa");
-      return false;
-    } else {
-      setMinSaError(false);
-      setMaxSaError(false);
-    }
-    if (minSb === "") {
-      setMinSb(-2000000);
-    }
-    if (maxSb === "") {
-      setMaxSb(2000000);
-    }
-    if (minSb < -2000000) {
-      setMinSbError(true);
-      setMaxSbError(false);
-      toastErrorAccessory("Giá trị Sb phải nằm trong khoảng [-2:2]M");
-      return false;
-    } else if (maxSb > 2000000) {
-      setMinSbError(false);
-      setMaxSbError(true);
-      toastErrorAccessory("Giá trị Sb phải nằm trong khoảng [-2:2]M");
-      return false;
-    } else if (minSb > maxSb) {
-      setMinSbError(true);
-      setMaxSbError(true);
-      toastErrorAccessory("Giá trị Min Sb phải nhỏ hơn giá trị Max Sb");
-      return false;
-    } else {
-      setMinSbError(false);
-      setMaxSbError(false);
-    }
-    if (minSc === "") {
-      setMinSc(-2000000);
-    }
-    if (maxSc === "") {
-      setMaxSc(2000000);
-    }
-    if (minSc < -2000000) {
-      setMinScError(true);
-      setMaxScError(false);
-      toastErrorAccessory("Giá trị Sc phải nằm trong khoảng [-2:2]M");
-      return false;
-    } else if (maxSc > 2000000) {
-      setMinScError(false);
-      setMaxScError(true);
-      toastErrorAccessory("Giá trị Sc phải nằm trong khoảng [-2:2]M");
-      return false;
-    } else if (minSc > maxSc) {
-      setMinScError(true);
-      setMaxScError(true);
-      toastErrorAccessory("Giá trị Min Sc phải nhỏ hơn giá trị Max Sc");
-      return false;
-    } else {
-      setMinScError(false);
-      setMaxScError(false);
-    }
-
-    if (minSTotal === "") {
-      setMinSTotal(-6000000);
-    }
-    if (maxSTotal === "") {
-      setMaxSTotal(6000000);
-    }
-    if (minSTotal < -6000000) {
+    } else if (minSTotal < 0 || minSTotal > 5999999) {
       setMinSTotalError(true);
       setMaxSTotalError(false);
-      toastErrorAccessory("Giá trị STotal phải nằm trong khoảng [-6:6]M");
+      toastErrorAccessory(
+        "Giá trị Min STotal phải nằm trong khoảng [0;5999999]"
+      );
       return false;
-    } else if (maxSTotal > 6000000) {
+    } else if (maxSTotal > 6000000 || maxSTotal < 1) {
       setMinSTotalError(false);
       setMaxSTotalError(true);
-      toastErrorAccessory("Giá trị STotal phải nằm trong khoảng [-6:6]M");
+      toastErrorAccessory(
+        "Giá trị Max STotal phải nằm trong khoảng [1;6000000]"
+      );
       return false;
     } else if (minSTotal > maxSTotal) {
       setMinSTotalError(true);
@@ -912,121 +1018,26 @@ export default function S3MDataLoadFrame1(props) {
       setMinSTotalError(false);
       setMaxSTotalError(false);
     }
-    if (minPfa === "") {
-      setMinPfa(-1);
-    }
-    if (maxPfa === "") {
-      setMaxPfa(1);
-    }
-    if (minPfa < -1) {
-      setMinPfaError(true);
-      setMaxPfaError(false);
-      toastErrorAccessory("Giá trị Pfa phải nằm trong khoảng [-1;1]");
+
+    if (
+      minF === undefined ||
+      maxF === undefined ||
+      minF === "" ||
+      maxF === ""
+    ) {
+      setMinFError(true);
+      setMaxFError(true);
+      toastErrorAccessory(`Giá trị QTotal không được để trống`);
       return false;
-    } else if (maxPfa > 1) {
-      setMinPfaError(false);
-      setMaxPfaError(true);
-      toastErrorAccessory("Giá trị Pfa phải nằm trong khoảng [-1;1]");
-      return false;
-    } else if (minPfa > maxPfa) {
-      setMinPfaError(true);
-      setMaxPfaError(true);
-      toastErrorAccessory("Giá trị Min Pfa phải nhỏ hơn giá trị Max Pfa");
-      return false;
-    } else {
-      setMinPfaError(false);
-      setMaxPfaError(false);
-    }
-    if (minPfb === "") {
-      setMinPfb(-1);
-    }
-    if (maxPfb === "") {
-      setMaxPfb(1);
-    }
-    if (minPfb < -1) {
-      setMinPfbError(true);
-      setMaxPfbError(false);
-      toastErrorAccessory("Giá trị Pfb phải nằm trong khoảng [-1;1]");
-      return false;
-    } else if (maxPfb > 1) {
-      setMinPfbError(false);
-      setMaxPfbError(true);
-      toastErrorAccessory("Giá trị Pfb phải nằm trong khoảng [-1;1]");
-      return false;
-    } else if (minPfb > maxPfb) {
-      setMinPfbError(true);
-      setMaxPfbError(true);
-      toastErrorAccessory("Giá trị Min Pfb phải nhỏ hơn giá trị Max Pfb");
-      return false;
-    } else {
-      setMinPfbError(false);
-      setMaxPfbError(false);
-    }
-    if (minPfc === "") {
-      setMinPfc(-1);
-    }
-    if (maxPfc === "") {
-      setMaxPfc(1);
-    }
-    if (minPfc < -1) {
-      setMinPfcError(true);
-      setMaxPfcError(false);
-      toastErrorAccessory("Giá trị Pfc phải nằm trong khoảng [-1;1]");
-      return false;
-    } else if (maxPfc > 1) {
-      setMinPfcError(false);
-      setMaxPfcError(true);
-      toastErrorAccessory("Giá trị Pfc phải nằm trong khoảng [-1;1]");
-      return false;
-    } else if (minPfc > maxPfc) {
-      setMinPfcError(true);
-      setMaxPfcError(true);
-      toastErrorAccessory("Giá trị Min Pfc phải nhỏ hơn giá trị Max Pfc");
-      return false;
-    } else {
-      setMinPfcError(false);
-      setMaxPfcError(false);
-    }
-    if (minPFAvg === "") {
-      setMinPFAvg(-1);
-    }
-    if (maxPFAvg === "") {
-      setMaxPFAvg(1);
-    }
-    if (minPFAvg < -1) {
-      setMinPFAvgError(true);
-      setMaxPFAvgError(false);
-      toastErrorAccessory("Giá trị PFAvg phải nằm trong khoảng [-1;1]");
-      return false;
-    } else if (maxPFAvg > 1) {
-      setMinPFAvgError(false);
-      setMaxPFAvgError(true);
-      toastErrorAccessory("Giá trị PFAvg phải nằm trong khoảng [-1;1]");
-      return false;
-    } else if (minPFAvg > maxPFAvg) {
-      setMinPFAvgError(true);
-      setMaxPFAvgError(true);
-      toastErrorAccessory("Giá trị Min PFAvg phải nhỏ hơn giá trị Max PFAvg");
-      return false;
-    } else {
-      setMinPFAvgError(false);
-      setMaxPFAvgError(false);
-    }
-    if (minF === "") {
-      setMinF(45);
-    }
-    if (maxF === "") {
-      setMaxF(65);
-    }
-    if (minF < 45) {
+    } else if (minF < 45 || minF > 64) {
       setMinFError(true);
       setMaxFError(false);
-      toastErrorAccessory("Giá trị F phải nằm trong khoảng [45;65]");
+      toastErrorAccessory("Giá trị Min F phải nằm trong khoảng [45;64]");
       return false;
-    } else if (maxF > 65) {
+    } else if (maxF > 65 || maxF < 46) {
       setMinFError(false);
       setMaxFError(true);
-      toastErrorAccessory("Giá trị F phải nằm trong khoảng [45;65]");
+      toastErrorAccessory("Giá trị Max F phải nằm trong khoảng [46;65]");
       return false;
     } else if (minF > maxF) {
       setMinFError(true);
@@ -1037,887 +1048,102 @@ export default function S3MDataLoadFrame1(props) {
       setMinFError(false);
       setMaxFError(false);
     }
-    if (minEp === "") {
-      setMinEp(0);
-    }
-    if (maxEp === "") {
-      setMaxEp(4000000000);
-    }
-    if (minEp < 0) {
-      setMinEpError(true);
-      setMaxEpError(false);
-      toastErrorAccessory("Giá trị Ep phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (maxEp > 4000000000) {
-      setMinEpError(false);
-      setMaxEpError(true);
-      toastErrorAccessory("Giá trị Ep phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (minEp > maxEp) {
-      setMinEpError(true);
-      setMaxEpError(true);
-      toastErrorAccessory("Giá trị Min Ep phải nhỏ hơn giá trị Max Ep");
-      return false;
-    } else {
-      setMinEpError(false);
-      setMaxEpError(false);
-    }
-    if (minEpR === "") {
-      setMinEpR(0);
-    }
-    if (maxEpR === "") {
-      setMaxEpR(4000000000);
-    }
-    if (minEpR < 0) {
-      setMinEpRError(true);
-      setMaxEpRError(false);
-      toastErrorAccessory("Giá trị EpR phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (maxEpR > 4000000000) {
-      setMinEpRError(false);
-      setMaxEpRError(true);
-      toastErrorAccessory("Giá trị EpR phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (minEpR > maxEpR) {
-      setMinEpRError(true);
-      setMaxEpRError(true);
-      toastErrorAccessory("Giá trị Min EpR phải nhỏ hơn giá trị Max EpR");
-      return false;
-    } else {
-      setMinEpRError(false);
-      setMaxEpRError(false);
-    }
-    if (minEpDR === "") {
-      setMinEpDR(0);
-    }
-    if (maxEpDR === "") {
-      setMaxEpDR(4000000000);
-    }
-    if (minEpDR < 0) {
-      setMinEpDRError(true);
-      setMaxEpDRError(false);
-      toastErrorAccessory("Giá trị EpDR phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (maxEpDR > 4000000000) {
-      setMinEpDRError(false);
-      setMaxEpDRError(true);
-      toastErrorAccessory("Giá trị EpDR phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (minEpDR > maxEpDR) {
-      setMinEpDRError(true);
-      setMaxEpDRError(true);
-      toastErrorAccessory("Giá trị Min EpDR phải nhỏ hơn giá trị Max EpDR");
-      return false;
-    } else {
-      setMinEpDRError(false);
-      setMaxEpDRError(false);
-    }
-    if (minEpDRR === "") {
-      setMinEpDRR(0);
-    }
-    if (maxEpDRR === "") {
-      setMaxEpDRR(4000000000);
-    }
-    if (minEpDRR < 0) {
-      setMinEpDRRError(true);
-      setMaxEpDRRError(false);
-      toastErrorAccessory("Giá trị EpDRR phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (maxEpDRR > 4000000000) {
-      setMinEpDRRError(false);
-      setMaxEpDRRError(true);
-      toastErrorAccessory("Giá trị EpDRR phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (minEpDRR > maxEpDRR) {
-      setMinEpDRRError(true);
-      setMaxEpDRRError(true);
-      toastErrorAccessory("Giá trị Min EpDRR phải nhỏ hơn giá trị Max EpDRR");
-      return false;
-    } else {
-      setMinEpDRRError(false);
-      setMaxEpDRRError(false);
-    }
-    if (minEq === "") {
-      setMinEq(0);
-    }
-    if (maxEq === "") {
-      setMaxEq(4000000000);
-    }
-    if (minEq < 0) {
-      setMinEqError(true);
-      setMaxEqError(false);
-      toastErrorAccessory("Giá trị Eq phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (maxEq > 4000000000) {
-      setMinEqError(false);
-      setMaxEqError(true);
-      toastErrorAccessory("Giá trị Eq phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (minEq > maxEq) {
-      setMinEqError(true);
-      setMaxEqError(true);
-      toastErrorAccessory("Giá trị Min Eq phải nhỏ hơn giá trị Max Eq");
-      return false;
-    } else {
-      setMinEqError(false);
-      setMaxEqError(false);
-    }
-
-    if (minEqR === "") {
-      setMinEqR(0);
-    }
-    if (maxEqR === "") {
-      setMaxEqR(4000000000);
-    }
-    if (minEqR < 0) {
-      setMinEqRError(true);
-      setMaxEqRError(false);
-      toastErrorAccessory("Giá trị EqR phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (maxEqR > 4000000000) {
-      setMinEqRError(false);
-      setMaxEqRError(true);
-      toastErrorAccessory("Giá trị EqR phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (minEqR > maxEqR) {
-      setMinEqRError(true);
-      setMaxEqRError(true);
-      toastErrorAccessory("Giá trị Min EqR phải nhỏ hơn giá trị Max EqR");
-      return false;
-    } else {
-      setMinEqRError(false);
-      setMaxEqRError(false);
-    }
-    if (minEqDR === "") {
-      setMinEqDR(0);
-    }
-    if (maxEqDR === "") {
-      setMaxEqDR(4000000000);
-    }
-    if (minEqDRR < 0) {
-      setMinEqDRRError(true);
-      setMaxEqDRRError(false);
-      toastErrorAccessory("Giá trị EqDRR phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (maxEqDRR > 4000000000) {
-      setMinEqDRRError(false);
-      setMaxEqDRRError(true);
-      toastErrorAccessory("Giá trị EqDRR phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (minEqDRR > maxEqDRR) {
-      setMinEqDRRError(true);
-      setMaxEqDRRError(true);
-      toastErrorAccessory("Giá trị Min EqDRR phải nhỏ hơn giá trị Max EqDRR");
-      return false;
-    } else {
-      setMinEqDRRError(false);
-      setMaxEqDRRError(false);
-    }
-    if (minEqDRR === "") {
-      setMinEqDRR(0);
-    }
-    if (maxEqDRR === "") {
-      setMaxEqDRR(4000000000);
-    }
-    if (minEqDRR < 0) {
-      setMinEqDRRError(true);
-      setMaxEqDRRError(false);
-      toastErrorAccessory("Giá trị EqDRR phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (maxEqDRR > 4000000000) {
-      setMinEqDRRError(false);
-      setMaxEqDRRError(true);
-      toastErrorAccessory("Giá trị EqDRR phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (minEqDRR > maxEqDRR) {
-      setMinEqDRRError(true);
-      setMaxEqDRRError(true);
-      toastErrorAccessory("Giá trị Min EqDRR phải nhỏ hơn giá trị Max EqDRR");
-      return false;
-    } else {
-      setMinEqDRRError(false);
-      setMaxEqDRRError(false);
-    }
-    if (minEs === "") {
-      setMinEs(0);
-    }
-    if (maxEs === "") {
-      setMaxEs(4000000000);
-    }
-    if (minEs < 0) {
-      setMinEsError(true);
-      setMaxEsError(false);
-      toastErrorAccessory("Giá trị Es phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (maxEs > 4000000000) {
-      setMinEsError(false);
-      setMaxEsError(true);
-      toastErrorAccessory("Giá trị Es phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (minEs > maxEs) {
-      setMinEsError(true);
-      setMaxEsError(true);
-      toastErrorAccessory("Giá trị Min Es phải nhỏ hơn giá trị Max Es");
-      return false;
-    } else {
-      setMinEsError(false);
-      setMaxEsError(false);
-    }
-    if (minEsR === "") {
-      setMinEsR(0);
-    }
-    if (maxEsR === "") {
-      setMaxEsR(4000000000);
-    }
-    if (minEsR < 0) {
-      setMinEsRError(true);
-      setMaxEsRError(false);
-      toastErrorAccessory("Giá trị EsR phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (maxEsR > 4000000000) {
-      setMinEsRError(false);
-      setMaxEsRError(true);
-      toastErrorAccessory("Giá trị EsR phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (minEsR > maxEsR) {
-      setMinEsRError(true);
-      setMaxEsRError(true);
-      toastErrorAccessory("Giá trị Min EsR phải nhỏ hơn giá trị Max EsR");
-      return false;
-    } else {
-      setMinEsRError(false);
-      setMaxEsRError(false);
-    }
-    if (minEsDR === "") {
-      setMinEsDR(0);
-    }
-    if (maxEsDR === "") {
-      setMaxEsDR(4000000000);
-    }
-    if (minEsDR < 0) {
-      setMinEsDRError(true);
-      setMaxEsDRError(false);
-      toastErrorAccessory("Giá trị EsDR phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (maxEsDR > 4000000000) {
-      setMinEsDRError(false);
-      setMaxEsDRError(true);
-      toastErrorAccessory("Giá trị EsDR phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (minEsDR > maxEsDR) {
-      setMinEsDRError(true);
-      setMaxEsDRError(true);
-      toastErrorAccessory("Giá trị Min EsDR phải nhỏ hơn giá trị Max EsDR");
-      return false;
-    } else {
-      setMinEsDRError(false);
-      setMaxEsDRError(false);
-    }
-    if (minEsDRR === "") {
-      setMinEsDRR(0);
-    }
-    if (maxEsDRR === "") {
-      setMaxEsDRR(4000000000);
-    }
-    if (minEsDRR < 0) {
-      setMinEsDRRError(true);
-      setMaxEsDRRError(false);
-      toastErrorAccessory("Giá trị EsDRR phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (maxEsDRR > 4000000000) {
-      setMinEsDRRError(false);
-      setMaxEsDRRError(true);
-      toastErrorAccessory("Giá trị EsDRR phải nằm trong khoảng [0:4]B");
-      return false;
-    } else if (minEsDRR > maxEsDRR) {
-      setMinEsDRRError(true);
-      setMaxEsDRRError(true);
-      toastErrorAccessory("Giá trị Min EsDRR phải nhỏ hơn giá trị Max EsDRR");
-      return false;
-    } else {
-      setMinEsDRRError(false);
-      setMaxEsDRRError(false);
-    }
-    if (minT1 === "") {
-      setMinT1(-100);
-    }
-    if (maxT1 === "") {
-      setMaxT1(200);
-    }
-    if (minT1 < -100) {
-      setMinT1Error(true);
-      setMaxT1Error(false);
-      toastErrorAccessory("Giá trị T1 phải nằm trong khoảng [-100:200]");
-      return false;
-    } else if (maxT1 > 200) {
-      setMinT1Error(false);
-      setMaxT1Error(true);
-      toastErrorAccessory("Giá trị T1 phải nằm trong khoảng [-100:200]");
-      return false;
-    } else if (minT1 > maxT1) {
-      setMinT1Error(true);
-      setMaxT1Error(true);
-      toastErrorAccessory("Giá trị Min T1 phải nhỏ hơn giá trị Max T1");
-      return false;
-    } else {
-      setMinT1Error(false);
-      setMaxT1Error(false);
-    }
-    if (minT2 === "") {
-      setMinT2(-100);
-    }
-    if (maxT2 === "") {
-      setMaxT2(200);
-    }
-    if (minT2 < -100) {
-      setMinT2Error(true);
-      setMaxT2Error(false);
-      toastErrorAccessory("Giá trị T2 phải nằm trong khoảng [-100:200]");
-      return false;
-    } else if (maxT2 > 200) {
-      setMinT2Error(false);
-      setMaxT2Error(true);
-      toastErrorAccessory("Giá trị T2 phải nằm trong khoảng [-100:200]");
-      return false;
-    } else if (minT2 > maxT2) {
-      setMinT2Error(true);
-      setMaxT2Error(true);
-      toastErrorAccessory("Giá trị Min T2 phải nhỏ hơn giá trị Max T2");
-      return false;
-    } else {
-      setMinT2Error(false);
-      setMaxT2Error(false);
-    }
-    if (minT3 === "") {
-      setMinT3(-100);
-    }
-    if (maxT3 === "") {
-      setMaxT3(200);
-    }
-    if (minT3 < -100) {
-      setMinT3Error(true);
-      setMaxT3Error(false);
-      toastErrorAccessory("Giá trị T3 phải nằm trong khoảng [-100:200]");
-      return false;
-    } else if (maxT3 > 200) {
-      setMinT3Error(false);
-      setMaxT3Error(true);
-      toastErrorAccessory("Giá trị T3 phải nằm trong khoảng [-100:200]");
-      return false;
-    } else if (minT3 > maxT3) {
-      setMinT3Error(true);
-      setMaxT3Error(true);
-      toastErrorAccessory("Giá trị Min T3 phải nhỏ hơn giá trị Max T3");
-      return false;
-    } else {
-      setMinT3Error(false);
-      setMaxT3Error(false);
-    }
-    if (minCommandData1 === "") {
-      setMinCommandData1(-1000);
-    }
-    if (maxCommandData1 === "") {
-      setMaxCommandData1(1000);
-    }
-    if (
-      minCommandData1 < -1000 ||
-      maxCommandData1 > 1000 ||
-      minCommandData1 > maxCommandData1
-    ) {
-      console.log("Lỗi");
-      return false;
-    }
-    if (minCommandData2 === "") {
-      setMinCommandData2(-1000);
-    }
-    if (maxCommandData2 === "") {
-      setMaxCommandData2(1000);
-    }
-    if (
-      minCommandData2 < -1000 ||
-      maxCommandData2 > 1000 ||
-      minCommandData2 > maxCommandData2
-    ) {
-      console.log("Lỗi");
-      return false;
-    }
-    if (minCommandData3 === "") {
-      setMinCommandData3(-1000);
-    }
-    if (maxCommandData3 === "") {
-      setMaxCommandData3(1000);
-    }
-    if (
-      minCommandData3 < -1000 ||
-      maxCommandData3 > 1000 ||
-      minCommandData3 > maxCommandData3
-    ) {
-      console.log("Lỗi");
-      return false;
-    }
-    if (minCommandData4 === "") {
-      setMinCommandData4(-1000);
-    }
-    if (maxCommandData4 === "") {
-      setMaxCommandData4(1000);
-    }
-    if (
-      minCommandData4 < -1000 ||
-      maxCommandData4 > 1000 ||
-      minCommandData4 > maxCommandData4
-    ) {
-      console.log("Lỗi");
-      return false;
-    }
-    if (minCommandData5 === "") {
-      setMinCommandData5(-1000);
-    }
-    if (maxCommandData5 === "") {
-      setMaxCommandData5(1000);
-    }
-    if (
-      minCommandData5 < -1000 ||
-      maxCommandData5 > 1000 ||
-      minCommandData5 > maxCommandData5
-    ) {
-      console.log("Lỗi");
-      return false;
-    }
-    if (minCommandData6 === "") {
-      setMinCommandData6(-1000);
-    }
-    if (maxCommandData6 === "") {
-      setMaxCommandData6(1000);
-    }
-    if (
-      minCommandData6 < -1000 ||
-      maxCommandData6 > 1000 ||
-      minCommandData6 > maxCommandData6
-    ) {
-      console.log("Lỗi");
-      return false;
-    }
-    if (minThdIa === "") {
-      setMinThdIa(0);
-    }
-    if (maxThdIa === "") {
-      setMaxThdIa(100);
-    }
-    if (minThdIa < 0) {
-      setMinThdIaError(true);
-      setMaxThdIaError(false);
-      toastErrorAccessory("Giá trị ThdIa phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (maxThdIa > 100) {
-      setMinThdIaError(false);
-      setMaxThdIaError(true);
-      toastErrorAccessory("Giá trị ThdIa phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (minThdIa > maxThdIa) {
-      setMinThdIaError(true);
-      setMaxThdIaError(true);
-      toastErrorAccessory("Giá trị Min ThdIa phải nhỏ hơn giá trị Max ThdIa");
-      return false;
-    } else {
-      setMinThdIaError(false);
-      setMaxThdIaError(false);
-    }
-    if (minThdIb === "") {
-      setMinThdIb(0);
-    }
-    if (maxThdIb === "") {
-      setMaxThdIb(100);
-    }
-    if (minThdIb < 0) {
-      setMinThdIbError(true);
-      setMaxThdIbError(false);
-      toastErrorAccessory("Giá trị ThdIb phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (maxThdIb > 100) {
-      setMinThdIbError(false);
-      setMaxThdIbError(true);
-      toastErrorAccessory("Giá trị ThdIb phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (minThdIb > maxThdIb) {
-      setMinThdIbError(true);
-      setMaxThdIbError(true);
-      toastErrorAccessory("Giá trị Min ThdIb phải nhỏ hơn giá trị Max ThdIb");
-      return false;
-    } else {
-      setMinThdIbError(false);
-      setMaxThdIbError(false);
-    }
-    if (minThdIc === "") {
-      setMinThdIc(0);
-    }
-    if (maxThdIc === "") {
-      setMaxThdIc(100);
-    }
-    if (minThdIc < 0) {
-      setMinThdIcError(true);
-      setMaxThdIcError(false);
-      toastErrorAccessory("Giá trị ThdIc phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (maxThdIc > 100) {
-      setMinThdIcError(false);
-      setMaxThdIcError(true);
-      toastErrorAccessory("Giá trị ThdIc phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (minThdIc > maxThdIc) {
-      setMinThdIcError(true);
-      setMaxThdIcError(true);
-      toastErrorAccessory("Giá trị Min ThdIc phải nhỏ hơn giá trị Max ThdIc");
-      return false;
-    } else {
-      setMinThdIcError(false);
-      setMaxThdIcError(false);
-    }
-    if (minThdIg === "") {
-      setMinThdIg(0);
-    }
-    if (maxThdIg === "") {
-      setMaxThdIg(100);
-    }
-    if (minThdIg < 0) {
-      setMinThdIgError(true);
-      setMaxThdIgError(false);
-      toastErrorAccessory("Giá trị ThdIg phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (maxThdIg > 100) {
-      setMinThdIgError(false);
-      setMaxThdIgError(true);
-      toastErrorAccessory("Giá trị ThdIg phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (minThdIg > maxThdIg) {
-      setMinThdIgError(true);
-      setMaxThdIgError(true);
-      toastErrorAccessory("Giá trị Min ThdIg phải nhỏ hơn giá trị Max ThdIg");
-      return false;
-    } else {
-      setMinThdIgError(false);
-      setMaxThdIgError(false);
-    }
-    if (minThdIn === "") {
-      setMinThdIn(0);
-    }
-    if (maxThdIn === "") {
-      setMaxThdIn(100);
-    }
-    if (minThdIn < 0) {
-      setMinThdInError(true);
-      setMaxThdInError(false);
-      toastErrorAccessory("Giá trị ThdIn phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (maxThdIn > 100) {
-      setMinThdInError(false);
-      setMaxThdInError(true);
-      toastErrorAccessory("Giá trị ThdIn phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (minThdIn > maxThdIn) {
-      setMinThdInError(true);
-      setMaxThdInError(true);
-      toastErrorAccessory("Giá trị Min ThdIn phải nhỏ hơn giá trị Max ThdIn");
-      return false;
-    } else {
-      setMinThdInError(false);
-      setMaxThdInError(false);
-    }
-    if (minThdVab === "") {
-      setMinThdVab(0);
-    }
-    if (maxThdVab === "") {
-      setMaxThdVab(100);
-    }
-    if (minThdVab < 0) {
-      setMinThdVabError(true);
-      setMaxThdVabError(false);
-      toastErrorAccessory("Giá trị ThdVab phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (maxThdVab > 100) {
-      setMinThdVabError(false);
-      setMaxThdVabError(true);
-      toastErrorAccessory("Giá trị ThdVab phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (minThdVab > maxThdVab) {
-      setMinThdVabError(true);
-      setMaxThdVabError(true);
-      toastErrorAccessory("Giá trị Min ThdVab phải nhỏ hơn giá trị Max ThdVab");
-      return false;
-    } else {
-      setMinThdVabError(false);
-      setMaxThdVabError(false);
-    }
-    if (minThdVbc === "") {
-      setMinThdVbc(0);
-    }
-    if (maxThdVbc === "") {
-      setMaxThdVbc(100);
-    }
-    if (minThdVbc < 0) {
-      setMinThdVbcError(true);
-      setMaxThdVbcError(false);
-      toastErrorAccessory("Giá trị ThdVbc phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (maxThdVbc > 100) {
-      setMinThdVbcError(false);
-      setMaxThdVbcError(true);
-      toastErrorAccessory("Giá trị ThdVbc phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (minThdVbc > maxThdVbc) {
-      setMinThdVbcError(true);
-      setMaxThdVbcError(true);
-      toastErrorAccessory("Giá trị Min ThdVbc phải nhỏ hơn giá trị Max ThdVbc");
-      return false;
-    } else {
-      setMinThdVbcError(false);
-      setMaxThdVbcError(false);
-    }
-    if (minThdVca === "") {
-      setMinThdVca(0);
-    }
-    if (maxThdVca === "") {
-      setMaxThdVca(100);
-    }
-    if (minThdVca < 0) {
-      setMinThdVcaError(true);
-      setMaxThdVcaError(false);
-      toastErrorAccessory("Giá trị ThdVca phải nằm  trong khoảng [0:100]");
-      return false;
-    } else if (maxThdVca > 100) {
-      setMinThdVcaError(false);
-      setMaxThdVcaError(true);
-      toastErrorAccessory("Giá trị ThdVca phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (minThdVca > maxThdVca) {
-      setMinThdVcaError(true);
-      setMaxThdVcaError(true);
-      toastErrorAccessory("Giá trị Min ThdVca phải nhỏ hơn giá trị Max ThdVca");
-      return false;
-    } else {
-      setMinThdVcaError(false);
-      setMaxThdVcaError(false);
-    }
-    if (minThdVan === "") {
-      setMinThdVan(0);
-    }
-    if (maxThdVan === "") {
-      setMaxThdVan(100);
-    }
-    if (minThdVan < 0) {
-      setMinThdVanError(true);
-      setMaxThdVanError(false);
-      toastErrorAccessory("Giá trị ThdVan phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (maxThdVan > 100) {
-      setMinThdVanError(false);
-      setMaxThdVanError(true);
-      toastErrorAccessory("Giá trị ThdVan phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (minThdVan > maxThdVan) {
-      setMinThdVanError(true);
-      setMaxThdVanError(true);
-      toastErrorAccessory("Giá trị Min ThdVan phải nhỏ hơn giá trị Max ThdVan");
-      return false;
-    } else {
-      setMinThdVanError(false);
-      setMaxThdVanError(false);
-    }
-    if (minThdVbn === "") {
-      setMinThdVbn(0);
-    }
-    if (maxThdVbn === "") {
-      setMaxThdVbn(100);
-    }
-    if (minThdVbn < 0) {
-      setMinThdVbnError(true);
-      setMaxThdVbnError(false);
-      toastErrorAccessory("Giá trị ThdVbn phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (maxThdVbn > 100) {
-      setMinThdVbnError(false);
-      setMaxThdVbnError(true);
-      toastErrorAccessory("Giá trị ThdVbn phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (minThdVbn > maxThdVbn) {
-      setMinThdVbnError(true);
-      setMaxThdVbnError(true);
-      toastErrorAccessory("Giá trị Min ThdVbn phải nhỏ hơn giá trị Max ThdVbn");
-      return false;
-    } else {
-      setMinThdVbnError(false);
-      setMaxThdVbnError(false);
-    }
-    if (minThdVcn === "") {
-      setMinThdVcn(0);
-    }
-    if (maxThdVcn === "") {
-      setMaxThdVcn(100);
-    }
-    if (minThdVcn < 0) {
-      setMinThdVcnError(true);
-      setMaxThdVcnError(false);
-      toastErrorAccessory("Giá trị ThdVcn phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (maxThdVcn > 100) {
-      setMinThdVcnError(false);
-      setMaxThdVcnError(true);
-      toastErrorAccessory("Giá trị ThdVcn phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (minThdVcn > maxThdVcn) {
-      setMinThdVcnError(true);
-      setMaxThdVcnError(true);
-      toastErrorAccessory("Giá trị Min ThdVcn phải nhỏ hơn giá trị Max ThdVcn");
-      return false;
-    } else {
-      setMinThdVcnError(false);
-      setMaxThdVcnError(false);
-    }
-    if (minThdVln === "") {
-      setMinThdVln(0);
-    }
-    if (maxThdVln === "") {
-      setMaxThdVln(100);
-    }
-    if (minThdVln < 0) {
-      setMinThdVlnError(true);
-      setMaxThdVlnError(false);
-      toastErrorAccessory("Giá trị ThdVln phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (maxThdVln > 100) {
-      setMinThdVlnError(false);
-      setMaxThdVlnError(true);
-      toastErrorAccessory("Giá trị ThdVln phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (minThdVln > maxThdVln) {
-      setMinThdVlnError(true);
-      setMaxThdVlnError(true);
-      toastErrorAccessory("Giá trị Min ThdVln phải nhỏ hơn giá trị Max ThdVln");
-      return false;
-    } else {
-      setMinThdVlnError(false);
-      setMaxThdVlnError(false);
-    }
-    if (minThdVll === "") {
-      setMinThdVll(0);
-    }
-    if (maxThdVll === "") {
-      setMaxThdVll(100);
-    }
-    if (minThdVll < 0) {
-      setMinThdVllError(true);
-      setMaxThdVllError(false);
-      toastErrorAccessory("Giá trị ThdVll phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (maxThdVll > 100) {
-      setMinThdVllError(false);
-      setMaxThdVllError(true);
-      toastErrorAccessory("Giá trị ThdVll phải nằm trong khoảng [0:100]");
-      return false;
-    } else if (minThdVll > maxThdVll) {
-      setMinThdVllError(true);
-      setMaxThdVllError(true);
-      toastErrorAccessory("Giá trị Min ThdVll phải nhỏ hơn giá trị Max ThdVll");
-      return false;
-    } else {
-      setMinThdVllError(false);
-      setMaxThdVllError(false);
-    }
 
     return true;
   };
 
   const [minUab, setMinUab] = useState(0);
-  const [maxUab, setMaxUab] = useState(100);
+  const [maxUab, setMaxUab] = useState(45000);
   const [minUbc, setMinUbc] = useState(0);
-  const [maxUbc, setMaxUbc] = useState(100);
+  const [maxUbc, setMaxUbc] = useState(45000);
   const [minUca, setMinUca] = useState(0);
-  const [maxUca, setMaxUca] = useState(100);
+  const [maxUca, setMaxUca] = useState(45000);
   const [minUll, setMinUll] = useState(0);
-  const [maxUll, setMaxUll] = useState(100);
+  const [maxUll, setMaxUll] = useState(45000);
   const [minUan, setMinUan] = useState(0);
-  const [maxUan, setMaxUan] = useState(100);
+  const [maxUan, setMaxUan] = useState(45000);
   const [minUbn, setMinUbn] = useState(0);
-  const [maxUbn, setMaxUbn] = useState(100);
+  const [maxUbn, setMaxUbn] = useState(45000);
   const [minUcn, setMinUcn] = useState(0);
-  const [maxUcn, setMaxUcn] = useState(100);
+  const [maxUcn, setMaxUcn] = useState(45000);
   const [minUln, setMinUln] = useState(0);
-  const [maxUln, setMaxUln] = useState(100);
+  const [maxUln, setMaxUln] = useState(45000);
   const [minIa, setMinIa] = useState(0);
-  const [maxIa, setMaxIa] = useState(100);
+  const [maxIa, setMaxIa] = useState(10000);
   const [minIb, setMinIb] = useState(0);
-  const [maxIb, setMaxIb] = useState(100);
+  const [maxIb, setMaxIb] = useState(10000);
   const [minIc, setMinIc] = useState(0);
-  const [maxIc, setMaxIc] = useState(100);
+  const [maxIc, setMaxIc] = useState(10000);
   const [minIN, setMinIN] = useState(0);
-  const [maxIN, setMaxIN] = useState(100);
+  const [maxIN, setMaxIN] = useState(10000);
   const [minIG, setMinIG] = useState(0);
-  const [maxIG, setMaxIG] = useState(100);
+  const [maxIG, setMaxIG] = useState(10000);
   const [minIAvg, setMinIAvg] = useState(0);
-  const [maxIAvg, setMaxIAvg] = useState(100);
-  const [minPa, setMinPa] = useState(0);
-  const [maxPa, setMaxPa] = useState(100);
-  const [minPb, setMinPb] = useState(0);
-  const [maxPb, setMaxPb] = useState(100);
-  const [minPc, setMinPc] = useState(0);
-  const [maxPc, setMaxPc] = useState(100);
-  const [minPTotal, setMinPTotal] = useState(0);
-  const [maxPTotal, setMaxPTotal] = useState(100);
-  const [minQa, setMinQa] = useState(0);
-  const [maxQa, setMaxQa] = useState(100);
-  const [minQb, setMinQb] = useState(0);
-  const [maxQb, setMaxQb] = useState(100);
-  const [minQc, setMinQc] = useState(0);
-  const [maxQc, setMaxQc] = useState(100);
-  const [minQTotal, setMinQTotal] = useState(0);
-  const [maxQTotal, setMaxQTotal] = useState(100);
+  const [maxIAvg, setMaxIAvg] = useState(10000);
+  const [minPa, setMinPa] = useState(-2000000);
+  const [maxPa, setMaxPa] = useState(2000000);
+  const [minPb, setMinPb] = useState(-2000000);
+  const [maxPb, setMaxPb] = useState(2000000);
+  const [minPc, setMinPc] = useState(-2000000);
+  const [maxPc, setMaxPc] = useState(2000000);
+  const [minPTotal, setMinPTotal] = useState(-6000000);
+  const [maxPTotal, setMaxPTotal] = useState(6000000);
+  const [minQa, setMinQa] = useState(-2000000);
+  const [maxQa, setMaxQa] = useState(2000000);
+  const [minQb, setMinQb] = useState(-2000000);
+  const [maxQb, setMaxQb] = useState(2000000);
+  const [minQc, setMinQc] = useState(-2000000);
+  const [maxQc, setMaxQc] = useState(2000000);
+  const [minQTotal, setMinQTotal] = useState(-2000000);
+  const [maxQTotal, setMaxQTotal] = useState(2000000);
   const [minSa, setMinSa] = useState(0);
-  const [maxSa, setMaxSa] = useState(100);
+  const [maxSa, setMaxSa] = useState(2000000);
   const [minSb, setMinSb] = useState(0);
-  const [maxSb, setMaxSb] = useState(100);
+  const [maxSb, setMaxSb] = useState(2000000);
   const [minSc, setMinSc] = useState(0);
-  const [maxSc, setMaxSc] = useState(100);
+  const [maxSc, setMaxSc] = useState(2000000);
   const [minSTotal, setMinSTotal] = useState(0);
-  const [maxSTotal, setMaxSTotal] = useState(100);
-  const [minPfa, setMinPfa] = useState(0);
+  const [maxSTotal, setMaxSTotal] = useState(6000000);
+  const [minPfa, setMinPfa] = useState(-1);
   const [maxPfa, setMaxPfa] = useState(1);
-  const [minPfb, setMinPfb] = useState(0);
+  const [minPfb, setMinPfb] = useState(-1);
   const [maxPfb, setMaxPfb] = useState(1);
-  const [minPfc, setMinPfc] = useState(0);
+  const [minPfc, setMinPfc] = useState(-1);
   const [maxPfc, setMaxPfc] = useState(1);
-  const [minPFAvg, setMinPFAvg] = useState(0);
+  const [minPFAvg, setMinPFAvg] = useState(-1);
   const [maxPFAvg, setMaxPFAvg] = useState(1);
   const [minF, setMinF] = useState(45);
   const [maxF, setMaxF] = useState(65);
   const [minEp, setMinEp] = useState(0);
-  const [maxEp, setMaxEp] = useState(100);
+  const [maxEp, setMaxEp] = useState(4000000000);
   const [minEpR, setMinEpR] = useState(0);
-  const [maxEpR, setMaxEpR] = useState(100);
+  const [maxEpR, setMaxEpR] = useState(4000000000);
   const [minEpDR, setMinEpDR] = useState(0);
-  const [maxEpDR, setMaxEpDR] = useState(100);
+  const [maxEpDR, setMaxEpDR] = useState(4000000000);
   const [minEpDRR, setMinEpDRR] = useState(0);
-  const [maxEpDRR, setMaxEpDRR] = useState(100);
+  const [maxEpDRR, setMaxEpDRR] = useState(4000000000);
   const [minEq, setMinEq] = useState(0);
-  const [maxEq, setMaxEq] = useState(100);
+  const [maxEq, setMaxEq] = useState(4000000000);
   const [minEqR, setMinEqR] = useState(0);
-  const [maxEqR, setMaxEqR] = useState(100);
+  const [maxEqR, setMaxEqR] = useState(4000000000);
   const [minEqDR, setMinEqDR] = useState(0);
-  const [maxEqDR, setMaxEqDR] = useState(100);
+  const [maxEqDR, setMaxEqDR] = useState(4000000000);
   const [minEqDRR, setMinEqDRR] = useState(0);
-  const [maxEqDRR, setMaxEqDRR] = useState(100);
+  const [maxEqDRR, setMaxEqDRR] = useState(4000000000);
   const [minEs, setMinEs] = useState(0);
-  const [maxEs, setMaxEs] = useState(100);
+  const [maxEs, setMaxEs] = useState(4000000000);
   const [minEsR, setMinEsR] = useState(0);
-  const [maxEsR, setMaxEsR] = useState(100);
+  const [maxEsR, setMaxEsR] = useState(4000000000);
   const [minEsDR, setMinEsDR] = useState(0);
-  const [maxEsDR, setMaxEsDR] = useState(100);
+  const [maxEsDR, setMaxEsDR] = useState(4000000000);
   const [minEsDRR, setMinEsDRR] = useState(0);
-  const [maxEsDRR, setMaxEsDRR] = useState(100);
-  const [minT1, setMinT1] = useState(0);
-  const [maxT1, setMaxT1] = useState(100);
-  const [minT2, setMinT2] = useState(0);
-  const [maxT2, setMaxT2] = useState(100);
-  const [minT3, setMinT3] = useState(0);
-  const [maxT3, setMaxT3] = useState(100);
+  const [maxEsDRR, setMaxEsDRR] = useState(4000000000);
+  const [minT1, setMinT1] = useState(-100);
+  const [maxT1, setMaxT1] = useState(200);
+  const [minT2, setMinT2] = useState(-100);
+  const [maxT2, setMaxT2] = useState(200);
+  const [minT3, setMinT3] = useState(-100);
+  const [maxT3, setMaxT3] = useState(200);
   const [minCommandData1, setMinCommandData1] = useState(0);
   const [maxCommandData1, setMaxCommandData1] = useState(100);
   const [minCommandData2, setMinCommandData2] = useState(0);
@@ -1966,8 +1192,8 @@ export default function S3MDataLoadFrame1(props) {
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState();
   const [url, setUrl] = useState("tcp://localhost:1883");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("guest");
+  const [password, setPassword] = useState("guest");
   const [client, setClient] = useState("client-sub");
   const [topic, setToppics] = useState("loadTopic");
   const [typeSystem, setTypeSystem] = useState("1");
@@ -1982,7 +1208,7 @@ export default function S3MDataLoadFrame1(props) {
   const [a5, setA5] = useState("255");
   const [func, setFunc] = useState("01");
   const [messageType, setMessageType] = useState("[1]");
-  const [crc, setCrc] = useState("");
+  const [crc, setCrc] = useState("12");
   const [country, setCountry] = useState("84");
 
   const onChangeTime = (time, timeString) => {
@@ -2166,6 +1392,798 @@ export default function S3MDataLoadFrame1(props) {
   const [minThdVlnError, setMinThdVlnError] = useState(false);
   const [maxThdVlnError, setMaxThdVlnError] = useState(false);
 
+  const inputDataU1 = [
+    {
+      title: "UAB",
+      min: minUab,
+      max: maxUab,
+      minX: 0,
+      maxX: 44999,
+      minY: 1,
+      maxY: 45000,
+      setMin: setMinUab,
+      setMax: setMaxUab,
+      minError: minUabError,
+      maxError: maxUabError,
+    },
+    {
+      title: "UBC",
+      min: minUbc,
+      max: maxUbc,
+      minX: 0,
+      maxX: 44999,
+      minY: 1,
+      maxY: 45000,
+      setMin: setMinUbc,
+      setMax: setMaxUbc,
+      minError: minUbcError,
+      maxError: maxUbcError,
+    },
+    {
+      title: "UCA",
+      min: minUca,
+      max: maxUca,
+      minX: 0,
+      maxX: 44999,
+      minY: 1,
+      maxY: 45000,
+      setMin: setMinUca,
+      setMax: setMaxUca,
+      minError: minUcaError,
+      maxError: maxUcaError,
+    },
+  ];
+
+  const inputDataU2 = [
+    {
+      title: "ULL",
+      min: minUll,
+      max: maxUll,
+      minX: 0,
+      maxX: 44999,
+      minY: 1,
+      maxY: 45000,
+      setMin: setMinUll,
+      setMax: setMaxUll,
+      minError: minUllError,
+      maxError: maxUllError,
+    },
+    {
+      title: "UAN",
+      min: minUan,
+      max: maxUan,
+      minX: 0,
+      maxX: 44999,
+      minY: 1,
+      maxY: 45000,
+      setMin: setMinUan,
+      setMax: setMaxUan,
+      minError: minUanError,
+      maxError: maxUanError,
+    },
+    {
+      title: "UBN",
+      min: minUbn,
+      max: maxUbn,
+      minX: 0,
+      maxX: 44999,
+      minY: 1,
+      maxY: 45000,
+      setMin: setMinUbn,
+      setMax: setMaxUbn,
+      minError: minUbnError,
+      maxError: maxUbnError,
+    },
+    {
+      title: "UCN",
+      min: minUcn,
+      max: maxUcn,
+      minX: 0,
+      maxX: 44999,
+      minY: 1,
+      maxY: 45000,
+      setMin: setMinUcn,
+      setMax: setMaxUcn,
+      minError: minUcnError,
+      maxError: maxUcnError,
+    },
+    {
+      title: "ULN",
+      min: minUln,
+      max: maxUln,
+      minX: 0,
+      maxX: 44999,
+      minY: 1,
+      maxY: 45000,
+      setMin: setMinUln,
+      setMax: setMaxUln,
+      minError: minUlnError,
+      maxError: maxUlnError,
+    },
+  ];
+
+  const inputDataI = [
+    {
+      title: "IA",
+      min: minIa,
+      max: maxIa,
+      minX: 0,
+      maxX: 9999,
+      minY: 1,
+      maxY: 10000,
+      setMin: setMinIa,
+      setMax: setMaxIa,
+      minError: minIaError,
+      maxError: maxIaError,
+    },
+    {
+      title: "IB",
+      min: minIb,
+      max: maxIb,
+      minX: 0,
+      maxX: 9999,
+      minY: 1,
+      maxY: 10000,
+      setMin: setMinIb,
+      setMax: setMaxIb,
+      minError: minIbError,
+      maxError: maxIbError,
+    },
+    {
+      title: "IC",
+      min: minIc,
+      max: maxIc,
+      minX: 0,
+      maxX: 9999,
+      minY: 1,
+      maxY: 10000,
+      setMin: setMinIc,
+      setMax: setMaxIc,
+      minError: minIcError,
+      maxError: maxIcError,
+    },
+    {
+      title: "IN",
+      min: minIN,
+      max: maxIN,
+      minX: 0,
+      maxX: 9999,
+      minY: 1,
+      maxY: 10000,
+      setMin: setMinIN,
+      setMax: setMaxIN,
+      minError: minINError,
+      maxError: maxINError,
+    },
+    {
+      title: "IG",
+      min: minIG,
+      max: maxIG,
+      minX: 0,
+      maxX: 9999,
+      minY: 1,
+      maxY: 10000,
+      setMin: setMinIG,
+      setMax: setMaxIG,
+      minError: minIGError,
+      maxError: maxIGError,
+    },
+    {
+      title: "Iavg",
+      min: minIAvg,
+      max: maxIAvg,
+      minX: 0,
+      maxX: 9999,
+      minY: 1,
+      maxY: 10000,
+      setMin: setMinIAvg,
+      setMax: setMaxIAvg,
+      minError: minIAvgError,
+      maxError: maxIAvgError,
+    },
+  ];
+
+  const inputDataEP = [
+    {
+      title: "Ep",
+      min: minEp,
+      max: maxEp,
+      minX: 0,
+      maxX: 3999999999,
+      minY: 1,
+      maxY: 4000000000,
+      setMin: setMinEp,
+      setMax: setMaxEp,
+      minError: minEpError,
+      maxError: maxEpError,
+    },
+    {
+      title: "Ep R",
+      min: minEpR,
+      max: maxEpR,
+      minX: 0,
+      maxX: 3999999999,
+      minY: 1,
+      maxY: 4000000000,
+      setMin: setMinEpR,
+      setMax: setMaxEpR,
+      minError: minEpRError,
+      maxError: maxEpRError,
+    },
+    {
+      title: "Ep Dr",
+      min: minEpDR,
+      max: maxEpDR,
+      minX: 0,
+      maxX: 3999999999,
+      minY: 1,
+      maxY: 4000000000,
+      setMin: setMinEpDR,
+      setMax: setMaxEpDR,
+      minError: minEpDRError,
+      maxError: maxEpDRError,
+    },
+    {
+      title: "Ep Drr",
+      min: minEpDRR,
+      max: maxEpDRR,
+      minX: 0,
+      maxX: 3999999999,
+      minY: 1,
+      maxY: 4000000000,
+      setMin: setMinEpDRR,
+      setMax: setMaxEpDRR,
+      minError: minEpDRRError,
+      maxError: maxEpDRRError,
+    },
+  ];
+
+  const inputDataEQ = [
+    {
+      title: "Eq",
+      min: minEq,
+      max: maxEq,
+      minX: 0,
+      maxX: 3999999999,
+      minY: 1,
+      maxY: 4000000000,
+      setMin: setMinEq,
+      setMax: setMaxEq,
+      minError: minEqError,
+      maxError: maxEqError,
+    },
+    {
+      title: "Eq R",
+      min: minEqR,
+      max: maxEqR,
+      minX: 0,
+      maxX: 3999999999,
+      minY: 1,
+      maxY: 4000000000,
+      setMin: setMinEqR,
+      setMax: setMaxEqR,
+      minError: minEqRError,
+      maxError: maxEqRError,
+    },
+    {
+      title: "Eq Dr",
+      min: minEqDR,
+      max: maxEqDR,
+      minX: 0,
+      maxX: 3999999999,
+      minY: 1,
+      maxY: 4000000000,
+      setMin: setMinEqDR,
+      setMax: setMaxEqDR,
+      minError: minEqDRError,
+      maxError: maxEqDRError,
+    },
+    {
+      title: "Eq Drr",
+      min: minEqDRR,
+      max: maxEqDRR,
+      minX: 0,
+      maxX: 3999999999,
+      minY: 1,
+      maxY: 4000000000,
+      setMin: setMinEqDRR,
+      setMax: setMaxEqDRR,
+      minError: minEqDRRError,
+      maxError: maxEqDRRError,
+    },
+  ];
+
+  const inputDataP = [
+    {
+      title: "Pa",
+      min: minPa,
+      max: maxPa,
+      minX: -2000000,
+      maxX: 1999999,
+      minY: -1999999,
+      maxY: 2000000,
+      setMin: setMinPa,
+      setMax: setMaxPa,
+      minError: minPaError,
+      maxError: maxPaError,
+    },
+    {
+      title: "Pb",
+      min: minPb,
+      max: maxPb,
+      minX: -2000000,
+      maxX: 1999999,
+      minY: -1999999,
+      maxY: 2000000,
+      setMin: setMinPb,
+      setMax: setMaxPb,
+      minError: minPbError,
+      maxError: maxPbError,
+    },
+    {
+      title: "Pc",
+      min: minPc,
+      max: maxPc,
+      minX: -2000000,
+      maxX: 1999999,
+      minY: -1999999,
+      maxY: 2000000,
+      setMin: setMinPc,
+      setMax: setMaxPc,
+      minError: minPcError,
+      maxError: maxPcError,
+    },
+    {
+      title: "P total",
+      min: minPTotal,
+      max: maxPTotal,
+      minX: -6000000,
+      maxX: 5999999,
+      minY: -5999999,
+      maxY: 6000000,
+      setMin: setMinPTotal,
+      setMax: setMaxPTotal,
+      minError: minPTotalError,
+      maxError: maxPTotalError,
+    },
+  ];
+
+  const inputDataQ = [
+    {
+      title: "Qa",
+      min: minQa,
+      max: maxQa,
+      minX: -2000000,
+      maxX: 1999999,
+      minY: -1999999,
+      maxY: 2000000,
+      setMin: setMinQa,
+      setMax: setMaxQa,
+      minError: minQaError,
+      maxError: maxQaError,
+    },
+    {
+      title: "Qb",
+      min: minQb,
+      max: maxQb,
+      minX: -2000000,
+      maxX: 1999999,
+      minY: -1999999,
+      maxY: 2000000,
+      setMin: setMinQb,
+      setMax: setMaxQb,
+      minError: minQbError,
+      maxError: maxQbError,
+    },
+    {
+      title: "Qc",
+      min: minQc,
+      max: maxQc,
+      minX: -2000000,
+      maxX: 1999999,
+      minY: -1999999,
+      maxY: 2000000,
+      setMin: setMinQc,
+      setMax: setMaxQc,
+      minError: minQcError,
+      maxError: maxQcError,
+    },
+    {
+      title: "Q total",
+      min: minQTotal,
+      max: maxQTotal,
+      minX: -2000000,
+      maxX: 1999999,
+      minY: -1999999,
+      maxY: 2000000,
+      setMin: setMinQTotal,
+      setMax: setMaxQTotal,
+      minError: minQTotalError,
+      maxError: maxQTotalError,
+    },
+  ];
+
+  const inputDataS = [
+    {
+      title: "Sa",
+      min: minSa,
+      max: maxSa,
+      minX: -2000000,
+      maxX: 1999999,
+      minY: -1999999,
+      maxY: 2000000,
+      setMin: setMinSa,
+      setMax: setMaxSa,
+      minError: minSaError,
+      maxError: maxSaError,
+    },
+    {
+      title: "Sb",
+      min: minSb,
+      max: maxSb,
+      minX: -2000000,
+      maxX: 1999999,
+      minY: -1999999,
+      maxY: 2000000,
+      setMin: setMinSb,
+      setMax: setMaxSb,
+      minError: minSbError,
+      maxError: maxSbError,
+    },
+    {
+      title: "Sc",
+      min: minSc,
+      max: maxSc,
+      minX: -2000000,
+      maxX: 1999999,
+      minY: -1999999,
+      maxY: 2000000,
+      setMin: setMinSc,
+      setMax: setMaxSc,
+      minError: minScError,
+      maxError: maxScError,
+    },
+    {
+      title: "S total",
+      min: minSTotal,
+      max: maxSTotal,
+      minX: 0,
+      maxX: 5999999,
+      minY: 1,
+      maxY: 6000000,
+      setMin: setMinSTotal,
+      setMax: setMaxSTotal,
+      minError: minSTotalError,
+      maxError: maxSTotalError,
+    },
+  ];
+
+  const inputDataPf = [
+    {
+      title: "Pfa",
+      min: minPfa,
+      max: maxPfa,
+      minX: -1,
+      maxX: 0,
+      minY: 0,
+      maxY: 1,
+      setMin: setMinPfa,
+      setMax: setMaxPfa,
+      minError: minPfaError,
+      maxError: maxPfaError,
+    },
+    {
+      title: "Pfb",
+      min: minPfb,
+      max: maxPfb,
+      minX: -1,
+      maxX: 0,
+      minY: 0,
+      maxY: 1,
+      setMin: setMinPfb,
+      setMax: setMaxPfb,
+      minError: minPfbError,
+      maxError: maxPfbError,
+    },
+    {
+      title: "Pfc",
+      min: minPfc,
+      max: maxPfc,
+      minX: -1,
+      maxX: 0,
+      minY: 0,
+      maxY: 1,
+      setMin: setMinPfc,
+      setMax: setMaxPfc,
+      minError: minPfcError,
+      maxError: maxPfcError,
+    },
+    {
+      title: "Pf Avg",
+      min: minPFAvg,
+      max: maxPFAvg,
+      minX: -1,
+      maxX: 0,
+      minY: 0,
+      maxY: 1,
+      setMin: setMinPFAvg,
+      setMax: setMaxPFAvg,
+      minError: minPFAvgError,
+      maxError: maxPFAvgError,
+    },
+  ];
+
+  const inputDataEs = [
+    {
+      title: "Es",
+      min: minEs,
+      max: maxEs,
+      minX: 0,
+      maxX: 3999999999,
+      minY: 1,
+      maxY: 4000000000,
+      setMin: setMinEs,
+      setMax: setMaxEs,
+      minError: minEsError,
+      maxError: maxEsError,
+    },
+    {
+      title: "Es R",
+      min: minEsR,
+      max: maxEsR,
+      minX: 0,
+      maxX: 3999999999,
+      minY: 1,
+      maxY: 4000000000,
+      setMin: setMinEsR,
+      setMax: setMaxEsR,
+      minError: minEsRError,
+      maxError: maxEsRError,
+    },
+    {
+      title: "Es Dr",
+      min: minEsDR,
+      max: maxEsDR,
+      minX: 0,
+      maxX: 3999999999,
+      minY: 1,
+      maxY: 4000000000,
+      setMin: setMinEsDR,
+      setMax: setMaxEsDR,
+      minError: minEsDRError,
+      maxError: maxEsDRError,
+    },
+    {
+      title: "Es Drr",
+      min: minEsDRR,
+      max: maxEsDRR,
+      minX: 0,
+      maxX: 3999999999,
+      minY: 1,
+      maxY: 4000000000,
+      setMin: setMinEsDRR,
+      setMax: setMaxEsDRR,
+      minError: minEsDRRError,
+      maxError: maxEsDRRError,
+    },
+  ];
+
+  const inputDataT = [
+    {
+      title: "T1",
+      min: minT1,
+      max: maxT1,
+      minX: -100,
+      maxX: 199,
+      minY: 99,
+      maxY: 200,
+      setMin: setMinT1,
+      setMax: setMaxT1,
+      minError: minT1Error,
+      maxError: maxT1Error,
+    },
+    {
+      title: "T2",
+      min: minT2,
+      max: maxT2,
+      minX: -100,
+      maxX: 199,
+      minY: 99,
+      maxY: 200,
+      setMin: setMinT2,
+      setMax: setMaxT2,
+      minError: minT2Error,
+      maxError: maxT2Error,
+    },
+    {
+      title: "T3",
+      min: minT3,
+      max: maxT3,
+      minX: -100,
+      maxX: 199,
+      minY: 99,
+      maxY: 200,
+      setMin: setMinT3,
+      setMax: setMaxT3,
+      minError: minT3Error,
+      maxError: maxT3Error,
+    },
+  ];
+  const inputDataThdI = [
+    {
+      title: "ThdIa",
+      min: minThdIa,
+      max: maxThdIa,
+      minX: 0,
+      maxX: 99,
+      minY: 1,
+      maxY: 100,
+      setMin: setMinThdIa,
+      setMax: setMaxThdIa,
+      minError: minThdIaError,
+      maxError: maxThdIaError,
+    },
+    {
+      title: "ThdIb",
+      min: minThdIb,
+      max: maxThdIb,
+      minX: 0,
+      maxX: 99,
+      minY: 1,
+      maxY: 100,
+      setMin: setMinThdIb,
+      setMax: setMaxThdIb,
+      minError: minThdIbError,
+      maxError: maxThdIbError,
+    },
+    {
+      title: "ThdIc",
+      min: minThdIc,
+      max: maxThdIc,
+      minX: 0,
+      maxX: 99,
+      minY: 1,
+      maxY: 100,
+      setMin: setMinThdIc,
+      setMax: setMaxThdIc,
+      minError: minThdIcError,
+      maxError: maxThdIcError,
+    },
+    {
+      title: "ThdIn",
+      min: minThdIn,
+      max: maxThdIn,
+      minX: 0,
+      maxX: 99,
+      minY: 1,
+      maxY: 100,
+      setMin: setMinThdIn,
+      setMax: setMaxThdIn,
+      minError: minThdInError,
+      maxError: maxThdInError,
+    },
+    {
+      title: "ThdIg",
+      min: minThdIg,
+      max: maxThdIg,
+      minX: 0,
+      maxX: 99,
+      minY: 1,
+      maxY: 100,
+      setMin: setMinThdIg,
+      setMax: setMaxThdIg,
+      minError: minThdIgError,
+      maxError: maxThdIgError,
+    },
+  ];
+
+  const inputDataThdV = [
+    {
+      title: "ThdVab",
+      min: minThdVab,
+      max: maxThdVab,
+      minX: 0,
+      maxX: 99,
+      minY: 1,
+      maxY: 100,
+      setMin: setMinThdVab,
+      setMax: setMaxThdVab,
+      minError: minThdVabError,
+      maxError: maxThdVabError,
+    },
+    {
+      title: "ThdVbc",
+      min: minThdVbc,
+      max: maxThdVbc,
+      minX: 0,
+      maxX: 99,
+      minY: 1,
+      maxY: 100,
+      setMin: setMinThdVbc,
+      setMax: setMaxThdVbc,
+      minError: minThdVbcError,
+      maxError: maxThdVbcError,
+    },
+    {
+      title: "ThdVca",
+      min: minThdVca,
+      max: maxThdVca,
+      minX: 0,
+      maxX: 99,
+      minY: 1,
+      maxY: 100,
+      setMin: setMinThdVca,
+      setMax: setMaxThdVca,
+      minError: minThdVcaError,
+      maxError: maxThdVcaError,
+    },
+    {
+      title: "ThdVll",
+      min: minThdVll,
+      max: maxThdVll,
+      minX: 0,
+      maxX: 99,
+      minY: 1,
+      maxY: 100,
+      setMin: setMinThdVll,
+      setMax: setMaxThdVll,
+      minError: minThdVllError,
+      maxError: maxThdVllError,
+    },
+    {
+      title: "ThdVan",
+      min: minThdVan,
+      max: maxThdVan,
+      minX: 0,
+      maxX: 99,
+      minY: 1,
+      maxY: 100,
+      setMin: setMinThdVan,
+      setMax: setMaxThdVan,
+      minError: minThdVanError,
+      maxError: maxThdVanError,
+    },
+    {
+      title: "ThdVbn",
+      min: minThdVbn,
+      max: maxThdVbn,
+      minX: 0,
+      maxX: 99,
+      minY: 1,
+      maxY: 100,
+      setMin: setMinThdVbn,
+      setMax: setMaxThdVbn,
+      minError: minThdVbnError,
+      maxError: maxThdVbnError,
+    },
+    {
+      title: "ThdVcn",
+      min: minThdVcn,
+      max: maxThdVcn,
+      minX: 0,
+      maxX: 99,
+      minY: 1,
+      maxY: 100,
+      setMin: setMinThdVcn,
+      setMax: setMaxThdVcn,
+      minError: minThdVcnError,
+      maxError: maxThdVcnError,
+    },
+    {
+      title: "ThdVln",
+      min: minThdVln,
+      max: maxThdVln,
+      minX: 0,
+      maxX: 99,
+      minY: 1,
+      maxY: 100,
+      setMin: setMinThdVln,
+      setMax: setMaxThdVln,
+      minError: minThdVlnError,
+      maxError: maxThdVlnError,
+    },
+  ];
+
   return (
     <>
       {/* Thao tác */}
@@ -2212,39 +2230,82 @@ export default function S3MDataLoadFrame1(props) {
                 </div>
                 <div className="col-3">
                   <h4 style={{ fontSize: "20px" }} className="mt-2">
-                    Url: {url === "" ? <i>No data</i> : url}
+                    Url:{" "}
+                    {url === "" ? <i style={{ color: "red" }}>No data</i> : url}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-3">
-                    Username: {username === "" ? <i>No data</i> : username}
+                    Username:{" "}
+                    {username === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      username
+                    )}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    Password: {password === "" ? <i>No data</i> : "*******"}
+                    Password:{" "}
+                    {password === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      "*******"
+                    )}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    Client: {client === "" ? <i>No data</i> : client}
+                    Client:{" "}
+                    {client === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      client
+                    )}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    Topic: {topic === "" ? <i>No data</i> : topic}
+                    Topic:{" "}
+                    {topic === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      topic
+                    )}
                   </h4>
 
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
                     TypeSystem:{" "}
-                    {typeSystem === "" ? <i>No data</i> : typeSystem}
+                    {typeSystem === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      typeSystem
+                    )}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
                     TypeDevice:{" "}
-                    {typeDevice === "" ? <i>No data</i> : typeDevice}
+                    {typeDevice === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      typeDevice
+                    )}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    Country: {country === "" ? <i>No data</i> : country}
+                    Country:{" "}
+                    {country === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      country
+                    )}
                   </h4>
 
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    Province: {province === "" ? <i>No data</i> : province}
+                    Province:{" "}
+                    {province === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      province
+                    )}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
                     CodeCustomer:{" "}
-                    {codeCustomer === "" ? <i>No data</i> : codeCustomer}
+                    {codeCustomer === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      codeCustomer
+                    )}
                   </h4>
                 </div>
                 <div className="col-3">
@@ -2272,33 +2333,52 @@ export default function S3MDataLoadFrame1(props) {
                 <div className="col-3">
                   <h4 style={{ fontSize: "20px" }} className="mt-2">
                     CodeProject:{" "}
-                    {codeProject === "" ? <i>No data</i> : codeProject}
+                    {codeProject === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      codeProject
+                    )}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    A1: {a1 === "" ? <i>No data</i> : a1}
+                    A1:{" "}
+                    {a1 === "" ? <i style={{ color: "red" }}>No data</i> : a1}
                   </h4>
 
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    A2: {a2 === "" ? <i>No data</i> : a2}
+                    A2:{" "}
+                    {a2 === "" ? <i style={{ color: "red" }}>No data</i> : a2}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    A3: {a3 === "" ? <i>No data</i> : a3}
+                    A3:{" "}
+                    {a3 === "" ? <i style={{ color: "red" }}>No data</i> : a3}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    A4: {a4 === "" ? <i>No data</i> : a4}
+                    A4:{" "}
+                    {a4 === "" ? <i style={{ color: "red" }}>No data</i> : a4}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    A5: {a5 === "" ? <i>No data</i> : a5}
+                    A5:{" "}
+                    {a5 === "" ? <i style={{ color: "red" }}>No data</i> : a5}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    Func: {func === "" ? <i>No data</i> : func}
+                    Func:{" "}
+                    {func === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      func
+                    )}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
                     MessageType:{" "}
-                    {messageType === "" ? <i>No data</i> : messageType}
+                    {messageType === "" ? (
+                      <i style={{ color: "red" }}>No data</i>
+                    ) : (
+                      messageType
+                    )}
                   </h4>
                   <h4 style={{ fontSize: "20px" }} className="mt-4">
-                    Crc: {crc === "" ? <i>No data</i> : crc}
+                    Crc:{" "}
+                    {crc === "" ? <i style={{ color: "red" }}>No data</i> : crc}
                   </h4>
                 </div>
               </div>
@@ -2334,6 +2414,9 @@ export default function S3MDataLoadFrame1(props) {
                 </label>
                 <Input
                   className="ms-2 inputN"
+                  style={{
+                    borderColor: validateFrequency === true ? "red" : "",
+                  }}
                   width={100}
                   min={1}
                   max={10}
@@ -2389,318 +2472,99 @@ export default function S3MDataLoadFrame1(props) {
               onChange={(event) => setDeviceId(event.target.value)}
             />
             <Card bordered={true} className=" mt-2 bg-light">
-              <InputMinMax
-                title="UAB"
-                minValue={minUab}
-                maxValue={maxUab}
-                minX={0}
-                maxX={44999}
-                minY={1}
-                maxY={45000}
-                setMinValue={setMinUab}
-                setMaxValue={setMaxUab}
-                statusMin={minUabError ? "error" : "default"}
-                statusMax={maxUabError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="UBC"
-                minValue={minUbc}
-                maxValue={maxUbc}
-                minX={0}
-                maxX={44999}
-                minY={1}
-                maxY={45000}
-                setMinValue={setMinUbc}
-                setMaxValue={setMaxUbc}
-                statusMin={minUbcError ? "error" : "default"}
-                statusMax={maxUbcError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="UCA"
-                minValue={minUca}
-                maxValue={maxUca}
-                minX={0}
-                maxX={44999}
-                minY={1}
-                maxY={45000}
-                setMinValue={setMinUca}
-                setMaxValue={setMaxUca}
-                statusMin={minUcaError ? "error" : "default"}
-                statusMax={maxUcaError ? "error" : "default"}
-              />
+              {inputDataU1.map((data, index) => (
+                <InputMinMax
+                  key={index}
+                  className="mt-2"
+                  title={data.title}
+                  minValue={data.min}
+                  maxValue={data.max}
+                  minX={data.minX}
+                  maxX={data.maxX}
+                  minY={data.minY}
+                  maxY={data.maxY}
+                  setMinValue={data.setMin}
+                  setMaxValue={data.setMax}
+                  statusMin={data.minError ? "error" : "default"}
+                  statusMax={data.maxError ? "error" : "default"}
+                />
+              ))}
             </Card>
             <Card bordered={true} className="mt-2 bg-light">
-              <InputMinMax
-                title="ULL"
-                minValue={minUll}
-                maxValue={maxUll}
-                minX={0}
-                maxX={44999}
-                minY={1}
-                maxY={45000}
-                setMinValue={setMinUll}
-                setMaxValue={setMaxUll}
-                statusMin={minUllError ? "error" : "default"}
-                statusMax={maxUllError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="UAN"
-                minValue={minUan}
-                maxValue={maxUan}
-                minX={0}
-                maxX={44999}
-                minY={1}
-                maxY={45000}
-                setMinValue={setMinUan}
-                setMaxValue={setMaxUan}
-                statusMin={minUanError ? "error" : "default"}
-                statusMax={maxUanError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="UBN"
-                minValue={minUbn}
-                maxValue={maxUbn}
-                minX={0}
-                maxX={44999}
-                minY={1}
-                maxY={45000}
-                setMinValue={setMinUbn}
-                setMaxValue={setMaxUbn}
-                statusMin={minUbnError ? "error" : "default"}
-                statusMax={maxUbnError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="UCN"
-                minValue={minUcn}
-                maxValue={maxUcn}
-                minX={0}
-                maxX={44999}
-                minY={1}
-                maxY={45000}
-                setMinValue={setMinUcn}
-                setMaxValue={setMaxUcn}
-                statusMin={minUcnError ? "error" : "default"}
-                statusMax={maxUcnError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="ULN"
-                minValue={minUln}
-                maxValue={maxUln}
-                minX={0}
-                maxX={44999}
-                minY={1}
-                maxY={45000}
-                setMinValue={setMinUln}
-                setMaxValue={setMaxUln}
-                statusMin={minUlnError ? "error" : "default"}
-                statusMax={maxUlnError ? "error" : "default"}
-              />
+              {inputDataU2.map((data, index) => (
+                <InputMinMax
+                  key={index}
+                  className="mt-2"
+                  title={data.title}
+                  minValue={data.min}
+                  maxValue={data.max}
+                  minX={data.minX}
+                  maxX={data.maxX}
+                  minY={data.minY}
+                  maxY={data.maxY}
+                  setMinValue={data.setMin}
+                  setMaxValue={data.setMax}
+                  statusMin={data.minError ? "error" : "default"}
+                  statusMax={data.maxError ? "error" : "default"}
+                />
+              ))}
             </Card>
             <Card bordered={true} className="mt-2 bg-light">
-              <InputMinMax
-                title="IA"
-                minValue={minIa}
-                maxValue={maxIa}
-                minX={0}
-                maxX={10000}
-                minY={1}
-                maxY={9999}
-                setMinValue={setMinIa}
-                setMaxValue={setMaxIa}
-                statusMin={minIaError ? "error" : "default"}
-                statusMax={maxIaError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="IB"
-                minValue={minIb}
-                maxValue={maxIb}
-                minX={0}
-                maxX={10000}
-                minY={1}
-                maxY={9999}
-                setMinValue={setMinIb}
-                setMaxValue={setMaxIb}
-                statusMin={minIbError ? "error" : "default"}
-                statusMax={maxIbError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="IC"
-                minValue={minIc}
-                maxValue={maxIc}
-                minX={0}
-                maxX={10000}
-                minY={1}
-                maxY={9999}
-                setMinValue={setMinIc}
-                setMaxValue={setMaxIc}
-                statusMin={minIcError ? "error" : "default"}
-                statusMax={maxIcError ? "error" : "default"}
-              />
-
-              <InputMinMax
-                className="mt-2"
-                title="IN"
-                minValue={minIN}
-                maxValue={maxIN}
-                minX={0}
-                maxX={10000}
-                minY={1}
-                maxY={9999}
-                setMinValue={setMinIN}
-                setMaxValue={setMaxIN}
-                statusMin={minINError ? "error" : "default"}
-                statusMax={maxINError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="IG"
-                minValue={minIG}
-                maxValue={maxIG}
-                minX={0}
-                maxX={10000}
-                minY={1}
-                maxY={9999}
-                setMinValue={setMinIG}
-                setMaxValue={setMaxIG}
-                statusMin={minIGError ? "error" : "default"}
-                statusMax={maxIGError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="Iavg"
-                minValue={minIAvg}
-                maxValue={maxIAvg}
-                minX={0}
-                maxX={10000}
-                minY={1}
-                maxY={9999}
-                setMinValue={setMinIAvg}
-                setMaxValue={setMaxIAvg}
-                statusMin={minIAvgError ? "error" : "default"}
-                statusMax={maxIAvgError ? "error" : "default"}
-              />
+              {inputDataI.map((data, index) => (
+                <InputMinMax
+                  key={index}
+                  className="mt-2"
+                  title={data.title}
+                  minValue={data.min}
+                  maxValue={data.max}
+                  minX={data.minX}
+                  maxX={data.maxX}
+                  minY={data.minY}
+                  maxY={data.maxY}
+                  setMinValue={data.setMin}
+                  setMaxValue={data.setMax}
+                  statusMin={data.minError ? "error" : "default"}
+                  statusMax={data.maxError ? "error" : "default"}
+                />
+              ))}
             </Card>
             <Card bordered={true} className="mt-2 bg-light">
-              <InputMinMax
-                title="Ep"
-                minValue={minEp}
-                maxValue={maxEp}
-                minX={0}
-                maxX={3999999999}
-                minY={1}
-                maxY={4000000000}
-                setMinValue={setMinEp}
-                setMaxValue={setMaxEp}
-                statusMin={minEpError ? "error" : "default"}
-                statusMax={maxEpError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="Ep R"
-                minValue={minEpR}
-                maxValue={maxEpR}
-                minX={0}
-                maxX={3999999999}
-                minY={1}
-                maxY={4000000000}
-                setMinValue={setMinEpR}
-                setMaxValue={setMaxEpR}
-                statusMin={minEpRError ? "error" : "default"}
-                statusMax={maxEpRError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="Ep Dr"
-                minValue={minEpDR}
-                maxValue={maxEpDR}
-                minX={0}
-                maxX={3999999999}
-                minY={1}
-                maxY={4000000000}
-                setMinValue={setMinEpDR}
-                setMaxValue={setMaxEpDR}
-                statusMin={minEpDRError ? "error" : "default"}
-                statusMax={maxEpDRError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="Ep Drr"
-                minValue={minEpDRR}
-                maxValue={maxEpDRR}
-                minX={0}
-                maxX={3999999999}
-                minY={1}
-                maxY={4000000000}
-                setMinValue={setMinEpDRR}
-                setMaxValue={setMaxEpDRR}
-                statusMin={minEpDRRError ? "error" : "default"}
-                statusMax={maxEpDRRError ? "error" : "default"}
-              />
+              {inputDataEP.map((data, index) => (
+                <InputMinMax
+                  key={index}
+                  className="mt-2"
+                  title={data.title}
+                  minValue={data.min}
+                  maxValue={data.max}
+                  minX={data.minX}
+                  maxX={data.maxX}
+                  minY={data.minY}
+                  maxY={data.maxY}
+                  setMinValue={data.setMin}
+                  setMaxValue={data.setMax}
+                  statusMin={data.minError ? "error" : "default"}
+                  statusMax={data.maxError ? "error" : "default"}
+                />
+              ))}
             </Card>
             <Card bordered={true} className="mt-2 bg-light">
-              <InputMinMax
-                title="Eq"
-                minValue={minEq}
-                maxValue={maxEq}
-                minX={0}
-                maxX={3999999999}
-                minY={1}
-                maxY={4000000000}
-                setMinValue={setMinEq}
-                setMaxValue={setMaxEq}
-                statusMin={minEqError ? "error" : "default"}
-                statusMax={maxEqError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="Eq R"
-                minValue={minEqR}
-                maxValue={maxEqR}
-                minX={0}
-                maxX={3999999999}
-                minY={1}
-                maxY={4000000000}
-                setMinValue={setMinEqR}
-                setMaxValue={setMaxEqR}
-                statusMin={minEqRError ? "error" : "default"}
-                statusMax={maxEqRError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="Eq Dr"
-                minValue={minEqDR}
-                maxValue={maxEqDR}
-                minX={0}
-                maxX={3999999999}
-                minY={1}
-                maxY={4000000000}
-                setMinValue={setMinEqDR}
-                setMaxValue={setMaxEqDR}
-                statusMin={minEqDRError ? "error" : "default"}
-                statusMax={maxEqDRError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="Eq Drr"
-                minValue={minEqDRR}
-                maxValue={maxEqDRR}
-                minX={0}
-                maxX={3999999999}
-                minY={1}
-                maxY={4000000000}
-                setMinValue={setMinEqDRR}
-                setMaxValue={setMaxEqDRR}
-                statusMin={minEqDRRError ? "error" : "default"}
-                statusMax={maxEqDRRError ? "error" : "default"}
-              />
+              {inputDataEQ.map((data, index) => (
+                <InputMinMax
+                  key={index}
+                  className="mt-2"
+                  title={data.title}
+                  minValue={data.min}
+                  maxValue={data.max}
+                  minX={data.minX}
+                  maxX={data.maxX}
+                  minY={data.minY}
+                  maxY={data.maxY}
+                  setMinValue={data.setMin}
+                  setMaxValue={data.setMax}
+                  statusMin={data.minError ? "error" : "default"}
+                  statusMax={data.maxError ? "error" : "default"}
+                />
+              ))}
             </Card>
           </div>
           {/* Cột 2 */}
@@ -2723,524 +2587,160 @@ export default function S3MDataLoadFrame1(props) {
               />
             </Card>
             <Card bordered={true} className="mt-2 bg-light">
-              <InputMinMax
-                title="Pa"
-                minValue={minPa}
-                maxValue={maxPa}
-                minX={-2000000}
-                maxX={1999999}
-                minY={-1999999}
-                maxY={2000000}
-                setMinValue={setMinPa}
-                setMaxValue={setMaxPa}
-                statusMin={minPaError ? "error" : "default"}
-                statusMax={maxPaError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="Pb"
-                minValue={minPb}
-                maxValue={maxPb}
-                minX={-2000000}
-                maxX={1999999}
-                minY={-1999999}
-                maxY={2000000}
-                setMinValue={setMinPb}
-                setMaxValue={setMaxPb}
-                statusMin={minPbError ? "error" : "default"}
-                statusMax={maxPbError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="Pc"
-                minValue={minPc}
-                maxValue={maxPc}
-                minX={-2000000}
-                maxX={1999999}
-                minY={-1999999}
-                maxY={2000000}
-                setMinValue={setMinPc}
-                setMaxValue={setMaxPc}
-                statusMin={minPcError ? "error" : "default"}
-                statusMax={maxPcError ? "error" : "default"}
-              />
-
-              <InputMinMax
-                className="mt-2"
-                title="P total"
-                minValue={minPTotal}
-                maxValue={maxPTotal}
-                minX={-2000000}
-                maxX={1999999}
-                minY={-1999999}
-                maxY={2000000}
-                setMinValue={setMinPTotal}
-                setMaxValue={setMaxPTotal}
-                statusMin={minPTotalError ? "error" : "default"}
-                statusMax={maxPTotalError ? "error" : "default"}
-              />
+              {inputDataP.map((data, index) => (
+                <InputMinMax
+                  key={index}
+                  className="mt-2"
+                  title={data.title}
+                  minValue={data.min}
+                  maxValue={data.max}
+                  minX={data.minX}
+                  maxX={data.maxX}
+                  minY={data.minY}
+                  maxY={data.maxY}
+                  setMinValue={data.setMin}
+                  setMaxValue={data.setMax}
+                  statusMin={data.minError ? "error" : "default"}
+                  statusMax={data.maxError ? "error" : "default"}
+                />
+              ))}
             </Card>
             <Card bordered={true} className="mt-2  bg-light">
-              <InputMinMax
-                title="Qa"
-                minValue={minQa}
-                maxValue={maxQa}
-                minX={-2000000}
-                maxX={1999999}
-                minY={-1999999}
-                maxY={2000000}
-                setMinValue={setMinQa}
-                setMaxValue={setMaxQa}
-                statusMin={minQaError ? "error" : "default"}
-                statusMax={maxQaError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="Qb"
-                minValue={minQb}
-                maxValue={maxQb}
-                minX={-2000000}
-                maxX={1999999}
-                minY={-1999999}
-                maxY={2000000}
-                setMinValue={setMinQb}
-                setMaxValue={setMaxQb}
-                statusMin={minQbError ? "error" : "default"}
-                statusMax={maxQbError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="Qc"
-                minValue={minQc}
-                maxValue={maxQc}
-                minX={-2000000}
-                maxX={1999999}
-                minY={-1999999}
-                maxY={2000000}
-                setMinValue={setMinQc}
-                setMaxValue={setMaxQc}
-                statusMin={minQcError ? "error" : "default"}
-                statusMax={maxQcError ? "error" : "default"}
-              />
-
-              <InputMinMax
-                className="mt-2"
-                title="Q total"
-                minValue={minQTotal}
-                maxValue={maxQTotal}
-                minX={-2000000}
-                maxX={1999999}
-                minY={-1999999}
-                maxY={2000000}
-                setMinValue={setMinQTotal}
-                setMaxValue={setMaxQTotal}
-                statusMin={minQTotalError ? "error" : "default"}
-                statusMax={maxQTotalError ? "error" : "default"}
-              />
+              {inputDataQ.map((data, index) => (
+                <InputMinMax
+                  key={index}
+                  className="mt-2"
+                  title={data.title}
+                  minValue={data.min}
+                  maxValue={data.max}
+                  minX={data.minX}
+                  maxX={data.maxX}
+                  minY={data.minY}
+                  maxY={data.maxY}
+                  setMinValue={data.setMin}
+                  setMaxValue={data.setMax}
+                  statusMin={data.minError ? "error" : "default"}
+                  statusMax={data.maxError ? "error" : "default"}
+                />
+              ))}
             </Card>
             <Card bordered={true} className=" mt-2 bg-light">
-              <InputMinMax
-                title="Sa"
-                minValue={minSa}
-                maxValue={maxSa}
-                minX={-2000000}
-                maxX={1999999}
-                minY={-1999999}
-                maxY={2000000}
-                setMinValue={setMinSa}
-                setMaxValue={setMaxSa}
-                statusMin={minSaError ? "error" : "default"}
-                statusMax={maxSaError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="Sb"
-                minValue={minSb}
-                maxValue={maxSb}
-                minX={-2000000}
-                maxX={1999999}
-                minY={-1999999}
-                maxY={2000000}
-                setMinValue={setMinSb}
-                setMaxValue={setMaxSb}
-                statusMin={minSbError ? "error" : "default"}
-                statusMax={maxSbError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="Sc"
-                minValue={minSc}
-                maxValue={maxSc}
-                minX={-2000000}
-                maxX={1999999}
-                minY={-1999999}
-                maxY={2000000}
-                setMinValue={setMinSc}
-                setMaxValue={setMaxSc}
-                statusMin={minScError ? "error" : "default"}
-                statusMax={maxScError ? "error" : "default"}
-              />
-
-              <InputMinMax
-                className="mt-2"
-                title="S total"
-                minValue={minSTotal}
-                maxValue={maxSTotal}
-                minX={-2000000}
-                maxX={1999999}
-                minY={-1999999}
-                maxY={2000000}
-                setMinValue={setMinSTotal}
-                setMaxValue={setMaxSTotal}
-                statusMin={minSTotalError ? "error" : "default"}
-                statusMax={maxSTotalError ? "error" : "default"}
-              />
+              {inputDataS.map((data, index) => (
+                <InputMinMax
+                  key={index}
+                  className="mt-2"
+                  title={data.title}
+                  minValue={data.min}
+                  maxValue={data.max}
+                  minX={data.minX}
+                  maxX={data.maxX}
+                  minY={data.minY}
+                  maxY={data.maxY}
+                  setMinValue={data.setMin}
+                  setMaxValue={data.setMax}
+                  statusMin={data.minError ? "error" : "default"}
+                  statusMax={data.maxError ? "error" : "default"}
+                />
+              ))}
             </Card>
             <Card bordered={true} className="mt-2 bg-light">
-              <InputMinMax
-                title="Pfa"
-                minValue={minPfa}
-                maxValue={maxPfa}
-                minX={-1}
-                maxX={0}
-                minY={0}
-                maxY={1}
-                setMinValue={setMinPfa}
-                setMaxValue={setMaxPfa}
-                statusMin={minPfaError ? "error" : "default"}
-                statusMax={maxPfaError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="Pfb"
-                minValue={minPfb}
-                maxValue={maxPfb}
-                minX={-1}
-                maxY={1}
-                maxX={0}
-                minY={0}
-                setMinValue={setMinPfb}
-                setMaxValue={setMaxPfb}
-                statusMin={minPfbError ? "error" : "default"}
-                statusMax={maxPfbError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="Pfc"
-                minValue={minPfc}
-                maxValue={maxPfc}
-                maxX={0}
-                minY={0}
-                minX={-1}
-                maxY={1}
-                setMinValue={setMinPfc}
-                setMaxValue={setMaxPfc}
-                statusMin={minPfcError ? "error" : "default"}
-                statusMax={maxPfcError ? "error" : "default"}
-              />
-
-              <InputMinMax
-                className="mt-2"
-                title="Pf Avg"
-                minValue={minPFAvg}
-                maxValue={maxPFAvg}
-                maxX={0}
-                minY={0}
-                minX={-1}
-                maxY={1}
-                setMinValue={setMinPFAvg}
-                setMaxValue={setMaxPFAvg}
-                statusMin={minPFAvgError ? "error" : "default"}
-                statusMax={maxPFAvgError ? "error" : "default"}
-              />
+              {inputDataPf.map((data, index) => (
+                <InputMinMax
+                  key={index}
+                  className="mt-2"
+                  title={data.title}
+                  minValue={data.min}
+                  maxValue={data.max}
+                  minX={data.minX}
+                  maxX={data.maxX}
+                  minY={data.minY}
+                  maxY={data.maxY}
+                  setMinValue={data.setMin}
+                  setMaxValue={data.setMax}
+                  statusMin={data.minError ? "error" : "default"}
+                  statusMax={data.maxError ? "error" : "default"}
+                />
+              ))}
             </Card>
             <Card bordered={true} className="mt-2 bg-light">
-              <InputMinMax
-                title="Es"
-                minValue={minEs}
-                maxValue={maxEs}
-                minX={0}
-                maxX={3999999999}
-                minY={1}
-                maxY={4000000000}
-                setMinValue={setMinEs}
-                setMaxValue={setMaxEs}
-                statusMin={minEsError ? "error" : "default"}
-                statusMax={maxEsError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="Es R"
-                minValue={minEsR}
-                maxValue={maxEsR}
-                minX={0}
-                maxX={3999999999}
-                minY={1}
-                maxY={4000000000}
-                setMinValue={setMinEsR}
-                setMaxValue={setMaxEsR}
-                statusMin={minEsRError ? "error" : "default"}
-                statusMax={maxEsRError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="Es Dr"
-                minValue={minEsDR}
-                maxValue={maxEsDR}
-                minX={0}
-                maxX={3999999999}
-                minY={1}
-                maxY={4000000000}
-                setMinValue={setMinEsDR}
-                setMaxValue={setMaxEsDR}
-                statusMin={minEsDRError ? "error" : "default"}
-                statusMax={maxEsDRError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="Es Drr"
-                minValue={minEsDRR}
-                maxValue={maxEsDRR}
-                minX={0}
-                maxX={3999999999}
-                minY={1}
-                maxY={4000000000}
-                setMinValue={setMinEsDRR}
-                setMaxValue={setMaxEsDRR}
-                statusMin={minEsDRRError ? "error" : "default"}
-                statusMax={maxEsDRRError ? "error" : "default"}
-              />
+              {inputDataEs.map((data, index) => (
+                <InputMinMax
+                  key={index}
+                  className="mt-2"
+                  title={data.title}
+                  minValue={data.min}
+                  maxValue={data.max}
+                  minX={data.minX}
+                  maxX={data.maxX}
+                  minY={data.minY}
+                  maxY={data.maxY}
+                  setMinValue={data.setMin}
+                  setMaxValue={data.setMax}
+                  statusMin={data.minError ? "error" : "default"}
+                  statusMax={data.maxError ? "error" : "default"}
+                />
+              ))}
             </Card>
           </div>
           {/* Cột 3 */}
 
           <div className="col-4">
             <Card bordered={true} className="bg-light">
-              <InputMinMax
-                title="T1"
-                minValue={minT1}
-                maxValue={maxT1}
-                minX={0}
-                maxX={249}
-                minY={1}
-                maxY={250}
-                setMinValue={setMinT1}
-                setMaxValue={setMaxT1}
-                statusMin={minT1Error ? "error" : "default"}
-                statusMax={maxT1Error ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="T2"
-                minValue={minT2}
-                maxValue={maxT2}
-                minX={0}
-                maxX={249}
-                minY={1}
-                maxY={250}
-                setMinValue={setMinT2}
-                setMaxValue={setMaxT2}
-                statusMin={minT2Error ? "error" : "default"}
-                statusMax={maxT2Error ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="T3"
-                minValue={minT3}
-                maxValue={maxT3}
-                minX={0}
-                maxX={249}
-                minY={1}
-                maxY={250}
-                setMinValue={setMinT3}
-                setMaxValue={setMaxT3}
-                statusMin={minT3Error ? "error" : "default"}
-                statusMax={maxT3Error ? "error" : "default"}
-              />
+              {inputDataT.map((data, index) => (
+                <InputMinMax
+                  key={index}
+                  className="mt-2"
+                  title={data.title}
+                  minValue={data.min}
+                  maxValue={data.max}
+                  minX={data.minX}
+                  maxX={data.maxX}
+                  minY={data.minY}
+                  maxY={data.maxY}
+                  setMinValue={data.setMin}
+                  setMaxValue={data.setMax}
+                  statusMin={data.minError ? "error" : "default"}
+                  statusMax={data.maxError ? "error" : "default"}
+                />
+              ))}
             </Card>
             <Card bordered={true} className="mt-2 bg-light">
-              <InputMinMax
-                title="ThdIa"
-                minValue={minThdIa}
-                maxValue={maxThdIa}
-                minX={0}
-                maxX={99}
-                minY={1}
-                maxY={100}
-                setMinValue={setMinThdIa}
-                setMaxValue={setMaxThdIa}
-                statusMin={minThdIaError ? "error" : "default"}
-                statusMax={maxThdIaError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="ThdIb"
-                minValue={minThdIb}
-                maxValue={maxThdIb}
-                minX={0}
-                maxX={99}
-                minY={1}
-                maxY={100}
-                setMinValue={setMinThdIb}
-                setMaxValue={setMaxThdIb}
-                statusMin={minThdIbError ? "error" : "default"}
-                statusMax={maxThdIbError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="ThdIc"
-                minValue={minThdIc}
-                maxValue={maxThdIc}
-                minX={0}
-                maxX={99}
-                minY={1}
-                maxY={100}
-                setMinValue={setMinThdIc}
-                setMaxValue={setMaxThdIc}
-                statusMin={minThdIcError ? "error" : "default"}
-                statusMax={maxThdIcError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="ThdIn"
-                minValue={minThdIn}
-                maxValue={maxThdIn}
-                minX={0}
-                maxX={99}
-                minY={1}
-                maxY={100}
-                setMinValue={setMinThdIn}
-                setMaxValue={setMaxThdIn}
-                statusMin={minThdInError ? "error" : "default"}
-                statusMax={maxThdInError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="ThdIg"
-                minValue={minThdIg}
-                maxValue={maxThdIg}
-                minX={0}
-                maxX={99}
-                minY={1}
-                maxY={100}
-                setMinValue={setMinThdIg}
-                setMaxValue={setMaxThdIg}
-                statusMin={minThdIgError ? "error" : "default"}
-                statusMax={maxThdIgError ? "error" : "default"}
-              />
+              {inputDataThdI.map((data, index) => (
+                <InputMinMax
+                  key={index}
+                  className="mt-2"
+                  title={data.title}
+                  minValue={data.min}
+                  maxValue={data.max}
+                  minX={data.minX}
+                  maxX={data.maxX}
+                  minY={data.minY}
+                  maxY={data.maxY}
+                  setMinValue={data.setMin}
+                  setMaxValue={data.setMax}
+                  statusMin={data.minError ? "error" : "default"}
+                  statusMax={data.maxError ? "error" : "default"}
+                />
+              ))}
             </Card>
             <Card bordered={true} className="mt-2 bg-light">
-              <InputMinMax
-                title="ThdVab"
-                minValue={minThdVab}
-                maxValue={maxThdVab}
-                minX={0}
-                maxX={99}
-                minY={1}
-                maxY={100}
-                setMinValue={setMinThdVab}
-                setMaxValue={setMaxThdVab}
-                statusMin={minThdVabError ? "error" : "default"}
-                statusMax={maxThdVabError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="ThdVbc"
-                minValue={minThdVbc}
-                maxValue={maxThdVbc}
-                minX={0}
-                maxX={99}
-                minY={1}
-                maxY={100}
-                setMinValue={setMinThdVbc}
-                setMaxValue={setMaxThdVbc}
-                statusMin={minThdVbcError ? "error" : "default"}
-                statusMax={maxThdVbcError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="ThdVca"
-                minValue={minThdVca}
-                maxValue={maxThdVca}
-                minX={0}
-                maxX={99}
-                minY={1}
-                maxY={100}
-                setMinValue={setMinThdVca}
-                setMaxValue={setMaxThdVca}
-                statusMin={minThdVcaError ? "error" : "default"}
-                statusMax={maxThdVcaError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="ThdVll"
-                minValue={minThdVll}
-                maxValue={maxThdVll}
-                minX={0}
-                maxX={99}
-                minY={1}
-                maxY={100}
-                setMinValue={setMinThdVll}
-                setMaxValue={setMaxThdVll}
-                statusMin={minThdVllError ? "error" : "default"}
-                statusMax={maxThdVllError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="ThdVan"
-                minValue={minThdVan}
-                maxValue={maxThdVan}
-                minX={0}
-                maxX={99}
-                minY={1}
-                maxY={100}
-                setMinValue={setMinThdVan}
-                setMaxValue={setMaxThdVan}
-                statusMin={minThdVanError ? "error" : "default"}
-                statusMax={maxThdVanError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="ThdVbn"
-                minValue={minThdVbn}
-                maxValue={maxThdVbn}
-                minX={0}
-                maxX={99}
-                minY={1}
-                maxY={100}
-                setMinValue={setMinThdVbn}
-                setMaxValue={setMaxThdVbn}
-                statusMin={minThdVbnError ? "error" : "default"}
-                statusMax={maxThdVbnError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="ThdVcn"
-                minValue={minThdVcn}
-                maxValue={maxThdVcn}
-                minX={0}
-                maxX={99}
-                minY={1}
-                maxY={100}
-                setMinValue={setMinThdVcn}
-                setMaxValue={setMaxThdVcn}
-                statusMin={minThdVcnError ? "error" : "default"}
-                statusMax={maxThdVcnError ? "error" : "default"}
-              />
-              <InputMinMax
-                className="mt-2"
-                title="ThdVln"
-                minValue={minThdVln}
-                maxValue={maxThdVln}
-                minX={0}
-                maxX={99}
-                minY={1}
-                maxY={100}
-                setMinValue={setMinThdVln}
-                setMaxValue={setMaxThdVln}
-                statusMin={minThdVlnError ? "error" : "default"}
-                statusMax={maxThdVlnError ? "error" : "default"}
-              />
+              {inputDataThdV.map((data, index) => (
+                <InputMinMax
+                  key={index}
+                  className="mt-2"
+                  title={data.title}
+                  minValue={data.min}
+                  maxValue={data.max}
+                  minX={data.minX}
+                  maxX={data.maxX}
+                  minY={data.minY}
+                  maxY={data.maxY}
+                  setMinValue={data.setMin}
+                  setMaxValue={data.setMax}
+                  statusMin={data.minError ? "error" : "default"}
+                  statusMax={data.maxError ? "error" : "default"}
+                />
+              ))}
             </Card>
           </div>
         </div>
